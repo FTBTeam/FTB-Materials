@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "ftbmaterials:block/stainless_steel_end_ore"
+  }
+}

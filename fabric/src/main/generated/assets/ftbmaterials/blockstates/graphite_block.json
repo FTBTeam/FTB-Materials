@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "ftbmaterials:block/graphite_block"
+    }
+  }
+}

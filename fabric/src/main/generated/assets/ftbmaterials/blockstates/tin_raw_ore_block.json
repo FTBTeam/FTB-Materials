@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "ftbmaterials:block/tin_raw_ore_block"
+    }
+  }
+}
