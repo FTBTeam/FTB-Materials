@@ -1,5 +1,8 @@
 package dev.ftb.mods.ftbmaterials.integration;
 
+import dev.ftb.mods.ftbmaterials.integration.mods.Mek;
+import dev.ftb.mods.ftbmaterials.integration.mods.ModernIndustrialization;
+import dev.ftb.mods.ftbmaterials.integration.mods.Thermal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,9 +13,9 @@ public enum ModIntegrations {
     INSTANCE;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ModIntegrations.class);
+    private final HashMap<String, Supplier<ModIntegration>> integrations = new HashMap<>();
 
     private boolean setup = false;
-    private HashMap<String, Supplier<ModIntegration>> integrations = new HashMap<>();
 
     public void init() {
         addIntegration("thermal", Thermal::new);

@@ -70,4 +70,8 @@ public class ResourceRegistryHolder {
     public ImmutableList<RegistrySupplier<Item>> getItems() {
         return ImmutableList.copyOf(this.items);
     }
+
+    public Resource getType() {
+        return type;
+    }
 }

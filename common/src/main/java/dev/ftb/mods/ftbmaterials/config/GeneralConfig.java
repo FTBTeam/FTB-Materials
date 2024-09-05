@@ -9,6 +9,6 @@ public class GeneralConfig {
     static SNBTConfig CONFIG = SNBTConfig.create("integration-config");
 
     public static void init() {
-        ConfigUtil.loadDefaulted(CONFIG, Platform.getConfigFolder(), FTBMaterials.MOD_ID, "integration-config.snbt");
+        ConfigUtil.loadDefaulted(CONFIG, Platform.getConfigFolder().resolve(FTBMaterials.MOD_ID), FTBMaterials.MOD_ID, "integration.snbt");
     }
 }
