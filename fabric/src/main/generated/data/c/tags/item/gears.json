@@ -1,0 +1,29 @@
+{
+  "values": [
+    "ftbmaterials:bronze_gear",
+    "ftbmaterials:electrum_gear",
+    "ftbmaterials:aluminum_gear",
+    "ftbmaterials:steel_gear",
+    "ftbmaterials:gold_gear",
+    "ftbmaterials:zinc_gear",
+    "ftbmaterials:platinum_gear",
+    "ftbmaterials:titanium_gear",
+    "ftbmaterials:diamond_gear",
+    "ftbmaterials:osmium_gear",
+    "ftbmaterials:stainless_steel_gear",
+    "ftbmaterials:constantan_gear",
+    "ftbmaterials:netherite_gear",
+    "ftbmaterials:quartz_gear",
+    "ftbmaterials:iron_gear",
+    "ftbmaterials:obsidian_gear",
+    "ftbmaterials:uranium_gear",
+    "ftbmaterials:refined_glowstone_gear",
+    "ftbmaterials:nickel_gear",
+    "ftbmaterials:lumium_gear",
+    "ftbmaterials:invar_gear",
+    "ftbmaterials:lead_gear",
+    "ftbmaterials:silver_gear",
+    "ftbmaterials:graphite_gear",
+    "ftbmaterials:tin_gear"
+  ]
+}

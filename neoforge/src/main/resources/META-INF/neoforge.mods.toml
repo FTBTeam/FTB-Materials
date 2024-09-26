@@ -4,7 +4,7 @@ loaderVersion = "[4,)"
 license = "Insert License Here"
 
 [[mods]]
-modId = "ftbresources"
+modId = "ftbmaterials"
 version = "${version}"
 displayName = "FTB Resources"
 authors = "Me!"

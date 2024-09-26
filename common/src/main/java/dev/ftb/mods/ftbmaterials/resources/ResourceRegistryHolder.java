@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Block;
 import java.util.*;
 
 public class ResourceRegistryHolder {
-    private static final Set<ResourceType> BLOCK_TYPES = Set.of(ResourceType.BLOCK, ResourceType.RAW_BLOCK, ResourceType.STONE_ORE, ResourceType.DEEPSLATE_ORE, ResourceType.END_ORE, ResourceType.NETHER_ORE);
+    public static final Set<ResourceType> BLOCK_TYPES = Set.of(ResourceType.BLOCK, ResourceType.RAW_BLOCK, ResourceType.STONE_ORE, ResourceType.DEEPSLATE_ORE, ResourceType.END_ORE, ResourceType.NETHER_ORE);
 
     private final Resource type;
 
@@ -48,7 +48,7 @@ public class ResourceRegistryHolder {
     }
 
     public Optional<RegistrySupplier<Block>> getBlockFromType(ResourceType type) {
-        if (BLOCK_TYPES.contains(type)) {
+        if (!BLOCK_TYPES.contains(type)) {
             throw new IllegalArgumentException("Type is not a block type");
         }
 
@@ -56,10 +56,6 @@ public class ResourceRegistryHolder {
     }
 
     public Optional<RegistrySupplier<Item>> getItemFromType(ResourceType type) {
-        if (BLOCK_TYPES.contains(type)) {
-            throw new IllegalArgumentException("Type is not an item type");
-        }
-
         return Optional.ofNullable(this.componentToItemRegister.get(type));
     }
 

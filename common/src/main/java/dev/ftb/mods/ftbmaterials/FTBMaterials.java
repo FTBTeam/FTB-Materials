@@ -24,9 +24,9 @@ public final class FTBMaterials {
         IntegrationsConfig.init();
 
         // Write common init code here.
+        ResourceRegistry.init();
         ModCreativeTab.REGISTRY.register();
 
-        ResourceRegistry.init();
         ModBlocks.REGISTRY.register();
         ModItems.REGISTRY.register();
 
