@@ -1,0 +1,30 @@
+{
+  "values": [
+    "ftbmaterials:bronze_rod",
+    "ftbmaterials:electrum_rod",
+    "ftbmaterials:aluminum_rod",
+    "ftbmaterials:steel_rod",
+    "ftbmaterials:gold_rod",
+    "ftbmaterials:zinc_rod",
+    "ftbmaterials:platinum_rod",
+    "ftbmaterials:titanium_rod",
+    "ftbmaterials:diamond_rod",
+    "ftbmaterials:osmium_rod",
+    "ftbmaterials:stainless_steel_rod",
+    "ftbmaterials:constantan_rod",
+    "ftbmaterials:netherite_rod",
+    "ftbmaterials:tungsten_rod",
+    "ftbmaterials:quartz_rod",
+    "ftbmaterials:iron_rod",
+    "ftbmaterials:obsidian_rod",
+    "ftbmaterials:uranium_rod",
+    "ftbmaterials:refined_glowstone_rod",
+    "ftbmaterials:nickel_rod",
+    "ftbmaterials:lumium_rod",
+    "ftbmaterials:invar_rod",
+    "ftbmaterials:lead_rod",
+    "ftbmaterials:silver_rod",
+    "ftbmaterials:graphite_rod",
+    "ftbmaterials:tin_rod"
+  ]
+}

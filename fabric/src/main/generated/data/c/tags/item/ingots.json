@@ -1,0 +1,25 @@
+{
+  "values": [
+    "ftbmaterials:bronze_ingot",
+    "ftbmaterials:electrum_ingot",
+    "ftbmaterials:aluminum_ingot",
+    "ftbmaterials:steel_ingot",
+    "ftbmaterials:zinc_ingot",
+    "ftbmaterials:platinum_ingot",
+    "ftbmaterials:titanium_ingot",
+    "ftbmaterials:osmium_ingot",
+    "ftbmaterials:constantan_ingot",
+    "ftbmaterials:tungsten_ingot",
+    "ftbmaterials:uranium_ingot",
+    "ftbmaterials:antimony_ingot",
+    "ftbmaterials:refined_glowstone_ingot",
+    "ftbmaterials:iridium_ingot",
+    "ftbmaterials:nickel_ingot",
+    "ftbmaterials:lumium_ingot",
+    "ftbmaterials:invar_ingot",
+    "ftbmaterials:lead_ingot",
+    "ftbmaterials:silver_ingot",
+    "ftbmaterials:graphite_ingot",
+    "ftbmaterials:tin_ingot"
+  ]
+}

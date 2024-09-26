@@ -1,0 +1,33 @@
+{
+  "values": [
+    "ftbmaterials:bronze_block",
+    "ftbmaterials:electrum_block",
+    "ftbmaterials:aluminum_block",
+    "ftbmaterials:steel_block",
+    "ftbmaterials:zinc_block",
+    "ftbmaterials:bauxite_block",
+    "ftbmaterials:platinum_block",
+    "ftbmaterials:titanium_block",
+    "ftbmaterials:osmium_block",
+    "ftbmaterials:sulfur_block",
+    "ftbmaterials:stainless_steel_block",
+    "ftbmaterials:constantan_block",
+    "ftbmaterials:tungsten_block",
+    "ftbmaterials:dimensional_shard_block",
+    "ftbmaterials:uranium_block",
+    "ftbmaterials:antimony_block",
+    "ftbmaterials:refined_glowstone_block",
+    "ftbmaterials:iridium_block",
+    "ftbmaterials:nickel_block",
+    "ftbmaterials:lumium_block",
+    "ftbmaterials:fluorite_block",
+    "ftbmaterials:invar_block",
+    "ftbmaterials:monazite_block",
+    "ftbmaterials:lead_block",
+    "ftbmaterials:silver_block",
+    "ftbmaterials:graphite_block",
+    "ftbmaterials:tin_block",
+    "ftbmaterials:apatite_block",
+    "ftbmaterials:resonating_ore_block"
+  ]
+}

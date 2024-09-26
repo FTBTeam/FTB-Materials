@@ -1,0 +1,28 @@
+{
+  "values": [
+    "ftbmaterials:bronze_nugget",
+    "ftbmaterials:electrum_nugget",
+    "ftbmaterials:aluminum_nugget",
+    "ftbmaterials:steel_nugget",
+    "ftbmaterials:zinc_nugget",
+    "ftbmaterials:platinum_nugget",
+    "ftbmaterials:titanium_nugget",
+    "ftbmaterials:diamond_nugget",
+    "ftbmaterials:osmium_nugget",
+    "ftbmaterials:constantan_nugget",
+    "ftbmaterials:netherite_nugget",
+    "ftbmaterials:tungsten_nugget",
+    "ftbmaterials:quartz_nugget",
+    "ftbmaterials:uranium_nugget",
+    "ftbmaterials:antimony_nugget",
+    "ftbmaterials:refined_glowstone_nugget",
+    "ftbmaterials:iridium_nugget",
+    "ftbmaterials:nickel_nugget",
+    "ftbmaterials:lumium_nugget",
+    "ftbmaterials:invar_nugget",
+    "ftbmaterials:lead_nugget",
+    "ftbmaterials:silver_nugget",
+    "ftbmaterials:graphite_nugget",
+    "ftbmaterials:tin_nugget"
+  ]
+}

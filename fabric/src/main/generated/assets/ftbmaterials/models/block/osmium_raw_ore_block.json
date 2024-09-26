@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "ftbmaterials:block/osmium_raw_ore_block"
-  }
-}

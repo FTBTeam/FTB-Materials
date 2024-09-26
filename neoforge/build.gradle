@@ -7,6 +7,8 @@ architectury {
     neoForge()
 }
 
+sourceSets.main.resources.srcDirs += project(":fabric").sourceSets.main.resources.srcDirs
+
 configurations {
     common {
         canBeResolved = true

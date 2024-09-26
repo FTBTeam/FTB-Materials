@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class ResourceRegistry {
@@ -33,5 +34,15 @@ public class ResourceRegistry {
 
     private static ResourceRegistryHolder create(Resource type) {
         return new ResourceRegistryHolder(type);
+    }
+
+    public static Optional<ResourceRegistryHolder> get(Resource type) {
+        for (ResourceRegistryHolder holder : RESOURCE_REGISTRY_HOLDERS) {
+            if (holder.getType() == type) {
+                return Optional.of(holder);
+            }
+        }
+
+        return Optional.empty();
     }
 }
