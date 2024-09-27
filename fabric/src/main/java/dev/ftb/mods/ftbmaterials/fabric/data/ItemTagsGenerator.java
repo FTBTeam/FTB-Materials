@@ -28,10 +28,6 @@ public class ItemTagsGenerator extends FabricTagProvider<Item> {
             Resource type = holder.getType();
 
             for (ResourceType component : type.getComponents()) {
-                if (ResourceRegistryHolder.BLOCK_TYPES.contains(component)) {
-                    continue;
-                }
-
                 var resourceName = type.name().toLowerCase();
                 var prefixRaw = component.getUnifiedTagPrefix();
 
@@ -58,13 +54,21 @@ public class ItemTagsGenerator extends FabricTagProvider<Item> {
     }
 
     private TagKey<Item> getOrCreateUnifiedTag(String prefix, String name) {
+        var namespace = "c";
+        if (prefix.contains(":")) {
+            var parts = prefix.split(":");
+            namespace = parts[0];
+            prefix = parts[1];
+        }
+
         var outputName = prefix;
         if (!name.isEmpty()) {
             outputName += "/" + name;
         }
 
         String finalOutputName = outputName;
-        return unifiedTags.computeIfAbsent(prefix + ":" + name, t ->
-                TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", finalOutputName)));
+        String finalNamespace = namespace;
+        return unifiedTags.computeIfAbsent(namespace + ":" + prefix + ":" + name, t ->
+                TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(finalNamespace, finalOutputName)));
     }
 }

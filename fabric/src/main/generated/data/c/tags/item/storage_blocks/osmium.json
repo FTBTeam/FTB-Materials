@@ -1,5 +1,6 @@
 {
   "values": [
-    "ftbmaterials:osmium_nugget"
+    "ftbmaterials:osmium_block",
+    "ftbmaterials:osmium_raw_block"
   ]
 }
