@@ -34,10 +34,11 @@ public class ResourceRegistryHolder {
 
             if (BLOCK_TYPES.contains(component)) {
                 RegistrySupplier<Block> regItem = ResourceRegistry.BLOCKS.register(niceName, () -> new Block(ModBlocks.DEFAULT_PROPS));
-                ResourceRegistry.ITEMS.register(niceName, () -> new BlockItem(regItem.get(), ModItems.DEFAULT_PROPS));
+                RegistrySupplier<Item> blockItem = ResourceRegistry.ITEMS.register(niceName, () -> new BlockItem(regItem.get(), ModItems.DEFAULT_PROPS));
 
                 this.blocks.add(regItem);
                 this.componentToBlockRegister.put(component, regItem);
+                this.componentToItemRegister.put(component, blockItem);
             } else {
                 RegistrySupplier<Item> regBlock = ResourceRegistry.ITEMS.register(niceName, () -> new Item(ModItems.DEFAULT_PROPS));
 

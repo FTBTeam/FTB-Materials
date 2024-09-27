@@ -1,5 +1,6 @@
 {
   "values": [
-    "ftbmaterials:tungsten_nugget"
+    "ftbmaterials:tungsten_block",
+    "ftbmaterials:tungsten_raw_block"
   ]
 }
