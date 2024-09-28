@@ -3,16 +3,17 @@ package dev.ftb.mods.ftbmaterials.resources;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Function;
 
 public enum ResourceType {
     STONE_ORE(0x00, "ores", List.of("c:ores", "c:ores_in_ground/stone")),
     DEEPSLATE_ORE(0x01, "ores", List.of("c:ores", "c:ores_in_ground/deepslate")),
     END_ORE(0x02, "ores", List.of("c:ores", "c:ores_in_ground/end")),
     NETHER_ORE(0x03, "ores", List.of("c:ores", "c:ores_in_ground/nether")),
-    BLOCK(0x04, "storage_blocks", List.of("c:storage_blocks")),
+    BLOCK(0x04, "storage_blocks"),
     INGOT(0x05, "ingots"),
     RAW_ORE(0x06, "raw_materials"),
-    RAW_BLOCK(0x07, "raw_blocks|storage_blocks", List.of("c:raw_blocks")),
+    RAW_BLOCK(0x07, "storage_blocks", List.of(), s -> "raw_" + s),
     NUGGET(0x08, "nuggets"),
     DUST(0x09, "dusts"),
     PLATE(0x0A, "plates"),
@@ -32,6 +33,9 @@ public enum ResourceType {
     private final String unifiedTagPrefix;
     private List<String> tags = List.of();
 
+    @Nullable
+    private Function<String, String> resourceNameMutator = null;
+
     ResourceType(int id) {
         this.id = id;
         this.unifiedTagPrefix = null;
@@ -48,6 +52,13 @@ public enum ResourceType {
         this.tags = tags;
     }
 
+    ResourceType(int id, @Nullable String unifiedTagPrefix, List<String> tags, @Nullable Function<String, String> unifiedPrefixMutator) {
+        this.id = id;
+        this.unifiedTagPrefix = unifiedTagPrefix;
+        this.tags = tags;
+        this.resourceNameMutator = unifiedPrefixMutator;
+    }
+
     public int getId() {
         return id;
     }
@@ -58,5 +69,9 @@ public enum ResourceType {
 
     public List<String> getTags() {
         return tags;
+    }
+
+    public @Nullable Function<String, String> getResourceNameMutator() {
+        return resourceNameMutator;
     }
 }
