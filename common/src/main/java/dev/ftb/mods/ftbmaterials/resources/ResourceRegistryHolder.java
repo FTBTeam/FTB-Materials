@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.ftb.mods.ftbmaterials.registry.ModBlocks;
 import dev.ftb.mods.ftbmaterials.registry.ModItems;
+import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -15,11 +16,14 @@ public class ResourceRegistryHolder {
 
     private final Resource type;
 
-    private final List<RegistrySupplier<Block>> blocks = new ArrayList<>();
-    private final List<RegistrySupplier<Item>> items = new ArrayList<>();
+    private final List<RegistrySupplier<Block>> blocks = new LinkedList<>();
+    private final List<RegistrySupplier<Item>> items = new LinkedList<>();
 
-    private final Map<ResourceType, RegistrySupplier<Block>> componentToBlockRegister = new HashMap<>();
-    private final Map<ResourceType, RegistrySupplier<Item>> componentToItemRegister = new HashMap<>();
+    private final Map<ResourceType, RegistrySupplier<Block>> componentToBlockRegister = new LinkedHashMap<>();
+    private final Map<ResourceType, RegistrySupplier<Item>> componentToItemRegister = new LinkedHashMap<>();
+
+    public final Map<RegistrySupplier<Block>, Pair<Resource, ResourceType>> reverseBlockLookup = new LinkedHashMap<>();
+    public final Map<RegistrySupplier<Item>, Pair<Resource, ResourceType>> reverseItemLookup = new LinkedHashMap<>();
 
     public ResourceRegistryHolder(Resource type) {
         this.type = type;
@@ -39,11 +43,16 @@ public class ResourceRegistryHolder {
                 this.blocks.add(regItem);
                 this.componentToBlockRegister.put(component, regItem);
                 this.componentToItemRegister.put(component, blockItem);
+
+                reverseBlockLookup.put(regItem, Pair.of(this.type, component));
+                reverseItemLookup.put(blockItem, Pair.of(this.type, component));
             } else {
                 RegistrySupplier<Item> regBlock = ResourceRegistry.ITEMS.register(niceName, () -> new Item(ModItems.DEFAULT_PROPS));
 
                 this.items.add(regBlock);
                 this.componentToItemRegister.put(component, regBlock);
+
+                reverseItemLookup.put(regBlock, Pair.of(this.type, component));
             }
         }
     }
@@ -70,5 +79,18 @@ public class ResourceRegistryHolder {
 
     public Resource getType() {
         return type;
+    }
+
+    public Map<RegistrySupplier<Block>, Pair<Resource, ResourceType>> getReverseBlockLookup() {
+        return reverseBlockLookup;
+    }
+
+    public Map<RegistrySupplier<Item>, Pair<Resource, ResourceType>> getReverseItemLookup() {
+        return reverseItemLookup;
+    }
+
+    public void clearReverseLookups() {
+        reverseBlockLookup.clear();
+        reverseItemLookup.clear();
     }
 }

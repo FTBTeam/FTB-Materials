@@ -1,22 +1,22 @@
 {
   "values": [
-    "ftbmaterials:nickel_crystal",
-    "ftbmaterials:tungsten_crystal",
-    "ftbmaterials:sulfur_crystal",
-    "ftbmaterials:iridium_crystal",
     "ftbmaterials:aluminum_crystal",
-    "ftbmaterials:antimony_crystal",
-    "ftbmaterials:lumium_crystal",
+    "ftbmaterials:diamond_crystal",
+    "ftbmaterials:gold_crystal",
     "ftbmaterials:iron_crystal",
+    "ftbmaterials:lead_crystal",
+    "ftbmaterials:lumium_crystal",
+    "ftbmaterials:nickel_crystal",
+    "ftbmaterials:osmium_crystal",
+    "ftbmaterials:silver_crystal",
+    "ftbmaterials:sulfur_crystal",
+    "ftbmaterials:tin_crystal",
     "ftbmaterials:uranium_crystal",
     "ftbmaterials:zinc_crystal",
-    "ftbmaterials:lead_crystal",
-    "ftbmaterials:platinum_crystal",
-    "ftbmaterials:gold_crystal",
-    "ftbmaterials:diamond_crystal",
-    "ftbmaterials:silver_crystal",
+    "ftbmaterials:antimony_crystal",
+    "ftbmaterials:iridium_crystal",
+    "ftbmaterials:tungsten_crystal",
     "ftbmaterials:titanium_crystal",
-    "ftbmaterials:osmium_crystal",
-    "ftbmaterials:tin_crystal"
+    "ftbmaterials:platinum_crystal"
   ]
 }
