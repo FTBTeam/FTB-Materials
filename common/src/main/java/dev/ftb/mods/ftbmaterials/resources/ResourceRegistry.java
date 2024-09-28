@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.Block;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -18,7 +18,7 @@ public class ResourceRegistry {
     static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(FTBMaterials.MOD_ID, Registries.BLOCK);
     static final DeferredRegister<Item> ITEMS = DeferredRegister.create(FTBMaterials.MOD_ID, Registries.ITEM);
 
-    public static final Set<ResourceRegistryHolder> RESOURCE_REGISTRY_HOLDERS = new HashSet<>();
+    public static final Set<ResourceRegistryHolder> RESOURCE_REGISTRY_HOLDERS = new LinkedHashSet<>();
 
     public static void init() {
         LOGGER.info("Initializing resource registry holders");

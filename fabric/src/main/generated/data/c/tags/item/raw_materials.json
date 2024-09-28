@@ -1,17 +1,17 @@
 {
   "values": [
-    "ftbmaterials:nickel_raw_ore",
-    "ftbmaterials:tungsten_raw_ore",
-    "ftbmaterials:iridium_raw_ore",
     "ftbmaterials:aluminum_raw_ore",
-    "ftbmaterials:antimony_raw_ore",
+    "ftbmaterials:lead_raw_ore",
+    "ftbmaterials:nickel_raw_ore",
+    "ftbmaterials:osmium_raw_ore",
+    "ftbmaterials:silver_raw_ore",
+    "ftbmaterials:tin_raw_ore",
     "ftbmaterials:uranium_raw_ore",
     "ftbmaterials:zinc_raw_ore",
-    "ftbmaterials:lead_raw_ore",
-    "ftbmaterials:platinum_raw_ore",
-    "ftbmaterials:silver_raw_ore",
+    "ftbmaterials:antimony_raw_ore",
+    "ftbmaterials:iridium_raw_ore",
+    "ftbmaterials:tungsten_raw_ore",
     "ftbmaterials:titanium_raw_ore",
-    "ftbmaterials:osmium_raw_ore",
-    "ftbmaterials:tin_raw_ore"
+    "ftbmaterials:platinum_raw_ore"
   ]
 }
