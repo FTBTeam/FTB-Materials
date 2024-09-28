@@ -30,6 +30,11 @@ public class LanguageGenerator extends FabricLanguageProvider {
                 ResourceLocation location = itemResourceKey.location();
                 String path = location.getPath();
                 String prettyName = toTitleCase(path.replace("_", " "));
+
+                if (prettyName.endsWith(" Block") && !prettyName.endsWith(" Raw Block")) {
+                    prettyName = "Block of " + prettyName.replace(" Block", "");
+                }
+
                 translationBuilder.add("block." + location.getNamespace() + "." + location.getPath(), prettyName);
             });
         }
@@ -40,6 +45,11 @@ public class LanguageGenerator extends FabricLanguageProvider {
                 ResourceLocation location = itemResourceKey.location();
                 String path = location.getPath();
                 String prettyName = toTitleCase(path.replace("_", " "));
+
+                if (prettyName.endsWith("Raw Ore")) {
+                    prettyName = "Raw " + prettyName.replace("Raw Ore", "");
+                }
+
                 translationBuilder.add("item." + location.getNamespace() + "." + location.getPath(), prettyName);
             });
         }
