@@ -9,6 +9,9 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
@@ -31,15 +34,29 @@ public class BlockTagsGenerator extends FabricTagProvider<Block> {
             Resource type = holder.getType();
 
             for (ResourceType component : type.getComponents()) {
+                if (!ResourceRegistryHolder.BLOCK_TYPES.contains(component)) {
+                    continue;
+                }
+
                 var target = holder.getBlockFromType(component);
                 if (target.isEmpty()) {
                     continue;
                 }
 
                 List<TagKey<Block>> tags = collectTagsForElement(type, component, cacheTagKeyLookup);
+                ResourceKey<Block> resource = target.get().getKey();
+
                 for (var tag : tags) {
-                    this.tag(tag).add(target.get().getKey());
+                    this.tag(tag).add(resource);
                 }
+
+                // Extra for blocks
+                ResourceLocation breakableWith = type.getBreakableWith();
+                TagKey<Block> breakableWithTag = cacheTagKeyLookup.getOrCreateUnifiedTag(breakableWith.toString(), "");
+
+                this.tag(breakableWithTag).add(resource);
+                this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(resource);
+                this.tag(BlockTags.INCORRECT_FOR_WOODEN_TOOL).add(resource);
             }
         }
     }
