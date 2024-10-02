@@ -7,8 +7,7 @@ import it.unimi.dsi.fastutil.Pair;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         var ores = List.of(ResourceType.STONE_ORE, ResourceType.DEEPSLATE_ORE, ResourceType.NETHER_ORE, ResourceType.END_ORE);
-        var oreTargets = ores.stream().map(this::seekBlocksWithBlockItem).flatMap(List::stream).toList();
+        var oreTargets = ores.stream().map(this::seekBlocksWithOreItem).flatMap(List::stream).toList();
 
         for (var pair : oreTargets) {
             add(pair.value(), createOreDrop(pair.value(), pair.key()));
@@ -32,8 +31,8 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
         addSelfDropsForResourceTypes(ResourceType.BLOCK, ResourceType.RAW_BLOCK);
     }
 
-    private List<Pair<BlockItem, Block>> seekBlocksWithBlockItem(ResourceType type) {
-        List<Pair<BlockItem, Block>> pairs = new ArrayList<>();
+    private List<Pair<Item, Block>> seekBlocksWithOreItem(ResourceType type) {
+        List<Pair<Item, Block>> pairs = new ArrayList<>();
 
         for (ResourceRegistryHolder holder : ResourceRegistry.RESOURCE_REGISTRY_HOLDERS) {
             var blockFromType = holder.getBlockFromType(type);
@@ -42,11 +41,13 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
             }
 
             var block = blockFromType.get().get();
-            var item = new ItemStack(block).getItem();
-
-            if (item instanceof BlockItem) {
-                pairs.add(Pair.of((BlockItem) item, block));
+            var oreItem = holder.getItemFromType(ResourceType.RAW_ORE);
+            if (oreItem.isEmpty()) {
+                continue;
             }
+
+            var item = oreItem.get().get();
+            pairs.add(Pair.of(item, block));
         }
 
         return pairs;

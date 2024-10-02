@@ -40,7 +40,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "ftbmaterials:silver_stone_ore"
+              "name": "ftbmaterials:silver_raw_ore"
             }
           ]
         }
