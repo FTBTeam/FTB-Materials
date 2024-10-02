@@ -1,8 +1,8 @@
 {
   "values": [
-    "ftbmaterials:iridium_nether_ore",
-    "ftbmaterials:iridium_end_ore",
     "ftbmaterials:iridium_deepslate_ore",
-    "ftbmaterials:iridium_stone_ore"
+    "ftbmaterials:iridium_nether_ore",
+    "ftbmaterials:iridium_stone_ore",
+    "ftbmaterials:iridium_end_ore"
   ]
 }
