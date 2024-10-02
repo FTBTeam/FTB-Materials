@@ -40,7 +40,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "ftbmaterials:antimony_nether_ore"
+              "name": "ftbmaterials:antimony_raw_ore"
             }
           ]
         }

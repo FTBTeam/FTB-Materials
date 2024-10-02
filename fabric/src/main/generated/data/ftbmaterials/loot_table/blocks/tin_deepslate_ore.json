@@ -40,7 +40,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "ftbmaterials:tin_deepslate_ore"
+              "name": "ftbmaterials:tin_raw_ore"
             }
           ]
         }
