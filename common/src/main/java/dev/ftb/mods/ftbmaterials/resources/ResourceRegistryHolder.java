@@ -58,10 +58,6 @@ public class ResourceRegistryHolder {
     }
 
     public Optional<RegistrySupplier<Block>> getBlockFromType(ResourceType type) {
-        if (!BLOCK_TYPES.contains(type)) {
-            throw new IllegalArgumentException("Type is not a block type");
-        }
-
         return Optional.ofNullable(this.componentToBlockRegister.get(type));
     }
 

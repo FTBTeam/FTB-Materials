@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-02T13:42:05.872633	FTB Resources/Block Loot Tables
+// 1.21.1	2024-10-15T14:36:09.655404	FTB Resources/Block Loot Tables
 ca5e41bea58512de789b57b3f9266e9405504d64 data/ftbmaterials/loot_table/blocks/platinum_deepslate_ore.json
 8a84e33cf17fec09172e997020bcb27f8847f546 data/ftbmaterials/loot_table/blocks/antimony_stone_ore.json
 226683dcdab1ce017b5257d520d797bfe3381b1e data/ftbmaterials/loot_table/blocks/tungsten_end_ore.json
@@ -6,8 +6,8 @@ ca4334341cdefe5f0bf8ee011244284598d0c4cb data/ftbmaterials/loot_table/blocks/tin
 8eb1b6d65eafb3a50e8c2fbcb4a9ed6d8965a5e7 data/ftbmaterials/loot_table/blocks/zinc_end_ore.json
 1114b6a7743e16e8e54e0908a639a46fa6545dea data/ftbmaterials/loot_table/blocks/tin_block.json
 1c4a997949a4d2b8cc8eb5a7ac661ee7d2138ba0 data/ftbmaterials/loot_table/blocks/aluminum_stone_ore.json
-6ac9b32ec1e76e2da82860854498e1092bbca4ca data/ftbmaterials/loot_table/blocks/tungsten_raw_block.json
 42f8d8d710d58e7ec70fe350b67b0f12669485fd data/ftbmaterials/loot_table/blocks/titanium_block.json
+6ac9b32ec1e76e2da82860854498e1092bbca4ca data/ftbmaterials/loot_table/blocks/tungsten_raw_block.json
 2a26f4a3f6207ccefec1924229e1ea695b025f6b data/ftbmaterials/loot_table/blocks/monazite_block.json
 d3b19f9be51bf8fc09c6830bbf58fd6d1f558264 data/ftbmaterials/loot_table/blocks/lead_deepslate_ore.json
 a18caa95f8f216aa9037045961ecc81543430361 data/ftbmaterials/loot_table/blocks/nickel_end_ore.json
