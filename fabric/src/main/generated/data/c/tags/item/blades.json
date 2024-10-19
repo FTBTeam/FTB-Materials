@@ -6,6 +6,10 @@
     "ftbmaterials:iron_blade",
     "ftbmaterials:tin_blade",
     "ftbmaterials:titanium_blade",
-    "ftbmaterials:stainless_steel_blade"
+    "ftbmaterials:stainless_steel_blade",
+    "ftbmaterials:plutonium_blade",
+    "ftbmaterials:chromium_blade",
+    "ftbmaterials:silicon_blade",
+    "ftbmaterials:brass_blade"
   ]
 }

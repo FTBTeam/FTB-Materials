@@ -12,6 +12,10 @@
     "ftbmaterials:iridium_raw_ore",
     "ftbmaterials:tungsten_raw_ore",
     "ftbmaterials:titanium_raw_ore",
-    "ftbmaterials:platinum_raw_ore"
+    "ftbmaterials:platinum_raw_ore",
+    "ftbmaterials:plutonium_raw_ore",
+    "ftbmaterials:chromium_raw_ore",
+    "ftbmaterials:silicon_raw_ore",
+    "ftbmaterials:brass_raw_ore"
   ]
 }

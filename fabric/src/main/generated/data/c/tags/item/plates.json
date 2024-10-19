@@ -26,6 +26,10 @@
     "ftbmaterials:tungsten_plate",
     "ftbmaterials:titanium_plate",
     "ftbmaterials:platinum_plate",
-    "ftbmaterials:stainless_steel_plate"
+    "ftbmaterials:stainless_steel_plate",
+    "ftbmaterials:plutonium_plate",
+    "ftbmaterials:chromium_plate",
+    "ftbmaterials:silicon_plate",
+    "ftbmaterials:brass_plate"
   ]
 }

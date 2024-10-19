@@ -4,6 +4,7 @@
     "ftbmaterials:bronze_dust",
     "ftbmaterials:charcoal_dust",
     "ftbmaterials:constantan_dust",
+    "ftbmaterials:copper_dust",
     "ftbmaterials:diamond_dust",
     "ftbmaterials:electrum_dust",
     "ftbmaterials:gold_dust",
@@ -31,6 +32,10 @@
     "ftbmaterials:tungsten_dust",
     "ftbmaterials:titanium_dust",
     "ftbmaterials:platinum_dust",
-    "ftbmaterials:stainless_steel_dust"
+    "ftbmaterials:stainless_steel_dust",
+    "ftbmaterials:plutonium_dust",
+    "ftbmaterials:chromium_dust",
+    "ftbmaterials:silicon_dust",
+    "ftbmaterials:brass_dust"
   ]
 }

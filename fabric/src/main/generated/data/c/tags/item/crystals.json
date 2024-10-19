@@ -17,6 +17,10 @@
     "ftbmaterials:iridium_crystal",
     "ftbmaterials:tungsten_crystal",
     "ftbmaterials:titanium_crystal",
-    "ftbmaterials:platinum_crystal"
+    "ftbmaterials:platinum_crystal",
+    "ftbmaterials:plutonium_crystal",
+    "ftbmaterials:chromium_crystal",
+    "ftbmaterials:silicon_crystal",
+    "ftbmaterials:brass_crystal"
   ]
 }

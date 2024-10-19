@@ -25,6 +25,10 @@
     "ftbmaterials:tungsten_rod",
     "ftbmaterials:titanium_rod",
     "ftbmaterials:platinum_rod",
-    "ftbmaterials:stainless_steel_rod"
+    "ftbmaterials:stainless_steel_rod",
+    "ftbmaterials:plutonium_rod",
+    "ftbmaterials:chromium_rod",
+    "ftbmaterials:silicon_rod",
+    "ftbmaterials:brass_rod"
   ]
 }

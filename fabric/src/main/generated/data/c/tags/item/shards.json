@@ -18,6 +18,10 @@
     "ftbmaterials:iridium_shard",
     "ftbmaterials:tungsten_shard",
     "ftbmaterials:titanium_shard",
-    "ftbmaterials:platinum_shard"
+    "ftbmaterials:platinum_shard",
+    "ftbmaterials:plutonium_shard",
+    "ftbmaterials:chromium_shard",
+    "ftbmaterials:silicon_shard",
+    "ftbmaterials:brass_shard"
   ]
 }

@@ -18,6 +18,10 @@
     "ftbmaterials:iridium_dirty_dust",
     "ftbmaterials:tungsten_dirty_dust",
     "ftbmaterials:titanium_dirty_dust",
-    "ftbmaterials:platinum_dirty_dust"
+    "ftbmaterials:platinum_dirty_dust",
+    "ftbmaterials:plutonium_dirty_dust",
+    "ftbmaterials:chromium_dirty_dust",
+    "ftbmaterials:silicon_dirty_dust",
+    "ftbmaterials:brass_dirty_dust"
   ]
 }

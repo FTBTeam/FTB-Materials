@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "ftbmaterials:block/chromium_raw_block"
+    }
+  }
+}
