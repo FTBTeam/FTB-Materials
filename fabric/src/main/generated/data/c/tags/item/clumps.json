@@ -18,6 +18,10 @@
     "ftbmaterials:iridium_clump",
     "ftbmaterials:tungsten_clump",
     "ftbmaterials:titanium_clump",
-    "ftbmaterials:platinum_clump"
+    "ftbmaterials:platinum_clump",
+    "ftbmaterials:plutonium_clump",
+    "ftbmaterials:chromium_clump",
+    "ftbmaterials:silicon_clump",
+    "ftbmaterials:brass_clump"
   ]
 }

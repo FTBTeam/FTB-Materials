@@ -39,6 +39,10 @@
     "ftbmaterials:tungsten_wire",
     "ftbmaterials:titanium_wire",
     "ftbmaterials:platinum_wire",
-    "ftbmaterials:stainless_steel_wire"
+    "ftbmaterials:stainless_steel_wire",
+    "ftbmaterials:plutonium_wire",
+    "ftbmaterials:chromium_wire",
+    "ftbmaterials:silicon_wire",
+    "ftbmaterials:brass_wire"
   ]
 }

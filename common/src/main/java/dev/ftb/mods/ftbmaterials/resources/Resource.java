@@ -11,7 +11,7 @@ public enum Resource {
     BRONZE(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().build()),
     CHARCOAL(builder().noOres().noIngot().noBlock().noRawOre().noWire().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
     CONSTANTAN(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
-    COPPER(builder().noDeepslateOre().noStoneOre().noBlock().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().build()),
+    COPPER(builder().noDeepslateOre().noStoneOre().noBlock().noIngot().noRawOre().noRawBlock().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().build()),
     DIAMOND(ResourceLocation.withDefaultNamespace("needs_iron_tool"),  builder().noGem().noBlock().noDeepslateOre().noStoneOre().noIngot().noRawOre().noRawBlock().noBlade().build()),
     ELECTRUM(builder().noOres().noRawOre().noRawBlock().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
     GOLD(ResourceLocation.withDefaultNamespace("needs_iron_tool"),  builder().noDeepslateOre().noStoneOre().noBlock().noIngot().noNugget().noRawOre().noRawBlock().noBlade().build()),
@@ -46,7 +46,11 @@ public enum Resource {
     TUNGSTEN(builder().noGear().noGem().noBlade().build()),
     TITANIUM(builder().noGem().build()),
     PLATINUM(builder().noGem().noBlade().build()),
-    STAINLESS_STEEL(builder().noOres().noIngot().noRawOre().noRawBlock().noNugget().noGem().noCrystal().noShard().noClump().noDirtyDust().build());
+    STAINLESS_STEEL(builder().noOres().noIngot().noRawOre().noRawBlock().noNugget().noGem().noCrystal().noShard().noClump().noDirtyDust().build()),
+    PLUTONIUM(builder().noOres().build()),
+    CHROMIUM(builder().noOres().build()),
+    SILICON(builder().noOres().build()),
+    BRASS(builder().noOres().build());
 
     private final int resourceComponents;
     private ResourceLocation breakableWith = ResourceLocation.withDefaultNamespace("needs_stone_tool");

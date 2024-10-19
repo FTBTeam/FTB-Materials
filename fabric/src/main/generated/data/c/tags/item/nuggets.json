@@ -3,6 +3,7 @@
     "ftbmaterials:aluminum_nugget",
     "ftbmaterials:bronze_nugget",
     "ftbmaterials:constantan_nugget",
+    "ftbmaterials:copper_nugget",
     "ftbmaterials:diamond_nugget",
     "ftbmaterials:electrum_nugget",
     "ftbmaterials:graphite_nugget",
@@ -23,6 +24,10 @@
     "ftbmaterials:iridium_nugget",
     "ftbmaterials:tungsten_nugget",
     "ftbmaterials:titanium_nugget",
-    "ftbmaterials:platinum_nugget"
+    "ftbmaterials:platinum_nugget",
+    "ftbmaterials:plutonium_nugget",
+    "ftbmaterials:chromium_nugget",
+    "ftbmaterials:silicon_nugget",
+    "ftbmaterials:brass_nugget"
   ]
 }

@@ -24,6 +24,10 @@
     "ftbmaterials:zinc_gear",
     "ftbmaterials:titanium_gear",
     "ftbmaterials:platinum_gear",
-    "ftbmaterials:stainless_steel_gear"
+    "ftbmaterials:stainless_steel_gear",
+    "ftbmaterials:plutonium_gear",
+    "ftbmaterials:chromium_gear",
+    "ftbmaterials:silicon_gear",
+    "ftbmaterials:brass_gear"
   ]
 }
