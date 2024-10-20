@@ -1,7 +1,7 @@
 {
   "values": [
-    "ftbmaterials:sulfur_deepslate_ore",
     "ftbmaterials:sulfur_end_ore",
+    "ftbmaterials:sulfur_deepslate_ore",
     "ftbmaterials:sulfur_stone_ore",
     "ftbmaterials:sulfur_nether_ore"
   ]
