@@ -22,9 +22,30 @@ public class RecipesGenerator extends FabricRecipeProvider {
 
     @Override
     public void buildRecipes(RecipeOutput recipeOutput) {
-        // Blocks Of
+        // Raw/Ingot to Blocks Of
         createBlocksOfMaterial(recipeOutput, ResourceType.RAW_ORE, ResourceType.RAW_BLOCK);
         createBlocksOfMaterial(recipeOutput, ResourceType.INGOT, ResourceType.BLOCK);
+
+        // Blocks of material to ingots
+        createInputOutputRecipeFromTypes(ResourceType.BLOCK, ResourceType.INGOT, ResourceRegistryHolder::getBlockFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
+            var inputName = inputReg.getId().getPath();
+            var outputName = outputReg.getId().getPath();
+
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
+                    .requires(inputItemLike)
+                    .unlockedBy("has_item", has(inputItemLike))
+                    .save(recipeOutput, outputName + "_from_" + inputName);
+        });
+
+        createInputOutputRecipeFromTypes(ResourceType.RAW_BLOCK, ResourceType.RAW_ORE, ResourceRegistryHolder::getBlockFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
+            var inputName = inputReg.getId().getPath();
+            var outputName = outputReg.getId().getPath();
+
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
+                    .requires(inputItemLike)
+                    .unlockedBy("has_item", has(inputItemLike))
+                    .save(recipeOutput, outputName + "_from_" + inputName);
+        });
 
         // Ingots to nuggets
         createInputOutputRecipeFromTypes(ResourceType.INGOT, ResourceType.NUGGET, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {

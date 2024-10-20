@@ -1,8 +1,8 @@
 {
   "values": [
     "ftbmaterials:lead_deepslate_ore",
-    "ftbmaterials:lead_end_ore",
     "ftbmaterials:lead_stone_ore",
+    "ftbmaterials:lead_end_ore",
     "ftbmaterials:lead_nether_ore"
   ]
 }

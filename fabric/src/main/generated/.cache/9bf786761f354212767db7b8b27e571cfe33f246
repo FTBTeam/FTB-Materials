@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-20T09:14:10.864244	FTB Resources/Block Loot Tables
+// 1.21.1	2024-10-20T09:29:55.637538	FTB Resources/Block Loot Tables
 8a84e33cf17fec09172e997020bcb27f8847f546 data/ftbmaterials/loot_table/blocks/antimony_stone_ore.json
 226683dcdab1ce017b5257d520d797bfe3381b1e data/ftbmaterials/loot_table/blocks/tungsten_end_ore.json
 ca4334341cdefe5f0bf8ee011244284598d0c4cb data/ftbmaterials/loot_table/blocks/tin_raw_block.json
@@ -93,8 +93,8 @@ df95724734ee6733817a7bf46027a02da5ba9ed6 data/ftbmaterials/loot_table/blocks/chr
 232b813274f0245b47e655dc1845c0f2c5bddad1 data/ftbmaterials/loot_table/blocks/steel_block.json
 23cb14f812f2d8a9eb9351d07ba8c5a327881c05 data/ftbmaterials/loot_table/blocks/platinum_block.json
 5f217a423121452649adb0195c54a081f0e366e4 data/ftbmaterials/loot_table/blocks/lead_block.json
-8e37d081798cc75b409a58147102d2f8afda7c31 data/ftbmaterials/loot_table/blocks/platinum_nether_ore.json
 1b2c1310e79f0155a3c6fc96b4c5626c107ddbfb data/ftbmaterials/loot_table/blocks/aluminum_nether_ore.json
+8e37d081798cc75b409a58147102d2f8afda7c31 data/ftbmaterials/loot_table/blocks/platinum_nether_ore.json
 65f54242e9f66d3a49df03ad7a8f02ad82fe6de2 data/ftbmaterials/loot_table/blocks/osmium_raw_block.json
 dc984a57e39090c875cc81904e8ecae4cf8c131e data/ftbmaterials/loot_table/blocks/osmium_stone_ore.json
 fe9b9d5458f482118200034e788abd112642d228 data/ftbmaterials/loot_table/blocks/aluminum_raw_block.json

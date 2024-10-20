@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:plutonium_raw_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:plutonium_raw_ore"
+  }
+}
