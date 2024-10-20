@@ -10,7 +10,8 @@ Our mod is likened to mods like [`Emendatus Enigmatica`](https://www.curseforge.
 
 - Basic recipes for all resources, smelting, ingots to nuggets, nuggets to ingots, blocks of X, X to blocks of, etc
 - Tags for all our resources
-- ALL THE RESOURCES... The list is literally two long but here are the current supported base resources
+- All the Resources!... 
+  - The list is literally two long but here are the current supported base resources. Please note, some materials listed are vanilla but this is to provide extra resources for the vanilla variants.
   - Aluminum
   - Apatite
   - Bronze
@@ -98,12 +99,12 @@ The contributor agreement is provided upon creating a pull request. If you have 
 All rights reserved. We provide this source code in an 'as-is', 'visible-source' state for transparency and educational purposes. You may not use this code in any way, shape or form without our explicit permission.
 
 <p>
-<a href="https://go.ftb.team/discord" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-discord@smallest.webp" alt="" width="70" height="70"></a>
-<a href="https://go.ftb.team/github" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-github@smallest.webp" alt="" width="70" height="70"></a>
-<a href="https://go.ftb.team/twitter" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-twitter-x@smallest.webp" width="70" height="70"></a>
-<a href="https://go.ftb.team/youtube" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-youtube@smallest.webp" width="70" height="70"></a>
-<a href="https://go.ftb.team/twitch" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-twitch@smallest.webp" width="70" height="70"></a>
-<a href="https://go.ftb.team/instagram" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-instagram@smallest.webp" width="70" height="70"></a>
-<a href="https://go.ftb.team/facebook" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-facebook@smallest.webp" width="70" height="70"></a>
-<a href="https://go.ftb.team/tiktok" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-tiktok@smallest.webp" width="70" height="70"></a>
+  <a href="https://go.ftb.team/discord" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-discord@smallest.webp" alt="" width="70" height="70"></a>
+  <a href="https://go.ftb.team/github" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-github@smallest.webp" alt="" width="70" height="70"></a>
+  <a href="https://go.ftb.team/twitter" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-twitter-x@smallest.webp" alt="" width="70" height="70"></a>
+  <a href="https://go.ftb.team/youtube" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-youtube@smallest.webp" alt="" width="70" height="70"></a>
+  <a href="https://go.ftb.team/twitch" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-twitch@smallest.webp" alt="" width="70" height="70"></a>
+  <a href="https://go.ftb.team/instagram" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-instagram@smallest.webp" alt="" width="70" height="70"></a>
+  <a href="https://go.ftb.team/facebook" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-facebook@smallest.webp" alt="" width="70" height="70"></a>
+  <a href="https://go.ftb.team/tiktok" rel="nofollow"><img src="https://cdn.feed-the-beast.com/assets/a1/mods/social-tiktok@smallest.webp" alt="" width="70" height="70"></a>
 </p>
