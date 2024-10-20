@@ -90,11 +90,11 @@ If you have any issues with this mod, please report them on our [Issue Tracker](
 
 ## Contributing
 
-Although this mod is not a 'true' open source mod, we do still accept contributions as long as you are willing to sign a contributor agreement. The contributor agreement is a simple agreement that provides FTB ownership over the code you have contributed. This is to ensure that we can continue to provide this code in a 'visible-source' state as well as holding the rights to change the license in the future freely.
+Although this mod is not a 'true' open source mod, we do still accept contributions as long as you are willing to sign a contributor agreement. The contributor agreement is a simple agreement that provides FTB ownership over the code you have contributed. This is to ensure that we can continue to provide this code in a 'visible-source' state, as well as holding the rights to change the licence in the future freely.
 
 The contributor agreement is provided upon creating a pull request. If you have any questions, please contact us on our [Discord Server](https://go.ftb.team/discord) or via our email at `admin(at)feed-the-beast(dot)com`
 
-## License
+## Licence
 
 All rights reserved. We provide this source code in an 'as-is', 'visible-source' state for transparency and educational purposes. You may not use this code in any way, shape or form without our explicit permission.
 
