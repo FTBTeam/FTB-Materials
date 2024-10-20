@@ -4,11 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.platform.Platform;
-import dev.ftb.mods.ftbmaterials.config.GeneralConfig;
-import dev.ftb.mods.ftbmaterials.config.GenerationConfig;
-import dev.ftb.mods.ftbmaterials.config.IntegrationsConfig;
 import dev.ftb.mods.ftbmaterials.dev.commands.ConstructAllResources;
-import dev.ftb.mods.ftbmaterials.integration.ModIntegrations;
 import dev.ftb.mods.ftbmaterials.registry.ModBlocks;
 import dev.ftb.mods.ftbmaterials.registry.ModCreativeTab;
 import dev.ftb.mods.ftbmaterials.registry.ModItems;
@@ -22,10 +18,6 @@ public final class FTBMaterials {
     public static final String MOD_ID = "ftbmaterials";
 
     public static void init() {
-        GeneralConfig.init();
-        GenerationConfig.init();
-        IntegrationsConfig.init();
-
         // Write common init code here.
         ResourceRegistry.init();
         ModCreativeTab.REGISTRY.register();
@@ -34,7 +26,6 @@ public final class FTBMaterials {
         ModItems.REGISTRY.register();
 
         CommandRegistrationEvent.EVENT.register(FTBMaterials::registerCommands);
-        ModIntegrations.INSTANCE.init();
 
         LifecycleEvent.SETUP.register(() -> {
             if (Platform.isDevelopmentEnvironment()) {
