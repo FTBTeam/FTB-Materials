@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:nickel_raw_ore"
+  },
+  "result": {
+    "id": "ftbmaterials:nickel_ingot"
+  }
+}
