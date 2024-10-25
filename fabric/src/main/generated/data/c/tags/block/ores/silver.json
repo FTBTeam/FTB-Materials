@@ -1,8 +1,8 @@
 {
   "values": [
     "ftbmaterials:silver_deepslate_ore",
-    "ftbmaterials:silver_stone_ore",
     "ftbmaterials:silver_end_ore",
-    "ftbmaterials:silver_nether_ore"
+    "ftbmaterials:silver_nether_ore",
+    "ftbmaterials:silver_stone_ore"
   ]
 }
