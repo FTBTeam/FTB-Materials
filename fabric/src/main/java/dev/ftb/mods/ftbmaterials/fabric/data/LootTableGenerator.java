@@ -1,5 +1,7 @@
 package dev.ftb.mods.ftbmaterials.fabric.data;
 
+import dev.architectury.registry.registries.RegistrySupplier;
+import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
@@ -8,10 +10,11 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 public class LootTableGenerator extends FabricBlockLootTableProvider {
@@ -29,6 +32,34 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
         }
 
         addSelfDropsForResourceTypes(ResourceType.BLOCK, ResourceType.RAW_BLOCK);
+
+        // Drops something from vanilla. This means we can't do the normal one
+        // Ore drops special case
+        Map<Optional<RegistrySupplier<Block>>, ItemLike> oreBlocks = new HashMap<>() {{
+            put(findBlockFromTypeAndComponent(Resource.EMERALD, ResourceType.END_ORE), Items.EMERALD);
+            put(findBlockFromTypeAndComponent(Resource.DIAMOND, ResourceType.END_ORE), Items.DIAMOND);
+            put(findBlockFromTypeAndComponent(Resource.LAPIS_LAZULI, ResourceType.END_ORE), Items.LAPIS_LAZULI);
+            put(findBlockFromTypeAndComponent(Resource.REDSTONE, ResourceType.END_ORE), Items.REDSTONE);
+            put(findBlockFromTypeAndComponent(Resource.IRON, ResourceType.END_ORE), Items.RAW_IRON);
+            put(findBlockFromTypeAndComponent(Resource.GOLD, ResourceType.END_ORE), Items.RAW_GOLD);
+            put(findBlockFromTypeAndComponent(Resource.COPPER, ResourceType.END_ORE), Items.RAW_COPPER);
+            put(findBlockFromTypeAndComponent(Resource.QUARTZ, ResourceType.END_ORE), Items.QUARTZ);
+            put(findBlockFromTypeAndComponent(Resource.EMERALD, ResourceType.NETHER_ORE), Items.EMERALD);
+            put(findBlockFromTypeAndComponent(Resource.DIAMOND, ResourceType.NETHER_ORE), Items.DIAMOND);
+            put(findBlockFromTypeAndComponent(Resource.LAPIS_LAZULI, ResourceType.NETHER_ORE), Items.LAPIS_LAZULI);
+            put(findBlockFromTypeAndComponent(Resource.REDSTONE, ResourceType.NETHER_ORE), Items.REDSTONE);
+            put(findBlockFromTypeAndComponent(Resource.IRON, ResourceType.NETHER_ORE), Items.RAW_IRON);
+            put(findBlockFromTypeAndComponent(Resource.GOLD, ResourceType.NETHER_ORE), Items.RAW_GOLD);
+            put(findBlockFromTypeAndComponent(Resource.COPPER, ResourceType.NETHER_ORE), Items.RAW_COPPER);
+        }};
+
+        for (var entry : oreBlocks.entrySet()) {
+            if (entry.getKey().isEmpty()) {
+                continue;
+            }
+
+            add(entry.getKey().get().get(), createOreDrop(entry.getKey().get().get(), entry.getValue().asItem()));
+        }
     }
 
     private List<Pair<Item, Block>> seekBlocksWithOreItem(ResourceType type) {
@@ -64,5 +95,15 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
                 dropSelf(blockFromType.get().get());
             }
         }
+    }
+
+    private Optional<RegistrySupplier<Block>> findBlockFromTypeAndComponent(Resource type, ResourceType component) {
+        for (ResourceRegistryHolder holder : ResourceRegistry.RESOURCE_REGISTRY_HOLDERS) {
+            if (holder.getType() == type) {
+                return holder.getBlockFromType(component);
+            }
+        }
+
+        return Optional.empty();
     }
 }

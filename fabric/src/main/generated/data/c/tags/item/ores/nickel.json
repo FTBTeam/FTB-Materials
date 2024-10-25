@@ -1,8 +1,8 @@
 {
   "values": [
     "ftbmaterials:nickel_deepslate_ore",
-    "ftbmaterials:nickel_stone_ore",
     "ftbmaterials:nickel_end_ore",
-    "ftbmaterials:nickel_nether_ore"
+    "ftbmaterials:nickel_nether_ore",
+    "ftbmaterials:nickel_stone_ore"
   ]
 }
