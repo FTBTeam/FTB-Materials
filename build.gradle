@@ -85,7 +85,7 @@ publishMods {
     version = mod_version
 
     // TODO: Migrate to something else
-    def tag = providers.environmentVariable("TAG").getOrElse("release")
+    def tag = providers.environmentVariable("GITHUB_REF_NAME").getOrElse("release")
     type = tag.contains("-beta") ? BETA : (tag.contains("-alpha") ? ALPHA : STABLE)
 
     def createOptions = (String projectName) -> {
@@ -124,7 +124,7 @@ publishMods {
         additionalFiles.from project.provider { project(":fabric").tasks.remapJar }.flatMap { it.archiveFile }
         repository = "ftbteam/ftb-materials"
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
-        commitish = providers.environmentVariable("GITHUB_REF").getOrElse("main")
-        tagName = tag
+        commitish = providers.environmentVariable("GITHUB_SHA").orElse("dryRun")
+        tagName = providers.environmentVariable("GITHUB_REF_NAME").orElse("dryRun")
     }
 }
