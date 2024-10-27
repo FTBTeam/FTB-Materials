@@ -1,3 +1,9 @@
+## [21.1.0-beta.3]
+
+### Changed
+
+- Increased Osmium required tool to iron
+
 ## [21.1.0-beta.2]
 
 ### Added
