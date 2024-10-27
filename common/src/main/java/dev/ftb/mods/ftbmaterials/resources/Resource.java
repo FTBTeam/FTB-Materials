@@ -23,7 +23,7 @@ public enum Resource {
     NETHERITE(ResourceLocation.withDefaultNamespace("needs_diamond_tool"),  builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noIngot().noBlock().build()),
     NICKEL(builder().noGem().noBlade().build()),
     OBSIDIAN(builder().noOres().noIngot().noRawOre().noRawBlock().noNugget().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noBlock().build()),
-    OSMIUM(builder().noGem().noBlade().build()),
+    OSMIUM(ResourceLocation.withDefaultNamespace("needs_iron_tool"), builder().noGem().noBlade().build()),
     QUARTZ(builder().noCrystal().noBlock().noNetherOre().noIngot().noRawOre().noRawBlock().noGem().noBlade().build()),
     REFINED_GLOWSTONE(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
     SIGNALUM(builder().noOres().noBlock().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
