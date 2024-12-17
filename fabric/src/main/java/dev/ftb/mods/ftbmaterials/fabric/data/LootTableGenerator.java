@@ -9,6 +9,7 @@ import it.unimi.dsi.fastutil.Pair;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
@@ -58,7 +59,16 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
                 continue;
             }
 
-            add(entry.getKey().get().get(), createOreDrop(entry.getKey().get().get(), entry.getValue().asItem()));
+
+            RegistrySupplier<Block> blockSupplier = entry.getKey().get();
+            ResourceLocation registryId = blockSupplier.getId();
+
+            if (registryId.toString().contains("redstone")) {
+                add(blockSupplier.get(), createRedstoneOreDrops(blockSupplier.get()));
+                continue;
+            }
+
+            add(blockSupplier.get(), createOreDrop(blockSupplier.get(), entry.getValue().asItem()));
         }
     }
 

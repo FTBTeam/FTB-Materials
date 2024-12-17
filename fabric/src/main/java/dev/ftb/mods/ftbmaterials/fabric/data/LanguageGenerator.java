@@ -48,7 +48,7 @@ public class LanguageGenerator extends FabricLanguageProvider {
 
             ResourceKey<T> resourceKey = target.getKey();
 
-            var translationText = component.getTranslationText().replace("{material}", toTitleCase(resource.name()));
+            var translationText = component.getTranslationText().replace("{material}", toTitleCase(resource.name().replace("_", " ")));
             var translationKey = resourceKey.location().getNamespace() + "." + resourceKey.location().getPath();
             var keyPrefix = target.get() instanceof Item ? "item" : "block";
 
