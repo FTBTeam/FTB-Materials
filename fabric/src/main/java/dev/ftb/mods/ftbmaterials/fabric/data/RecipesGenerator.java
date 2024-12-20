@@ -25,6 +25,7 @@ public class RecipesGenerator extends FabricRecipeProvider {
         // Raw/Ingot to Blocks Of
         createBlocksOfMaterial(recipeOutput, ResourceType.RAW_ORE, ResourceType.RAW_BLOCK);
         createBlocksOfMaterial(recipeOutput, ResourceType.INGOT, ResourceType.BLOCK);
+        create4x4OfMaterial(recipeOutput, ResourceType.CHUNK, ResourceType.CLUSTER);
 
         // Blocks of material to ingots
         createInputOutputRecipeFromTypes(ResourceType.BLOCK, ResourceType.INGOT, ResourceRegistryHolder::getBlockFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
@@ -90,6 +91,18 @@ public class RecipesGenerator extends FabricRecipeProvider {
                     .pattern("III")
                     .pattern("III")
                     .pattern("III")
+                    .unlockedBy("has_item", has(inputItemLike))
+                    .save(recipeOutput);
+        });
+    }
+
+    private void create4x4OfMaterial(RecipeOutput recipeOutput, ResourceType inputType, ResourceType outputType) {
+        createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, outputItemLike)
+                    .define('I', inputItemLike)
+                    .pattern("II ")
+                    .pattern("II ")
+                    .pattern("   ")
                     .unlockedBy("has_item", has(inputItemLike))
                     .save(recipeOutput);
         });
