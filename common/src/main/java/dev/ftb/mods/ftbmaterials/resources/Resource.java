@@ -6,51 +6,51 @@ import java.util.HashSet;
 import java.util.Set;
 
 public enum Resource {
-    ALUMINUM(builder().noGem().build()),
-    APATITE(builder().noOres().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
-    BRONZE(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().build()),
-    CHARCOAL(builder().noOres().noIngot().noBlock().noRawOre().noWire().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
-    CONSTANTAN(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
+    ALUMINUM(builder().noGem().noChunk().noCluster().build()),
+    APATITE(builder().noOres().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    BRONZE(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noChunk().noCluster().build()),
+    CHARCOAL(builder().noOres().noIngot().noBlock().noRawOre().noWire().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    CONSTANTAN(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
     COPPER(builder().noDeepslateOre().noStoneOre().noBlock().noIngot().noRawOre().noRawBlock().noPlate().noGear().noRod().noGem().build()),
     DIAMOND(ResourceLocation.withDefaultNamespace("needs_iron_tool"),  builder().noGem().noBlock().noDeepslateOre().noStoneOre().noIngot().noRawOre().noRawBlock().noBlade().build()),
-    ELECTRUM(builder().noOres().noRawOre().noRawBlock().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
+    ELECTRUM(builder().noOres().noRawOre().noRawBlock().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
     GOLD(ResourceLocation.withDefaultNamespace("needs_iron_tool"),  builder().noDeepslateOre().noStoneOre().noBlock().noIngot().noNugget().noRawOre().noRawBlock().noBlade().build()),
-    GRAPHITE(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
-    INVAR(ResourceLocation.withDefaultNamespace("needs_iron_tool"), builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
+    GRAPHITE(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    INVAR(ResourceLocation.withDefaultNamespace("needs_iron_tool"), builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
     IRON(builder().noRawOre().noStoneOre().noDeepslateOre().noRawBlock().noBlock().noIngot().noNugget().noGem().build()),
     LEAD(builder().noGem().noBlade().build()),
-    LUMIUM(builder().noOres().noRawOre().noRawBlock().noGem().noBlade().build()),
-    NETHERITE(ResourceLocation.withDefaultNamespace("needs_diamond_tool"),  builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noIngot().noBlock().build()),
+    LUMIUM(builder().noOres().noRawOre().noRawBlock().noGem().noBlade().noChunk().noCluster().build()),
+    NETHERITE(ResourceLocation.withDefaultNamespace("needs_diamond_tool"),  builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noIngot().noBlock().noChunk().noCluster().build()),
     NICKEL(builder().noGem().noBlade().build()),
-    OBSIDIAN(builder().noOres().noIngot().noRawOre().noRawBlock().noNugget().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noBlock().build()),
+    OBSIDIAN(builder().noOres().noIngot().noRawOre().noRawBlock().noNugget().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noBlock().noChunk().noCluster().build()),
     OSMIUM(ResourceLocation.withDefaultNamespace("needs_iron_tool"), builder().noGem().noBlade().build()),
     QUARTZ(builder().noCrystal().noBlock().noNetherOre().noIngot().noRawOre().noRawBlock().noGem().noBlade().build()),
-    REFINED_GLOWSTONE(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
-    SIGNALUM(builder().noOres().noBlock().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
+    REFINED_GLOWSTONE(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().noChunk().noCluster().build()),
+    SIGNALUM(builder().noOres().noBlock().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
     SILVER(builder().noBlade().build()),
-    STEEL(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
-    SULFUR(builder().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noGem().noBlade().build()),
+    STEEL(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    SULFUR(builder().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noGem().noBlade().noChunk().noCluster().build()),
     TIN(builder().noGem().build()),
     URANIUM(builder().noGem().noBlade().build()),
-    ZINC(builder().noGem().noBlade().build()),
+    ZINC(builder().noGem().noBlade().noChunk().noCluster().build()),
     REDSTONE(ResourceLocation.withDefaultNamespace("needs_iron_tool"), builder().noBlock().noDust().noDeepslateOre().noStoneOre().noIngot().noRawOre().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
     FLUORITE(builder().noIngot().noRawOre().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
     EMERALD(ResourceLocation.withDefaultNamespace("needs_iron_tool"), builder().noGem().noBlock().noDeepslateOre().noStoneOre().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
     LAPIS_LAZULI(builder().noGem().noBlock().noDeepslateOre().noStoneOre().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
-    RESONATING_ORE(builder().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
-    DIMENSIONAL_SHARD(ResourceLocation.withDefaultNamespace("needs_iron_tool"), builder().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
-    ANTIMONY(builder().noPlate().noGear().noRod().noGem().noBlade().build()),
-    BAUXITE(builder().noIngot().noRawOre().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
-    IRIDIUM(builder().noGear().noRod().noGem().noBlade().build()),
-    MONAZITE(builder().noIngot().noRawOre().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
-    TUNGSTEN(builder().noGear().noGem().noBlade().build()),
-    TITANIUM(builder().noGem().build()),
+    RESONATING_ORE(builder().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    DIMENSIONAL_SHARD(ResourceLocation.withDefaultNamespace("needs_iron_tool"), builder().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    ANTIMONY(builder().noPlate().noGear().noRod().noGem().noBlade().noChunk().noCluster().build()),
+    BAUXITE(builder().noIngot().noRawOre().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    IRIDIUM(builder().noGear().noRod().noGem().noBlade().noChunk().noCluster().build()),
+    MONAZITE(builder().noIngot().noRawOre().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    TUNGSTEN(builder().noGear().noGem().noBlade().noChunk().noCluster().build()),
+    TITANIUM(builder().noGem().noChunk().noCluster().build()),
     PLATINUM(builder().noGem().noBlade().build()),
-    STAINLESS_STEEL(builder().noOres().noIngot().noRawOre().noRawBlock().noNugget().noGem().noCrystal().noShard().noClump().noDirtyDust().build()),
-    PLUTONIUM(builder().noOres().build()),
-    CHROMIUM(builder().noOres().build()),
-    SILICON(builder().noOres().build()),
-    BRASS(builder().noOres().build());
+    STAINLESS_STEEL(builder().noOres().noIngot().noRawOre().noRawBlock().noNugget().noGem().noCrystal().noShard().noClump().noDirtyDust().noChunk().noCluster().build()),
+    PLUTONIUM(builder().noOres().noChunk().noCluster().build()),
+    CHROMIUM(builder().noOres().noChunk().noCluster().build()),
+    SILICON(builder().noOres().noChunk().noCluster().build()),
+    BRASS(builder().noOres().noChunk().noCluster().build());
 
     private final int resourceComponents;
     private ResourceLocation breakableWith = ResourceLocation.withDefaultNamespace("needs_stone_tool");
@@ -184,6 +184,14 @@ public enum Resource {
 
         public ResourceBuilder noBlade() {
             return noType(ResourceType.BLADE);
+        }
+
+        public ResourceBuilder noChunk() {
+            return noType(ResourceType.CHUNK);
+        }
+
+        public ResourceBuilder noCluster() {
+            return noType(ResourceType.CLUSTER);
         }
 
         public int build() {
