@@ -5,6 +5,10 @@
 - Chunks
 - Clusters
 
+### Fixed
+
+- Mod name saying FTB Resources instead of FTB Materials
+
 ## [21.1.0-beta.3]
 
 ### Changed

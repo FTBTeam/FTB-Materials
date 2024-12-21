@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "ftbmaterials",
   "version": "${version}",
-  "name": "FTB Resources",
+  "name": "FTB Materials",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
     "Me!"
