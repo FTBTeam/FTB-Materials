@@ -25,7 +25,9 @@ public enum ResourceType {
     SHARD(0x10, "{material} Shard", "shards|mekanism:shards"),
     CLUMP(0x11, "{material} Clump", "clumps"),
     DIRTY_DUST(0x12, "{material} Dirty Dust", "dirty_dusts"),
-    BLADE(0x13, "{material} Blade", "blades");
+    BLADE(0x13, "{material} Blade", "blades"),
+    CHUNK(0x14, "{material} Chunk", "chunks"),
+    CLUSTER(0x15, "{material} Cluster", "clusters"),;
 
     private final int id;
 
