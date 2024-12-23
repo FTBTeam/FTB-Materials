@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public enum Resource {
-    ALUMINUM(builder().noGem().noChunk().noCluster().build()),
+    ALUMINUM(builder().noGem().build()),
     APATITE(builder().noOres().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
     BRONZE(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noChunk().noCluster().build()),
     CHARCOAL(builder().noOres().noIngot().noBlock().noRawOre().noWire().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
