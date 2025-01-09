@@ -11,7 +11,7 @@ public enum Resource {
     BRONZE(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noChunk().noCluster().build()),
     CHARCOAL(builder().noOres().noIngot().noBlock().noRawOre().noWire().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
     CONSTANTAN(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
-    COPPER(builder().noDeepslateOre().noStoneOre().noBlock().noIngot().noRawOre().noRawBlock().noPlate().noGear().noRod().noGem().build()),
+    COPPER(builder().noDeepslateOre().noStoneOre().noBlock().noIngot().noRawOre().noRawBlock().noGem().build()),
     DIAMOND(ResourceLocation.withDefaultNamespace("needs_iron_tool"),  builder().noGem().noBlock().noDeepslateOre().noStoneOre().noIngot().noRawOre().noRawBlock().noBlade().build()),
     ELECTRUM(builder().noOres().noRawOre().noRawBlock().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
     GOLD(ResourceLocation.withDefaultNamespace("needs_iron_tool"),  builder().noDeepslateOre().noStoneOre().noBlock().noIngot().noNugget().noRawOre().noRawBlock().noBlade().build()),
