@@ -1,3 +1,9 @@
+## [21.1.0-beta.6]
+
+### Added
+
+- Copper Rod, Plate and Gear
+
 ## [21.1.0-beta.5]
 
 ### Added
