@@ -13,7 +13,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -36,7 +38,7 @@ public class ItemTagsGenerator extends FabricTagProvider<Item> {
                     continue;
                 }
 
-                List<TagKey<Item>> tags = collectTagsForElement(type, component, cacheTagKeyLookup);
+                Set<TagKey<Item>> tags = collectTagsForElement(type, component, cacheTagKeyLookup);
                 for (var tag : tags) {
                     this.tag(tag).add(target.get().getKey());
                 }
@@ -44,12 +46,12 @@ public class ItemTagsGenerator extends FabricTagProvider<Item> {
         }
     }
 
-    public static <T> List<TagKey<T>> collectTagsForElement(
+    public static <T> Set<TagKey<T>> collectTagsForElement(
             Resource type,
             ResourceType component,
             CachedTagKeyLookup<T> cacheTagKeyLookup
     ) {
-        List<TagKey<T>> tags = new ArrayList<>();
+        Set<TagKey<T>> tags = new HashSet<>();
 
         var resourceName = type.name().toLowerCase();
         var prefixRaw = component.getUnifiedTagPrefix();
