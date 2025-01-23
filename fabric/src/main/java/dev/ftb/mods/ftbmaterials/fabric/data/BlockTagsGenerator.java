@@ -16,6 +16,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import static dev.ftb.mods.ftbmaterials.fabric.data.ItemTagsGenerator.collectTagsForElement;
@@ -43,7 +44,7 @@ public class BlockTagsGenerator extends FabricTagProvider<Block> {
                     continue;
                 }
 
-                List<TagKey<Block>> tags = collectTagsForElement(type, component, cacheTagKeyLookup);
+                Set<TagKey<Block>> tags = collectTagsForElement(type, component, cacheTagKeyLookup);
                 ResourceKey<Block> resource = target.get().getKey();
 
                 for (var tag : tags) {
