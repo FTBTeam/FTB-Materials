@@ -50,7 +50,8 @@ public enum Resource {
     PLUTONIUM(builder().noOres().noChunk().noCluster().build()),
     CHROMIUM(builder().noOres().noChunk().noCluster().build()),
     SILICON(builder().noOres().noChunk().noCluster().build()),
-    BRASS(builder().noOres().noChunk().noCluster().build());
+    BRASS(builder().noOres().noChunk().noCluster().build()),
+    COAL(builder().noStoneOre().noDeepslateOre().noBlock().noIngot().noRawOre().noRawBlock().noNugget().noGem().noCrystal().noShard().noClump().noDirtyDust().noChunk().noCluster().noBlade().noDust().noGear().noRod().noWire().noPlate().build());
 
     private final int resourceComponents;
     private ResourceLocation breakableWith = ResourceLocation.withDefaultNamespace("needs_stone_tool");

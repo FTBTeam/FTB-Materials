@@ -1,3 +1,9 @@
+## [21.1.0-beta.7]
+
+### Added
+
+- Nether and End Coal Ore
+
 ## [21.1.0-beta.6]
 
 ### Added
