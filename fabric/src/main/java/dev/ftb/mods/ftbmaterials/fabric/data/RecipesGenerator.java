@@ -14,14 +14,15 @@ import net.minecraft.world.level.ItemLike;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 
 public class RecipesGenerator extends FabricRecipeProvider {
-    public RecipesGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture);
+    public RecipesGenerator(FabricDataOutput output) {
+        super(output);
     }
 
     @Override
-    public void buildRecipes(RecipeOutput recipeOutput) {
+    public void buildRecipes(Consumer<FinishedRecipe> recipeOutput) {
         // Raw/Ingot to Blocks Of
         createBlocksOfMaterial(recipeOutput, ResourceType.RAW_ORE, ResourceType.RAW_BLOCK);
         createBlocksOfMaterial(recipeOutput, ResourceType.INGOT, ResourceType.BLOCK);
@@ -84,7 +85,7 @@ public class RecipesGenerator extends FabricRecipeProvider {
         });
     }
 
-    private void createBlocksOfMaterial(RecipeOutput recipeOutput, ResourceType inputType, ResourceType outputType) {
+    private void createBlocksOfMaterial(Consumer<FinishedRecipe> recipeOutput, ResourceType inputType, ResourceType outputType) {
         createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getBlockFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, outputItemLike)
                     .define('I', inputItemLike)
@@ -96,7 +97,7 @@ public class RecipesGenerator extends FabricRecipeProvider {
         });
     }
 
-    private void create4x4OfMaterial(RecipeOutput recipeOutput, ResourceType inputType, ResourceType outputType) {
+    private void create4x4OfMaterial(Consumer<FinishedRecipe> recipeOutput, ResourceType inputType, ResourceType outputType) {
         createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, outputItemLike)
                     .define('I', inputItemLike)
@@ -124,6 +125,7 @@ public class RecipesGenerator extends FabricRecipeProvider {
             }
         }
     }
+
 
     @FunctionalInterface
     private interface BuilderConsumer<INPUT, OUTPUT> {

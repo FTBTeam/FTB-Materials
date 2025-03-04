@@ -17,7 +17,7 @@ public class CachedTagKeyLookup<T> {
 
     public TagKey<T> getOrCreateUnifiedTag(String prefix, String name) {
         // We default to the C namespace if no : is present in the string
-        var namespace = "c";
+        var namespace = "forge";
         if (prefix.contains(":")) {
             var parts = prefix.split(":");
             namespace = parts[0];
@@ -34,7 +34,7 @@ public class CachedTagKeyLookup<T> {
 
         return tagCache.computeIfAbsent(
                 this.cacheKey(namespace, prefix, name),
-                t -> TagKey.create(registry, ResourceLocation.fromNamespaceAndPath(finalNamespace, finalOutputName))
+                t -> TagKey.create(registry, new ResourceLocation(finalNamespace, finalOutputName))
         );
     }
 

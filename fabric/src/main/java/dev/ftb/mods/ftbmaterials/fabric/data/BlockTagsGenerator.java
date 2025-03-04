@@ -57,7 +57,7 @@ public class BlockTagsGenerator extends FabricTagProvider<Block> {
 
                 this.tag(breakableWithTag).add(resource);
                 this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(resource);
-                this.tag(BlockTags.INCORRECT_FOR_WOODEN_TOOL).add(resource);
+                this.tag(BlockTags.NEEDS_STONE_TOOL).add(resource);
             }
         }
     }

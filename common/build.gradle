@@ -2,6 +2,10 @@ architectury {
     common rootProject.enabled_platforms.split(',')
 }
 
+configurations {
+    dev
+}
+
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
     modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
@@ -10,4 +14,8 @@ dependencies {
 
     // JEI
     modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+}
+
+artifacts {
+    dev(jar)
 }

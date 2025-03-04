@@ -1,0 +1,68 @@
+plugins {
+    id 'com.github.johnrengelman.shadow'
+}
+
+architectury {
+	platformSetupLoomIde()
+	forge()
+}
+
+sourceSets.main.resources.srcDirs += project(":fabric").sourceSets.main.resources.srcDirs
+
+configurations {
+	common
+	shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+	compileClasspath.extendsFrom common
+	runtimeClasspath.extendsFrom common
+	developmentForge.extendsFrom common
+	dev
+}
+
+repositories {
+    maven {
+        name = 'NeoForged'
+        url = 'https://maven.neoforged.net/releases'
+    }
+
+    maven { url "https://cursemaven.com" }
+}
+
+dependencies {
+	forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
+
+    modImplementation "dev.architectury:architectury-forge:$rootProject.architectury_api_version"
+
+    modImplementation "dev.ftb.mods:ftb-library-forge:$ftb_library_version"
+
+    // JEI
+    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+
+    // at runtime, use the full JEI jar for Fabric
+    modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+
+    // Gives tag names
+    modRuntimeOnly("curse.maven:cucumber-272335:5711793")
+
+	common(project(path: ":common", configuration: "dev")) { transitive false }
+	shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive false }
+}
+
+processResources {
+    inputs.property 'version', project.version
+
+    filesMatching('META-INF/mods.toml') {
+        expand version: project.version
+    }
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+
+    configurations = [project.configurations.shadowCommon]
+    setArchiveClassifier("dev-shadow")
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+}

@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.function.Function;
 
 public enum ResourceType {
-    STONE_ORE(0x00, "{material} Ore", "ores", List.of("c:ores", "c:ores_in_ground/stone")),
-    DEEPSLATE_ORE(0x01, "Deepslate {material} Ore", "ores", List.of("c:ores", "c:ores_in_ground/deepslate")),
-    END_ORE(0x02,"Endstone {material} Ore", "ores", List.of("c:ores", "c:ores_in_ground/end")),
-    NETHER_ORE(0x03, "Nether {material} Ore", "ores", List.of("c:ores", "c:ores_in_ground/nether")),
+    STONE_ORE(0x00, "{material} Ore", "ores", List.of("forge:ores", "forge:ores_in_ground/stone")),
+    DEEPSLATE_ORE(0x01, "Deepslate {material} Ore", "ores", List.of("forge:ores", "forge:ores_in_ground/deepslate")),
+    END_ORE(0x02,"Endstone {material} Ore", "ores", List.of("forge:ores", "forge:ores_in_ground/end")),
+    NETHER_ORE(0x03, "Nether {material} Ore", "ores", List.of("forge:ores", "forge:ores_in_ground/nether")),
     BLOCK(0x04, "Block of {material}", "storage_blocks"),
     INGOT(0x05, "{material} Ingot", "ingots"),
     RAW_ORE(0x06, "Raw {material}", "raw_materials"),

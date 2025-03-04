@@ -14,5 +14,5 @@ rootProject.name = 'ftb-materials'
 
 include 'common'
 include 'fabric'
-include 'neoforge'
+include 'forge'
 

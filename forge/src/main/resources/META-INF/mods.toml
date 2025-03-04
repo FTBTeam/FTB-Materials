@@ -1,0 +1,38 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+#issueTrackerURL = ""
+license = "Insert License Here"
+
+[[mods]]
+modId = "ftbmaterials"
+version = "${version}"
+displayName = "FTB Materials"
+authors = "Me!"
+description = '''
+This is an example description! Tell everyone what your mod is about!
+'''
+#logoFile = ""
+
+#[[dependencies.ftbmaterials]]
+#modId = "forge"
+#type = "required"
+#versionRange = "[47.0,)"
+#ordering = "NONE"
+#side = "BOTH"
+#
+#[[dependencies.ftbmaterials]]
+#modId = "minecraft"
+#type = "required"
+#versionRange = "[1.20,)"
+#ordering = "NONE"
+#side = "BOTH"
+#
+#[[dependencies.ftbmaterials]]
+#modId = "architectury"
+#type = "required"
+#versionRange = "[9.1.12,)"
+#ordering = "AFTER"
+#side = "BOTH"
+
+#[[mixins]]
+#config = "ftbmaterials.mixins.json"

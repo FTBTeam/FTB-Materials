@@ -11,7 +11,6 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.decoration.ItemFrame;
@@ -67,7 +66,7 @@ public class ConstructAllResources {
 
                 ItemFrame itemFrame = new ItemFrame(level, relativeLocation.relative(Direction.EAST), Direction.EAST);
                 ItemStack itemStack = new ItemStack(item.get());
-                itemStack.set(DataComponents.CUSTOM_NAME, item.get().getName(itemStack));
+                itemStack.setHoverName(item.get().getName(itemStack));
                 itemFrame.setItem(itemStack);
                 itemFrame.setCustomNameVisible(true);
 

@@ -21,12 +21,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 public class LanguageGenerator extends FabricLanguageProvider {
-    protected LanguageGenerator(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
-        super(dataOutput, "en_us", registryLookup);
+    protected LanguageGenerator(FabricDataOutput dataOutput) {
+        super(dataOutput, "en_us");
     }
 
     @Override
-    public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
+    public void generateTranslations(TranslationBuilder translationBuilder) {
         translationBuilder.add("itemGroup.ftbmaterials.ftbmaterials_main", "FTB Materials");
 
         for (ResourceRegistryHolder holder : ResourceRegistry.RESOURCE_REGISTRY_HOLDERS) {
