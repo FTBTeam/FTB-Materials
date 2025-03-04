@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "ftbmaterials:aluminum_cluster",
+    "ftbmaterials:copper_cluster",
+    "ftbmaterials:diamond_cluster",
+    "ftbmaterials:gold_cluster",
+    "ftbmaterials:iron_cluster",
+    "ftbmaterials:lead_cluster",
+    "ftbmaterials:nickel_cluster",
+    "ftbmaterials:osmium_cluster",
+    "ftbmaterials:quartz_cluster",
+    "ftbmaterials:silver_cluster",
+    "ftbmaterials:tin_cluster",
+    "ftbmaterials:uranium_cluster",
+    "ftbmaterials:redstone_cluster",
+    "ftbmaterials:fluorite_cluster",
+    "ftbmaterials:emerald_cluster",
+    "ftbmaterials:lapis_lazuli_cluster",
+    "ftbmaterials:platinum_cluster"
+  ]
+}

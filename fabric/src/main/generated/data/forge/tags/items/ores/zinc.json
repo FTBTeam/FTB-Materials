@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "ftbmaterials:zinc_stone_ore",
+    "ftbmaterials:zinc_deepslate_ore",
+    "ftbmaterials:zinc_nether_ore",
+    "ftbmaterials:zinc_end_ore"
+  ]
+}

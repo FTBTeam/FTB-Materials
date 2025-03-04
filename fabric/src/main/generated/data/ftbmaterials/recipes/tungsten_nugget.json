@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:tungsten_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "ftbmaterials:tungsten_nugget"
+  }
+}

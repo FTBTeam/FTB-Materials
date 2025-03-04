@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "ftbmaterials:aluminum_nether_ore",
+    "ftbmaterials:copper_nether_ore",
+    "ftbmaterials:diamond_nether_ore",
+    "ftbmaterials:gold_nether_ore",
+    "ftbmaterials:iron_nether_ore",
+    "ftbmaterials:lead_nether_ore",
+    "ftbmaterials:nickel_nether_ore",
+    "ftbmaterials:osmium_nether_ore",
+    "ftbmaterials:silver_nether_ore",
+    "ftbmaterials:sulfur_nether_ore",
+    "ftbmaterials:tin_nether_ore",
+    "ftbmaterials:uranium_nether_ore",
+    "ftbmaterials:zinc_nether_ore",
+    "ftbmaterials:redstone_nether_ore",
+    "ftbmaterials:fluorite_nether_ore",
+    "ftbmaterials:emerald_nether_ore",
+    "ftbmaterials:lapis_lazuli_nether_ore",
+    "ftbmaterials:resonating_ore_nether_ore",
+    "ftbmaterials:dimensional_shard_nether_ore",
+    "ftbmaterials:antimony_nether_ore",
+    "ftbmaterials:bauxite_nether_ore",
+    "ftbmaterials:iridium_nether_ore",
+    "ftbmaterials:monazite_nether_ore",
+    "ftbmaterials:tungsten_nether_ore",
+    "ftbmaterials:titanium_nether_ore",
+    "ftbmaterials:platinum_nether_ore",
+    "ftbmaterials:coal_nether_ore"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    "ftbmaterials:aluminum_clump",
+    "ftbmaterials:copper_clump",
+    "ftbmaterials:diamond_clump",
+    "ftbmaterials:gold_clump",
+    "ftbmaterials:iron_clump",
+    "ftbmaterials:lead_clump",
+    "ftbmaterials:lumium_clump",
+    "ftbmaterials:nickel_clump",
+    "ftbmaterials:osmium_clump",
+    "ftbmaterials:quartz_clump",
+    "ftbmaterials:silver_clump",
+    "ftbmaterials:sulfur_clump",
+    "ftbmaterials:tin_clump",
+    "ftbmaterials:uranium_clump",
+    "ftbmaterials:zinc_clump",
+    "ftbmaterials:antimony_clump",
+    "ftbmaterials:iridium_clump",
+    "ftbmaterials:tungsten_clump",
+    "ftbmaterials:titanium_clump",
+    "ftbmaterials:platinum_clump",
+    "ftbmaterials:plutonium_clump",
+    "ftbmaterials:chromium_clump",
+    "ftbmaterials:silicon_clump",
+    "ftbmaterials:brass_clump"
+  ]
+}
