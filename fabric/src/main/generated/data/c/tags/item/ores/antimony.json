@@ -1,8 +1,8 @@
 {
   "values": [
+    "ftbmaterials:antimony_end_ore",
     "ftbmaterials:antimony_stone_ore",
-    "ftbmaterials:antimony_nether_ore",
     "ftbmaterials:antimony_deepslate_ore",
-    "ftbmaterials:antimony_end_ore"
+    "ftbmaterials:antimony_nether_ore"
   ]
 }

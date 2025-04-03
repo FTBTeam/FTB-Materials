@@ -1,8 +1,8 @@
 {
   "values": [
+    "ftbmaterials:titanium_end_ore",
     "ftbmaterials:titanium_stone_ore",
-    "ftbmaterials:titanium_nether_ore",
     "ftbmaterials:titanium_deepslate_ore",
-    "ftbmaterials:titanium_end_ore"
+    "ftbmaterials:titanium_nether_ore"
   ]
 }

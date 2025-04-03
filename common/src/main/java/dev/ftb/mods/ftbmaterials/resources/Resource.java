@@ -7,7 +7,7 @@ import java.util.Set;
 
 public enum Resource {
     ALUMINUM(builder().noGem().build()),
-    APATITE(builder().noOres().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    APATITE(builder().noIngot().noRawOre().noRawBlock().noNugget().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
     BRONZE(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noChunk().noCluster().build()),
     CHARCOAL(builder().noOres().noIngot().noBlock().noRawOre().noWire().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
     CONSTANTAN(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
@@ -29,13 +29,13 @@ public enum Resource {
     SIGNALUM(builder().noOres().noBlock().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
     SILVER(builder().noBlade().build()),
     STEEL(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
-    SULFUR(builder().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noGem().noBlade().noChunk().noCluster().build()),
+    SULFUR(builder().noIngot().noRawOre().noRawBlock().noNugget().noPlate().noGear().noRod().noBlade().noChunk().noCluster().build()),
     TIN(builder().noGem().build()),
     URANIUM(builder().noGem().noBlade().build()),
     ZINC(builder().noGem().noBlade().noChunk().noCluster().build()),
     REDSTONE(ResourceLocation.withDefaultNamespace("needs_iron_tool"), builder().noBlock().noDust().noDeepslateOre().noStoneOre().noIngot().noRawOre().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
     FLUORITE(builder().noIngot().noRawOre().noRawBlock().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
-    EMERALD(ResourceLocation.withDefaultNamespace("needs_iron_tool"), builder().noGem().noBlock().noDeepslateOre().noStoneOre().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
+    EMERALD(ResourceLocation.withDefaultNamespace("needs_iron_tool"), builder().noGem().noBlock().noDeepslateOre().noStoneOre().noIngot().noRawOre().noRawBlock().noNugget().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
     LAPIS_LAZULI(builder().noGem().noBlock().noDeepslateOre().noStoneOre().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().build()),
     RESONATING_ORE(builder().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
     DIMENSIONAL_SHARD(ResourceLocation.withDefaultNamespace("needs_iron_tool"), builder().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
@@ -51,7 +51,12 @@ public enum Resource {
     CHROMIUM(builder().noOres().noChunk().noCluster().build()),
     SILICON(builder().noOres().noChunk().noCluster().build()),
     BRASS(builder().noOres().noChunk().noCluster().build()),
-    COAL(builder().noStoneOre().noDeepslateOre().noBlock().noIngot().noRawOre().noRawBlock().noNugget().noGem().noCrystal().noShard().noClump().noDirtyDust().noChunk().noCluster().noBlade().noDust().noGear().noRod().noWire().noPlate().build());
+    COAL(builder().noStoneOre().noDeepslateOre().noBlock().noIngot().noRawOre().noRawBlock().noNugget().noGem().noCrystal().noShard().noClump().noDirtyDust().noChunk().noCluster().noBlade().noDust().noGear().noRod().noWire().noPlate().build()),
+    CINNABAR(builder().noIngot().noRawOre().noRawBlock().noWire().noNugget().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    NITER(builder().noIngot().noRawOre().noRawBlock().noWire().noNugget().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    RUBY(builder().noIngot().noRawOre().noRawBlock().noWire().noNugget().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    SALT(builder().noIngot().noRawOre().noRawBlock().noWire().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    SAPPHIRE(builder().noIngot().noRawOre().noRawBlock().noWire().noNugget().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build());
 
     private final int resourceComponents;
     private ResourceLocation breakableWith = ResourceLocation.withDefaultNamespace("needs_stone_tool");
