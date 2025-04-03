@@ -10,6 +10,10 @@
     "ftbmaterials:plutonium_gem",
     "ftbmaterials:chromium_gem",
     "ftbmaterials:silicon_gem",
-    "ftbmaterials:brass_gem"
+    "ftbmaterials:brass_gem",
+    "ftbmaterials:cinnabar_gem",
+    "ftbmaterials:niter_gem",
+    "ftbmaterials:ruby_gem",
+    "ftbmaterials:sapphire_gem"
   ]
 }

@@ -37,6 +37,10 @@
     "ftbmaterials:plutonium_dust",
     "ftbmaterials:chromium_dust",
     "ftbmaterials:silicon_dust",
-    "ftbmaterials:brass_dust"
+    "ftbmaterials:brass_dust",
+    "ftbmaterials:cinnabar_dust",
+    "ftbmaterials:niter_dust",
+    "ftbmaterials:ruby_dust",
+    "ftbmaterials:salt_dust"
   ]
 }

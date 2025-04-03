@@ -51,7 +51,12 @@ public enum Resource {
     CHROMIUM(builder().noOres().noChunk().noCluster().build()),
     SILICON(builder().noOres().noChunk().noCluster().build()),
     BRASS(builder().noOres().noChunk().noCluster().build()),
-    COAL(builder().noStoneOre().noDeepslateOre().noBlock().noIngot().noRawOre().noRawBlock().noNugget().noGem().noCrystal().noShard().noClump().noDirtyDust().noChunk().noCluster().noBlade().noDust().noGear().noRod().noWire().noPlate().build());
+    COAL(builder().noStoneOre().noDeepslateOre().noBlock().noIngot().noRawOre().noRawBlock().noNugget().noGem().noCrystal().noShard().noClump().noDirtyDust().noChunk().noCluster().noBlade().noDust().noGear().noRod().noWire().noPlate().build()),
+    CINNABAR(builder().noIngot().noRawOre().noRawBlock().noWire().noNugget().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    NITER(builder().noIngot().noRawOre().noRawBlock().noWire().noNugget().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    RUBY(builder().noIngot().noRawOre().noRawBlock().noWire().noNugget().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    SALT(builder().noIngot().noRawOre().noRawBlock().noWire().noNugget().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
+    SAPPHIRE(builder().noIngot().noRawOre().noRawBlock().noWire().noNugget().noDust().noPlate().noGear().noRod().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build());
 
     private final int resourceComponents;
     private ResourceLocation breakableWith = new ResourceLocation("minecraft","needs_stone_tool");
