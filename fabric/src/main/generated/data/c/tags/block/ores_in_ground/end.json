@@ -1,6 +1,7 @@
 {
   "values": [
     "ftbmaterials:aluminum_end_ore",
+    "ftbmaterials:apatite_end_ore",
     "ftbmaterials:copper_end_ore",
     "ftbmaterials:diamond_end_ore",
     "ftbmaterials:gold_end_ore",
@@ -26,6 +27,12 @@
     "ftbmaterials:monazite_end_ore",
     "ftbmaterials:tungsten_end_ore",
     "ftbmaterials:titanium_end_ore",
-    "ftbmaterials:platinum_end_ore"
+    "ftbmaterials:platinum_end_ore",
+    "ftbmaterials:coal_end_ore",
+    "ftbmaterials:cinnabar_end_ore",
+    "ftbmaterials:niter_end_ore",
+    "ftbmaterials:ruby_end_ore",
+    "ftbmaterials:salt_end_ore",
+    "ftbmaterials:sapphire_end_ore"
   ]
 }
