@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "ftbmaterials:item/resonating_ore_gem"
+    "layer0": "ftbmaterials:item/sapphire"
   }
 }

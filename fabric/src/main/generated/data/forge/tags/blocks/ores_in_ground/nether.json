@@ -27,6 +27,11 @@
     "ftbmaterials:tungsten_nether_ore",
     "ftbmaterials:titanium_nether_ore",
     "ftbmaterials:platinum_nether_ore",
-    "ftbmaterials:coal_nether_ore"
+    "ftbmaterials:coal_nether_ore",
+    "ftbmaterials:cinnabar_nether_ore",
+    "ftbmaterials:niter_nether_ore",
+    "ftbmaterials:ruby_nether_ore",
+    "ftbmaterials:salt_nether_ore",
+    "ftbmaterials:sapphire_nether_ore"
   ]
 }

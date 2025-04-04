@@ -50,6 +50,11 @@
     "ftbmaterials:silicon_block",
     "ftbmaterials:silicon_raw_block",
     "ftbmaterials:brass_block",
-    "ftbmaterials:brass_raw_block"
+    "ftbmaterials:brass_raw_block",
+    "ftbmaterials:cinnabar_block",
+    "ftbmaterials:niter_block",
+    "ftbmaterials:ruby_block",
+    "ftbmaterials:salt_block",
+    "ftbmaterials:sapphire_block"
   ]
 }

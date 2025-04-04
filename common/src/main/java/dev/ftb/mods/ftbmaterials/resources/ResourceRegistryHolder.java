@@ -34,7 +34,12 @@ public class ResourceRegistryHolder {
 
     private void registerEntries(Set<ResourceType> components) {
         for (ResourceType component : components) {
-            String niceName = this.type.name().toLowerCase() + "_" + component.name().toLowerCase();
+            String niceName = this.type.name().toLowerCase();
+            String resourceId = component.getResourceId();
+
+            if (resourceId != null) {
+                niceName += "_" + resourceId.toLowerCase();
+            }
 
             if (BLOCK_TYPES.contains(component)) {
                 RegistrySupplier<Block> regItem = ResourceRegistry.BLOCKS.register(niceName, () -> new Block(ModBlocks.DEFAULT_PROPS));

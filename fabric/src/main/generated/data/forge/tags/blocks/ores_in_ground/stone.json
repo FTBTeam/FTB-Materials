@@ -20,6 +20,11 @@
     "ftbmaterials:monazite_stone_ore",
     "ftbmaterials:tungsten_stone_ore",
     "ftbmaterials:titanium_stone_ore",
-    "ftbmaterials:platinum_stone_ore"
+    "ftbmaterials:platinum_stone_ore",
+    "ftbmaterials:cinnabar_stone_ore",
+    "ftbmaterials:niter_stone_ore",
+    "ftbmaterials:ruby_stone_ore",
+    "ftbmaterials:salt_stone_ore",
+    "ftbmaterials:sapphire_stone_ore"
   ]
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "ftbmaterials:item/cinnabar_gem"
+    "layer0": "ftbmaterials:item/silver"
   }
 }

@@ -29,7 +29,7 @@ public enum Resource {
     SIGNALUM(builder().noOres().noBlock().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
     SILVER(builder().noBlade().build()),
     STEEL(builder().noOres().noRawOre().noRawBlock().noGem().noCrystal().noShard().noClump().noDirtyDust().noBlade().noChunk().noCluster().build()),
-    SULFUR(builder().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noGem().noBlade().noChunk().noCluster().build()),
+    SULFUR(builder().noIngot().noRawOre().noRawBlock().noNugget().noDust().noPlate().noGear().noRod().noBlade().noChunk().noCluster().build()),
     TIN(builder().noGem().build()),
     URANIUM(builder().noGem().noBlade().build()),
     ZINC(builder().noGem().noBlade().noChunk().noCluster().build()),

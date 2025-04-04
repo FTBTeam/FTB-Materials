@@ -19,7 +19,7 @@ public enum ResourceType {
     PLATE(0x0A, "{material} Plate", "plates"),
     GEAR(0x0B, "{material} Gear", "gears"),
     ROD(0x0C, "{material} Rod", "rods"),
-    GEM(0x0D, "{material} Gem", "gems"),
+    GEM(0x0D, "{material}", "gems", List.of(), Function.identity(), null),
     CRYSTAL(0x0E, "{material} Crystal", "crystals"),
     WIRE(0x0F, "{material} Wire", "wires"),
     SHARD(0x10, "{material} Shard", "shards|mekanism:shards"),
@@ -35,6 +35,9 @@ public enum ResourceType {
     private final String unifiedTagPrefix;
     private final String translationText;
 
+    @Nullable
+    private final String resourceId;
+
     private List<String> tags = List.of();
 
     @Nullable
@@ -44,12 +47,14 @@ public enum ResourceType {
         this.id = id;
         this.translationText = translationText;
         this.unifiedTagPrefix = null;
+        this.resourceId = this.name();
     }
 
     ResourceType(int id, String translationText, @Nullable String unifiedTagPrefix) {
         this.id = id;
         this.translationText = translationText;
         this.unifiedTagPrefix = unifiedTagPrefix;
+        this.resourceId = this.name();
     }
 
     ResourceType(int id, String translationText, @Nullable String unifiedTagPrefix, List<String> tags) {
@@ -57,6 +62,7 @@ public enum ResourceType {
         this.translationText = translationText;
         this.unifiedTagPrefix = unifiedTagPrefix;
         this.tags = tags;
+        this.resourceId = this.name();
     }
 
     ResourceType(int id, String translationText, @Nullable String unifiedTagPrefix, List<String> tags, @Nullable Function<String, String> unifiedPrefixMutator) {
@@ -65,6 +71,16 @@ public enum ResourceType {
         this.unifiedTagPrefix = unifiedTagPrefix;
         this.tags = tags;
         this.resourceNameMutator = unifiedPrefixMutator;
+        this.resourceId = this.name();
+    }
+
+    ResourceType(int id, String translationText, @Nullable String unifiedTagPrefix, List<String> tags, @Nullable Function<String, String> unifiedPrefixMutator, String resourceId) {
+        this.id = id;
+        this.translationText = translationText;
+        this.unifiedTagPrefix = unifiedTagPrefix;
+        this.tags = tags;
+        this.resourceNameMutator = unifiedPrefixMutator;
+        this.resourceId = resourceId;
     }
 
     public int getId() {
@@ -85,5 +101,9 @@ public enum ResourceType {
 
     public String getTranslationText() {
         return translationText;
+    }
+
+    public @Nullable String getResourceId() {
+        return resourceId;
     }
 }

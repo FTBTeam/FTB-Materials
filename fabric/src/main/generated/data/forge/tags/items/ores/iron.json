@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "ftbmaterials:iron_end_ore",
-    "ftbmaterials:iron_nether_ore"
+    "ftbmaterials:iron_nether_ore",
+    "ftbmaterials:iron_end_ore"
   ]
 }
