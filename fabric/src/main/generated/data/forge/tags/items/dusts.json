@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "ftbmaterials:aluminum_dust",
+    "ftbmaterials:apatite_dust",
     "ftbmaterials:bronze_dust",
     "ftbmaterials:charcoal_dust",
     "ftbmaterials:constantan_dust",
@@ -22,10 +23,12 @@
     "ftbmaterials:refined_glowstone_dust",
     "ftbmaterials:silver_dust",
     "ftbmaterials:steel_dust",
+    "ftbmaterials:sulfur_dust",
     "ftbmaterials:tin_dust",
     "ftbmaterials:uranium_dust",
     "ftbmaterials:zinc_dust",
     "ftbmaterials:fluorite_dust",
+    "ftbmaterials:emerald_dust",
     "ftbmaterials:antimony_dust",
     "ftbmaterials:bauxite_dust",
     "ftbmaterials:iridium_dust",
@@ -41,6 +44,7 @@
     "ftbmaterials:cinnabar_dust",
     "ftbmaterials:niter_dust",
     "ftbmaterials:ruby_dust",
-    "ftbmaterials:salt_dust"
+    "ftbmaterials:salt_dust",
+    "ftbmaterials:sapphire_dust"
   ]
 }

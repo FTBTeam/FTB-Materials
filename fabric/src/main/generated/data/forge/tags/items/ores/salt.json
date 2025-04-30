@@ -3,7 +3,7 @@
   "values": [
     "ftbmaterials:salt_stone_ore",
     "ftbmaterials:salt_nether_ore",
-    "ftbmaterials:salt_end_ore",
-    "ftbmaterials:salt_deepslate_ore"
+    "ftbmaterials:salt_deepslate_ore",
+    "ftbmaterials:salt_end_ore"
   ]
 }

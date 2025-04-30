@@ -3,7 +3,7 @@
   "values": [
     "ftbmaterials:niter_stone_ore",
     "ftbmaterials:niter_nether_ore",
-    "ftbmaterials:niter_end_ore",
-    "ftbmaterials:niter_deepslate_ore"
+    "ftbmaterials:niter_deepslate_ore",
+    "ftbmaterials:niter_end_ore"
   ]
 }

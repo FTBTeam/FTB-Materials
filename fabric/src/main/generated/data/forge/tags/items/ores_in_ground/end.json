@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "ftbmaterials:aluminum_end_ore",
+    "ftbmaterials:apatite_end_ore",
     "ftbmaterials:copper_end_ore",
     "ftbmaterials:diamond_end_ore",
     "ftbmaterials:gold_end_ore",

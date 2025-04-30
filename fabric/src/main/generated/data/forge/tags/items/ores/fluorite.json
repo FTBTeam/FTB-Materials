@@ -3,7 +3,7 @@
   "values": [
     "ftbmaterials:fluorite_stone_ore",
     "ftbmaterials:fluorite_nether_ore",
-    "ftbmaterials:fluorite_end_ore",
-    "ftbmaterials:fluorite_deepslate_ore"
+    "ftbmaterials:fluorite_deepslate_ore",
+    "ftbmaterials:fluorite_end_ore"
   ]
 }
