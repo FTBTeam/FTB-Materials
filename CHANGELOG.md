@@ -1,3 +1,11 @@
+## [21.1.0-beta.8]
+
+### Added
+
+- Russian translation
+- Chinese translation
+- Terkish translation
+
 ## [21.1.0-beta.7]
 
 ### Added
