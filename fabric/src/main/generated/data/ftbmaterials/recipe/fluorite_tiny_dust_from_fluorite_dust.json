@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:fluorite_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:fluorite_tiny_dust"
+  }
+}
