@@ -27,7 +27,9 @@ public enum ResourceType {
     DIRTY_DUST(0x12, "{material} Dirty Dust", "dirty_dusts"),
     BLADE(0x13, "{material} Blade", "blades"),
     CHUNK(0x14, "{material} Chunk", "chunks"),
-    CLUSTER(0x15, "{material} Cluster", "clusters"),;
+    CLUSTER(0x15, "{material} Cluster", "clusters"),
+    SMALL_DUST(0x16, "Small {material} Dust", "small_dusts"),
+    TINY_DUST(0x17, "Tiny {material} Dust", "tiny_dusts"),;
 
     private final int id;
 
