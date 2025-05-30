@@ -1,3 +1,9 @@
+## [21.1.0]
+
+### Changed
+
+- Updated to a stable build
+
 ## [21.1.0-beta.8]
 
 ### Added
