@@ -5,6 +5,7 @@
     "ftbmaterials:gold_gem",
     "ftbmaterials:silver_gem",
     "ftbmaterials:sulfur_gem",
+    "ftbmaterials:fluorite_gem",
     "ftbmaterials:resonating_ore_gem",
     "ftbmaterials:dimensional_shard_gem",
     "ftbmaterials:plutonium_gem",
@@ -14,6 +15,8 @@
     "ftbmaterials:cinnabar_gem",
     "ftbmaterials:niter_gem",
     "ftbmaterials:ruby_gem",
-    "ftbmaterials:sapphire_gem"
+    "ftbmaterials:salt_gem",
+    "ftbmaterials:sapphire_gem",
+    "ftbmaterials:coal_coke_gem"
   ]
 }
