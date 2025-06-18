@@ -26,6 +26,8 @@
     "ftbmaterials:zinc_tiny_dust",
     "ftbmaterials:redstone_tiny_dust",
     "ftbmaterials:fluorite_tiny_dust",
+    "ftbmaterials:emerald_tiny_dust",
+    "ftbmaterials:lapis_lazuli_tiny_dust",
     "ftbmaterials:antimony_tiny_dust",
     "ftbmaterials:bauxite_tiny_dust",
     "ftbmaterials:iridium_tiny_dust",
@@ -37,6 +39,8 @@
     "ftbmaterials:plutonium_tiny_dust",
     "ftbmaterials:chromium_tiny_dust",
     "ftbmaterials:silicon_tiny_dust",
-    "ftbmaterials:brass_tiny_dust"
+    "ftbmaterials:brass_tiny_dust",
+    "ftbmaterials:salt_tiny_dust",
+    "ftbmaterials:sapphire_tiny_dust"
   ]
 }
