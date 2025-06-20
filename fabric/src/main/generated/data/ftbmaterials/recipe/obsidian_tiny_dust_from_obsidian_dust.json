@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:obsidian_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:obsidian_tiny_dust"
+  }
+}

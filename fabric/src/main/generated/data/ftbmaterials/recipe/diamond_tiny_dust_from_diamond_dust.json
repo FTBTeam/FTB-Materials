@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:diamond_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:diamond_tiny_dust"
+  }
+}
