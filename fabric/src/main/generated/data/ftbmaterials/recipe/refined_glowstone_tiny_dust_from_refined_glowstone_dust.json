@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:refined_glowstone_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:refined_glowstone_tiny_dust"
+  }
+}

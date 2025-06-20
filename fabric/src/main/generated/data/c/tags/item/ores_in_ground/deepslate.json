@@ -1,6 +1,7 @@
 {
   "values": [
     "ftbmaterials:aluminum_deepslate_ore",
+    "ftbmaterials:apatite_deepslate_ore",
     "ftbmaterials:lead_deepslate_ore",
     "ftbmaterials:nickel_deepslate_ore",
     "ftbmaterials:osmium_deepslate_ore",
@@ -19,6 +20,11 @@
     "ftbmaterials:monazite_deepslate_ore",
     "ftbmaterials:tungsten_deepslate_ore",
     "ftbmaterials:titanium_deepslate_ore",
-    "ftbmaterials:platinum_deepslate_ore"
+    "ftbmaterials:platinum_deepslate_ore",
+    "ftbmaterials:cinnabar_deepslate_ore",
+    "ftbmaterials:niter_deepslate_ore",
+    "ftbmaterials:ruby_deepslate_ore",
+    "ftbmaterials:salt_deepslate_ore",
+    "ftbmaterials:sapphire_deepslate_ore"
   ]
 }

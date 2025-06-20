@@ -1,24 +1,24 @@
 {
   "values": [
-    "ftbmaterials:diamond_nether_ore",
     "ftbmaterials:diamond_end_ore",
-    "ftbmaterials:gold_nether_ore",
+    "ftbmaterials:diamond_nether_ore",
     "ftbmaterials:gold_end_ore",
+    "ftbmaterials:gold_nether_ore",
     "ftbmaterials:invar_block",
     "ftbmaterials:osmium_raw_block",
-    "ftbmaterials:osmium_stone_ore",
-    "ftbmaterials:osmium_nether_ore",
+    "ftbmaterials:osmium_block",
     "ftbmaterials:osmium_deepslate_ore",
     "ftbmaterials:osmium_end_ore",
-    "ftbmaterials:osmium_block",
+    "ftbmaterials:osmium_nether_ore",
+    "ftbmaterials:osmium_stone_ore",
     "ftbmaterials:redstone_nether_ore",
     "ftbmaterials:redstone_end_ore",
     "ftbmaterials:emerald_nether_ore",
     "ftbmaterials:emerald_end_ore",
     "ftbmaterials:dimensional_shard_nether_ore",
-    "ftbmaterials:dimensional_shard_deepslate_ore",
-    "ftbmaterials:dimensional_shard_end_ore",
     "ftbmaterials:dimensional_shard_stone_ore",
-    "ftbmaterials:dimensional_shard_block"
+    "ftbmaterials:dimensional_shard_block",
+    "ftbmaterials:dimensional_shard_deepslate_ore",
+    "ftbmaterials:dimensional_shard_end_ore"
   ]
 }

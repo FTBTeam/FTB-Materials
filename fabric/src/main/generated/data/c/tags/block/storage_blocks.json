@@ -4,6 +4,7 @@
     "ftbmaterials:aluminum_block",
     "ftbmaterials:apatite_block",
     "ftbmaterials:bronze_block",
+    "ftbmaterials:charcoal_block",
     "ftbmaterials:constantan_block",
     "ftbmaterials:electrum_block",
     "ftbmaterials:graphite_block",
@@ -49,6 +50,13 @@
     "ftbmaterials:silicon_raw_block",
     "ftbmaterials:silicon_block",
     "ftbmaterials:brass_raw_block",
-    "ftbmaterials:brass_block"
+    "ftbmaterials:brass_block",
+    "ftbmaterials:cinnabar_block",
+    "ftbmaterials:niter_block",
+    "ftbmaterials:ruby_block",
+    "ftbmaterials:salt_block",
+    "ftbmaterials:sapphire_block",
+    "ftbmaterials:coal_coke_block",
+    "ftbmaterials:refined_obsidian_block"
   ]
 }
