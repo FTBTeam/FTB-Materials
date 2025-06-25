@@ -1,3 +1,14 @@
+## [21.1.1]
+
+### Added
+* Tiny, small and tiny dust resources variants for various resources
+
+## [21.1.0]
+
+### Changed
+
+- Updated to a stable build
+
 ## [21.1.0-beta.8]
 
 ### Added
