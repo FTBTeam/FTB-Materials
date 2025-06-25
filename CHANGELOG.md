@@ -1,3 +1,13 @@
+## [21.1.2]
+
+### Added
+* Tiny Ruby Dust
+
+### Fixed
+* Quartz stone ore and deepslate ore not having a loot table
+* Copper and Lapis ores not dropping the correct amount of resources
+* Certain resources not having a loot table
+
 ## [21.1.1]
 
 ### Added
