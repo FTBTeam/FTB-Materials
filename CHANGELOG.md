@@ -1,5 +1,12 @@
 ## [21.1.1]
 
+### Fixed
+* Quartz stone ore and deepslate ore not having a loot table
+* Copper and Lapis ores not dropping the correct amount of resources
+* Certain resources not having a loot table
+
+## [21.1.1]
+
 ### Added
 * Tiny, small and tiny dust resources variants for various resources
 
