@@ -82,6 +82,13 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
 
             add(blockSupplier.get(), createOreDrop(blockSupplier.get(), entry.getValue().asItem()));
         }
+
+        // Bauxite is special as it does not have a raw ore item
+        for (ResourceType ore : ores) {
+            ResourceRegistry.get(Resource.BAUXITE)
+                    .flatMap(holder -> holder.getBlockFromType(ore))
+                    .ifPresent(blockFromType -> dropSelf(blockFromType.get()));
+        }
     }
 
     private List<Pair<Item, Block>> seekBlocksWithOreItem(ResourceType type) {
