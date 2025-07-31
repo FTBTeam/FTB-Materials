@@ -29,6 +29,7 @@
     "ftbmaterials:zinc_dust",
     "ftbmaterials:fluorite_dust",
     "ftbmaterials:emerald_dust",
+    "ftbmaterials:lapis_lazuli_dust",
     "ftbmaterials:antimony_dust",
     "ftbmaterials:bauxite_dust",
     "ftbmaterials:iridium_dust",
@@ -41,10 +42,15 @@
     "ftbmaterials:chromium_dust",
     "ftbmaterials:silicon_dust",
     "ftbmaterials:brass_dust",
+    "ftbmaterials:coal_dust",
     "ftbmaterials:cinnabar_dust",
     "ftbmaterials:niter_dust",
     "ftbmaterials:ruby_dust",
     "ftbmaterials:salt_dust",
-    "ftbmaterials:sapphire_dust"
+    "ftbmaterials:sapphire_dust",
+    "ftbmaterials:coal_coke_dust",
+    "ftbmaterials:refined_obsidian_dust",
+    "ftbmaterials:saw_dust",
+    "ftbmaterials:lithium_dust"
   ]
 }

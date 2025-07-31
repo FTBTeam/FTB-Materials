@@ -24,6 +24,7 @@
     "ftbmaterials:tin_plate",
     "ftbmaterials:uranium_plate",
     "ftbmaterials:zinc_plate",
+    "ftbmaterials:emerald_plate",
     "ftbmaterials:iridium_plate",
     "ftbmaterials:tungsten_plate",
     "ftbmaterials:titanium_plate",
@@ -32,6 +33,7 @@
     "ftbmaterials:plutonium_plate",
     "ftbmaterials:chromium_plate",
     "ftbmaterials:silicon_plate",
-    "ftbmaterials:brass_plate"
+    "ftbmaterials:brass_plate",
+    "ftbmaterials:coal_plate"
   ]
 }

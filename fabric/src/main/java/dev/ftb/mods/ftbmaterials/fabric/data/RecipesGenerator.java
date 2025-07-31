@@ -83,6 +83,33 @@ public class RecipesGenerator extends FabricRecipeProvider {
                     .unlockedBy("has_item", has(inputItemLike))
                     .save(recipeOutput, outputName + "_from_smelting_" + inputName);
         });
+
+        // Tiny Dust to Dust
+        createInputOutputRecipeFromTypes(ResourceType.TINY_DUST, ResourceType.DUST, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
+            var inputName = inputReg.getId().getPath();
+            var outputName = outputReg.getId().getPath();
+
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, outputItemLike)
+                    .define('N', inputItemLike)
+                    .pattern("NNN")
+                    .pattern("NNN")
+                    .pattern("NNN")
+                    .unlockedBy("has_item", has(inputItemLike))
+                    .save(recipeOutput, outputName + "_from_" + inputName);
+
+
+        });
+
+        // Dust to Tiny Dust
+        createInputOutputRecipeFromTypes(ResourceType.DUST, ResourceType.TINY_DUST, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
+            var inputName = inputReg.getId().getPath();
+            var outputName = outputReg.getId().getPath();
+
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
+                    .requires(inputItemLike)
+                    .unlockedBy("has_item", has(inputItemLike))
+                    .save(recipeOutput, outputName + "_from_" + inputName);
+        });
     }
 
     private void createBlocksOfMaterial(Consumer<FinishedRecipe> recipeOutput, ResourceType inputType, ResourceType outputType) {

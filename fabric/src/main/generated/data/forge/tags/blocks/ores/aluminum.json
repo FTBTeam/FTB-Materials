@@ -2,8 +2,8 @@
   "replace": false,
   "values": [
     "ftbmaterials:aluminum_stone_ore",
+    "ftbmaterials:aluminum_end_ore",
     "ftbmaterials:aluminum_deepslate_ore",
-    "ftbmaterials:aluminum_nether_ore",
-    "ftbmaterials:aluminum_end_ore"
+    "ftbmaterials:aluminum_nether_ore"
   ]
 }

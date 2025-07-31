@@ -22,9 +22,11 @@
     "ftbmaterials:tungsten_ingot",
     "ftbmaterials:titanium_ingot",
     "ftbmaterials:platinum_ingot",
+    "ftbmaterials:stainless_steel_ingot",
     "ftbmaterials:plutonium_ingot",
     "ftbmaterials:chromium_ingot",
     "ftbmaterials:silicon_ingot",
-    "ftbmaterials:brass_ingot"
+    "ftbmaterials:brass_ingot",
+    "ftbmaterials:refined_obsidian_ingot"
   ]
 }

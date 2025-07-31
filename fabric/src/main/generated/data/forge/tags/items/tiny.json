@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "ftbmaterials:charcoal_tiny",
+    "ftbmaterials:coal_tiny",
+    "ftbmaterials:ruby_tiny",
+    "ftbmaterials:topaz_tiny"
+  ]
+}

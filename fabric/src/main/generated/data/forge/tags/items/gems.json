@@ -6,6 +6,7 @@
     "ftbmaterials:gold",
     "ftbmaterials:silver",
     "ftbmaterials:sulfur",
+    "ftbmaterials:fluorite",
     "ftbmaterials:resonating_ore",
     "ftbmaterials:dimensional_shard",
     "ftbmaterials:plutonium",
@@ -15,6 +16,8 @@
     "ftbmaterials:cinnabar",
     "ftbmaterials:niter",
     "ftbmaterials:ruby",
-    "ftbmaterials:sapphire"
+    "ftbmaterials:salt",
+    "ftbmaterials:sapphire",
+    "ftbmaterials:coal_coke"
   ]
 }
