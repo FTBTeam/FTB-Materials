@@ -1,3 +1,13 @@
+## [21.1.3]
+
+### Changed
+
+- Updated Chinese translation (thanks to [#11](https://github.com/FTBTeam/FTB-Materials/pull/11))
+
+### Fixed
+
+- Bauxite loot tables
+
 ## [21.1.2]
 
 ### Added
