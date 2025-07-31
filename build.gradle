@@ -97,7 +97,7 @@ publishMods {
     }
 
     def fabricOptions = createOptions("fabric")
-    def neoForgeOptions = createOptions("neoforge")
+    def neoForgeOptions = createOptions("forge")
 
     def curseForgeOptions = curseforgeOptions {
         accessToken = providers.environmentVariable("CURSEFORGE_KEY")
@@ -112,7 +112,7 @@ publishMods {
         requires('fabric-api')
     }
 
-    curseforge("curseforgeNeoForge") {
+    curseforge("curseforgeForge") {
         from(curseForgeOptions, neoForgeOptions)
         projectId = curseforge_id
         requires("architectury-api")
@@ -120,7 +120,7 @@ publishMods {
 
     github {
         displayName = project.version
-        file = project.provider { project(":neoforge").tasks.remapJar }.flatMap { it.archiveFile }
+        file = project.provider { project(":forge").tasks.remapJar }.flatMap { it.archiveFile }
         additionalFiles.from project.provider { project(":fabric").tasks.remapJar }.flatMap { it.archiveFile }
         repository = "ftbteam/ftb-materials"
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
