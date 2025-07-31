@@ -1,3 +1,7 @@
+## [20.1.0]
+
+- Initial release of FTB Materials for 1.20.1
+
 ## [21.1.0-beta.7]
 
 ### Added

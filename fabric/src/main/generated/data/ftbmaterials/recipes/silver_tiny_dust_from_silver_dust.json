@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:silver_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "ftbmaterials:silver_tiny_dust"
+  }
+}

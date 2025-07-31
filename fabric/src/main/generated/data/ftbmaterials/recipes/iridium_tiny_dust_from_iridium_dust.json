@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:iridium_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "ftbmaterials:iridium_tiny_dust"
+  }
+}
