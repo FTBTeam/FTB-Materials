@@ -1,3 +1,7 @@
+## [20.1.1]
+
+- Fix Missing Textures
+
 ## [20.1.0]
 
 - Initial release of FTB Materials for 1.20.1
