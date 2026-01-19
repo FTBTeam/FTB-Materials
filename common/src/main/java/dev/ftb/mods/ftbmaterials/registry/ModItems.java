@@ -1,12 +1,12 @@
 package dev.ftb.mods.ftbmaterials.registry;
 
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import dev.ftb.mods.ftbmaterials.xplat.registry.XRegistry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 
 public class ModItems {
-    public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(FTBMaterials.MOD_ID, Registries.ITEM);
+    public static final XRegistry<Item> REGISTRY = XRegistry.create(Registries.ITEM);
 
-    public static final Item.Properties DEFAULT_PROPS = new Item.Properties().arch$tab(ModCreativeTab.TAB);
+    // TODO: Creative tab!
+    public static final Item.Properties DEFAULT_PROPS = new Item.Properties();
 }

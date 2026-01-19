@@ -1,7 +1,7 @@
 package dev.ftb.mods.ftbmaterials.resources;
 
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import dev.ftb.mods.ftbmaterials.xplat.registry.XRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -15,8 +15,8 @@ import java.util.Set;
 public class ResourceRegistry {
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourceRegistry.class);
 
-    static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(FTBMaterials.MOD_ID, Registries.BLOCK);
-    static final DeferredRegister<Item> ITEMS = DeferredRegister.create(FTBMaterials.MOD_ID, Registries.ITEM);
+    static final XRegistry<Block> BLOCKS = XRegistry.create(Registries.BLOCK);
+    static final XRegistry<Item> ITEMS = XRegistry.create(Registries.ITEM);
 
     public static final Set<ResourceRegistryHolder> RESOURCE_REGISTRY_HOLDERS = new LinkedHashSet<>();
 
@@ -28,8 +28,8 @@ public class ResourceRegistry {
             RESOURCE_REGISTRY_HOLDERS.add(holder);
         }
 
-        BLOCKS.register();
-        ITEMS.register();
+        BLOCKS.init();
+        ITEMS.init();
     }
 
     private static ResourceRegistryHolder create(Resource type) {

@@ -3,7 +3,6 @@ package dev.ftb.mods.ftbmaterials.dev.commands;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import dev.architectury.registry.registries.RegistrySupplier;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
@@ -15,7 +14,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.decoration.ItemFrame;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -55,13 +53,13 @@ public class ConstructAllResources {
             }
 
             ResourceRegistryHolder resourceRegistryHolder = resourceHolder.get();
-            for (RegistrySupplier<Block> block : resourceRegistryHolder.getBlocks()) {
+            for (var block : resourceRegistryHolder.getBlocks()) {
                 Block actualBlock = block.get();
                 level.setBlock(pos.relative(Direction.UP, yOffset).relative(Direction.NORTH, xOffset), actualBlock.defaultBlockState(), Block.UPDATE_ALL);
                 yOffset ++;
             }
 
-            for (RegistrySupplier<Item> item : resourceRegistryHolder.getItems()) {
+            for (var item : resourceRegistryHolder.getItems()) {
                 BlockPos relativeLocation = pos.relative(Direction.UP, yOffset).relative(Direction.NORTH, xOffset);
                 level.setBlock(relativeLocation, Blocks.STONE.defaultBlockState(), Block.UPDATE_ALL);
 

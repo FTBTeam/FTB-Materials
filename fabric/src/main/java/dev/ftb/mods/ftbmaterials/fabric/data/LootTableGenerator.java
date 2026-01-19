@@ -1,10 +1,10 @@
 package dev.ftb.mods.ftbmaterials.fabric.data;
 
-import dev.architectury.registry.registries.RegistrySupplier;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
+import dev.ftb.mods.ftbmaterials.xplat.registry.XRegistryRef;
 import it.unimi.dsi.fastutil.Pair;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
@@ -36,7 +36,7 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
 
         // Drops something from vanilla. This means we can't do the normal one
         // Ore drops special case
-        Map<Optional<RegistrySupplier<Block>>, ItemLike> oreBlocks = new HashMap<>() {{
+        Map<Optional<XRegistryRef<Block>>, ItemLike> oreBlocks = new HashMap<>() {{
             put(findBlockFromTypeAndComponent(Resource.EMERALD, ResourceType.END_ORE), Items.EMERALD);
             put(findBlockFromTypeAndComponent(Resource.DIAMOND, ResourceType.END_ORE), Items.DIAMOND);
             put(findBlockFromTypeAndComponent(Resource.LAPIS_LAZULI, ResourceType.END_ORE), Items.LAPIS_LAZULI);
@@ -62,8 +62,8 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
             }
 
 
-            RegistrySupplier<Block> blockSupplier = entry.getKey().get();
-            ResourceLocation registryId = blockSupplier.getId();
+            XRegistryRef<Block> blockSupplier = entry.getKey().get();
+            ResourceLocation registryId = blockSupplier.identifier();
 
             if (registryId.toString().contains("redstone")) {
                 add(blockSupplier.get(), createRedstoneOreDrops(blockSupplier.get()));
@@ -126,7 +126,7 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
         }
     }
 
-    private Optional<RegistrySupplier<Block>> findBlockFromTypeAndComponent(Resource type, ResourceType component) {
+    private Optional<XRegistryRef<Block>> findBlockFromTypeAndComponent(Resource type, ResourceType component) {
         for (ResourceRegistryHolder holder : ResourceRegistry.RESOURCE_REGISTRY_HOLDERS) {
             if (holder.getType() == type) {
                 return holder.getBlockFromType(component);

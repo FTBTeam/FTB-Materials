@@ -12,9 +12,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
@@ -40,7 +38,7 @@ public class ItemTagsGenerator extends FabricTagProvider<Item> {
 
                 Set<TagKey<Item>> tags = collectTagsForElement(type, component, cacheTagKeyLookup);
                 for (var tag : tags) {
-                    this.tag(tag).add(target.get().getKey());
+                    this.tag(tag).add(target.get().resourceKey());
                 }
             }
         }

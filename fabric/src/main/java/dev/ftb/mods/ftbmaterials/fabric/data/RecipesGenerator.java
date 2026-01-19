@@ -1,9 +1,9 @@
 package dev.ftb.mods.ftbmaterials.fabric.data;
 
-import dev.architectury.registry.registries.RegistrySupplier;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
+import dev.ftb.mods.ftbmaterials.xplat.registry.XRegistryRef;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
@@ -29,8 +29,8 @@ public class RecipesGenerator extends FabricRecipeProvider {
 
         // Blocks of material to ingots
         createInputOutputRecipeFromTypes(ResourceType.BLOCK, ResourceType.INGOT, ResourceRegistryHolder::getBlockFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            var inputName = inputReg.getId().getPath();
-            var outputName = outputReg.getId().getPath();
+            var inputName = inputReg.identifier().getPath();
+            var outputName = outputReg.identifier().getPath();
 
             ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
                     .requires(inputItemLike)
@@ -39,8 +39,8 @@ public class RecipesGenerator extends FabricRecipeProvider {
         });
 
         createInputOutputRecipeFromTypes(ResourceType.RAW_BLOCK, ResourceType.RAW_ORE, ResourceRegistryHolder::getBlockFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            var inputName = inputReg.getId().getPath();
-            var outputName = outputReg.getId().getPath();
+            var inputName = inputReg.identifier().getPath();
+            var outputName = outputReg.identifier().getPath();
 
             ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
                     .requires(inputItemLike)
@@ -70,8 +70,8 @@ public class RecipesGenerator extends FabricRecipeProvider {
         // Raw ore smelts to ingots
         createInputOutputRecipeFromTypes(ResourceType.RAW_ORE, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
             // Blast furnace
-            var inputName = inputReg.getId().getPath();
-            var outputName = outputReg.getId().getPath();
+            var inputName = inputReg.identifier().getPath();
+            var outputName = outputReg.identifier().getPath();
 
             SimpleCookingRecipeBuilder.blasting(Ingredient.of(inputItemLike), RecipeCategory.MISC, outputItemLike, 0.7f, 100)
                     .unlockedBy("has_item", has(inputItemLike))
@@ -85,8 +85,8 @@ public class RecipesGenerator extends FabricRecipeProvider {
 
         // Tiny Dust to Dust
         createInputOutputRecipeFromTypes(ResourceType.TINY_DUST, ResourceType.DUST, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            var inputName = inputReg.getId().getPath();
-            var outputName = outputReg.getId().getPath();
+            var inputName = inputReg.identifier().getPath();
+            var outputName = outputReg.identifier().getPath();
 
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, outputItemLike)
                     .define('N', inputItemLike)
@@ -101,8 +101,8 @@ public class RecipesGenerator extends FabricRecipeProvider {
 
         // Dust to Tiny Dust
         createInputOutputRecipeFromTypes(ResourceType.DUST, ResourceType.TINY_DUST, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            var inputName = inputReg.getId().getPath();
-            var outputName = outputReg.getId().getPath();
+            var inputName = inputReg.identifier().getPath();
+            var outputName = outputReg.identifier().getPath();
 
             ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
                     .requires(inputItemLike)
@@ -138,13 +138,13 @@ public class RecipesGenerator extends FabricRecipeProvider {
     private <INPUT, OUTPUT> void createInputOutputRecipeFromTypes(
             ResourceType input,
             ResourceType output,
-            BiFunction<ResourceRegistryHolder, ResourceType, Optional<RegistrySupplier<INPUT>>> inputGetter,
-            BiFunction<ResourceRegistryHolder, ResourceType, Optional<RegistrySupplier<OUTPUT>>> outputGetter,
+            BiFunction<ResourceRegistryHolder, ResourceType, Optional<XRegistryRef<INPUT>>> inputGetter,
+            BiFunction<ResourceRegistryHolder, ResourceType, Optional<XRegistryRef<OUTPUT>>> outputGetter,
             BuilderConsumer<INPUT, OUTPUT> recipeBuilder
     ) {
         for (ResourceRegistryHolder holder : ResourceRegistry.RESOURCE_REGISTRY_HOLDERS) {
-            Optional<RegistrySupplier<INPUT>> inputResource = inputGetter.apply(holder, input);
-            Optional<RegistrySupplier<OUTPUT>> outputResource = outputGetter.apply(holder, output);
+            Optional<XRegistryRef<INPUT>> inputResource = inputGetter.apply(holder, input);
+            Optional<XRegistryRef<OUTPUT>> outputResource = outputGetter.apply(holder, output);
 
             if (inputResource.isPresent() && outputResource.isPresent()) {
                 recipeBuilder.accept((ItemLike) inputResource.get().get(), (ItemLike) outputResource.get().get(), inputResource.get(), outputResource.get());
@@ -154,6 +154,6 @@ public class RecipesGenerator extends FabricRecipeProvider {
 
     @FunctionalInterface
     private interface BuilderConsumer<INPUT, OUTPUT> {
-        void accept(ItemLike input, ItemLike output, RegistrySupplier<INPUT> inputResource, RegistrySupplier<OUTPUT> outputResource);
+        void accept(ItemLike input, ItemLike output, XRegistryRef<INPUT> inputResource, XRegistryRef<OUTPUT> outputResource);
     }
 }

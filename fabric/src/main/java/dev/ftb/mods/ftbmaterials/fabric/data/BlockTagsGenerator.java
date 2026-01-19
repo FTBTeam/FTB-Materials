@@ -45,7 +45,7 @@ public class BlockTagsGenerator extends FabricTagProvider<Block> {
                 }
 
                 Set<TagKey<Block>> tags = collectTagsForElement(type, component, cacheTagKeyLookup);
-                ResourceKey<Block> resource = target.get().getKey();
+                ResourceKey<Block> resource = target.get().resourceKey();
 
                 for (var tag : tags) {
                     this.tag(tag).add(resource);

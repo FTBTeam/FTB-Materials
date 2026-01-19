@@ -1,14 +1,14 @@
 package dev.ftb.mods.ftbmaterials.resources;
 
-import dev.architectury.registry.registries.DeferredRegister;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import dev.ftb.mods.ftbmaterials.xplat.registry.XRegistry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class PlacementRegistry {
-    public static final DeferredRegister<ConfiguredFeature<?, ?>> FEATURE_REGISTRY = DeferredRegister.create(FTBMaterials.MOD_ID, Registries.CONFIGURED_FEATURE);
-    public static final DeferredRegister<PlacedFeature> PLACED_FEATURE_REGISTRY = DeferredRegister.create(FTBMaterials.MOD_ID, Registries.PLACED_FEATURE);
+    public static final XRegistry<ConfiguredFeature<?, ?>> FEATURE_REGISTRY = XRegistry.create(Registries.CONFIGURED_FEATURE);
+    public static final XRegistry<PlacedFeature> PLACED_FEATURE_REGISTRY = XRegistry.create(Registries.PLACED_FEATURE);
 
     public static void init() {
         // We need to register based on the config
@@ -18,7 +18,7 @@ public class PlacementRegistry {
 //        OreConfiguration.target();
 
 
-        FEATURE_REGISTRY.register();
-        PLACED_FEATURE_REGISTRY.register();
+        FEATURE_REGISTRY.init();
+        PLACED_FEATURE_REGISTRY.init();
     }
 }
