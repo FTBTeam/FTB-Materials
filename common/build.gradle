@@ -1,13 +1,21 @@
-architectury {
-    common rootProject.enabled_platforms.split(',')
+plugins {
+    alias(libs.plugins.loom)
+}
+
+loom {
+//    accessWidenerPath = project(":common").file("src/main/resources/ftbmaterials.accesswidener")
+
+    // This might not be needed anymore
+    mixin {
+        useLegacyMixinAp = false
+    }
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
-    modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
+    minecraft(libs.minecraft)
+    mappings loom.officialMojangMappings()
 
-    modImplementation "dev.ftb.mods:ftb-library:$ftb_library_version"
+    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
 
-    // JEI
-    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    modCompileOnlyApi("mezz.jei:jei-${libs.versions.minecraft.get()}-common-api:${libs.versions.jei.get()}")
 }

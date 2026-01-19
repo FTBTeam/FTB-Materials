@@ -1,72 +1,77 @@
 plugins {
-    id 'com.github.johnrengelman.shadow'
+    alias(libs.plugins.moddev)
 }
 
-architectury {
-    platformSetupLoomIde()
-    neoForge()
-}
+neoForge {
+    version = libs.versions.neoforge.get()
+//    accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
 
-sourceSets.main.resources.srcDirs += project(":fabric").sourceSets.main.resources.srcDirs
+    runs {
+        // applies to all the run configs below
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            data()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+            sourceSet(project(":common").sourceSets.main)
+        }
+    }
+}
 
 configurations {
-    common {
-        canBeResolved = true
-        canBeConsumed = false
-    }
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentNeoForge.extendsFrom common
-
-    shadowBundle {
-        canBeResolved = true
-        canBeConsumed = false
-    }
+    runtimeClasspath.extendsFrom localRuntime
 }
 
 repositories {
     maven {
-        name = 'NeoForged'
-        url = 'https://maven.neoforged.net/releases'
+        url "https://maven.neoforged.net/releases"
     }
-
-    maven { url "https://cursemaven.com" }
 }
 
 dependencies {
-    neoForge "net.neoforged:neoforge:$rootProject.neoforge_version"
-
-    modImplementation "dev.architectury:architectury-neoforge:$rootProject.architectury_api_version"
-
-    modImplementation "dev.ftb.mods:ftb-library-neoforge:$ftb_library_version"
+    implementation("dev.ftb.mods:ftb-library-neoforge:${libs.versions.ftblibrary.get()}")
 
     // JEI
-    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
+    compileOnlyApi("mezz.jei:jei-${libs.versions.minecraft.get()}-common-api:${libs.versions.jei.get()}")
+    compileOnlyApi("mezz.jei:jei-${libs.versions.minecraft.get()}-neoforge-api:${libs.versions.jei.get()}")
 
     // at runtime, use the full JEI jar for Fabric
-    modRuntimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+    runtimeOnly("mezz.jei:jei-${libs.versions.minecraft.get()}-neoforge:${libs.versions.jei.get()}")
 
     // Gives tag names
-    modRuntimeOnly("curse.maven:cucumber-272335:5711793")
-
-    common(project(path: ':common', configuration: 'namedElements')) { transitive false }
-    shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
+    runtimeOnly("curse.maven:cucumber-272335:5711793")
 }
 
-processResources {
-    inputs.property 'version', project.version
-
-    filesMatching('META-INF/neoforge.mods.toml') {
-        expand version: project.version
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = rootProject.base.archivesName.get()
+            from components.java
+        }
     }
 }
 
-shadowJar {
-    configurations = [project.configurations.shadowBundle]
-    archiveClassifier = 'dev-shadow'
-}
-
-remapJar {
-    input.set shadowJar.archiveFile
+java {
+    withSourcesJar()
 }

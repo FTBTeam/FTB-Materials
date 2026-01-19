@@ -1,0 +1,27 @@
+[versions]
+minecraft = "1.21.1"
+
+loom = "1.13.3"
+moddev = "2.0.112"
+modpublish = "1.1.0"
+
+fabricloader = "0.16.3"
+fabricapi = "0.103.0+1.21.1"
+neoforge = "21.1.35"
+
+ftblibrary = "2101.1.1"
+jei = "19.16.1.156"
+modmenu = "11.0.2"
+
+[libraries]
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+
+fabricloader = { module = "net.fabricmc:fabric-loader", version.ref = "fabricloader" }
+fabricapi = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabricapi" }
+
+modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+
+[plugins]
+loom = { id = "fabric-loom", version.ref = "loom" }
+moddev = { id = "net.neoforged.moddev", version.ref = "moddev" }
+modpublish = { id = "me.modmuss50.mod-publish-plugin", version.ref = "modpublish" }

@@ -1,70 +1,111 @@
 plugins {
-    id 'dev.architectury.loom' version '1.7-SNAPSHOT' apply false
-    id 'architectury-plugin' version '3.4-SNAPSHOT'
-    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
-    id "me.modmuss50.mod-publish-plugin" version "0.7.4"
+    id 'java-library'
+    alias(libs.plugins.loom) apply(false)
+    alias(libs.plugins.moddev) apply(false)
+    alias(libs.plugins.modpublish)
 }
 
 apply from: 'https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/changelog.gradle'
 
-architectury {
-    minecraft = project.minecraft_version
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
 }
+
+version = mod_version
+group = 'dev.ftb.mods'
 
 allprojects {
-    group = rootProject.maven_group
-    version = mod_version
-
-    apply from: "https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/publishing.gradle"
-}
-
-subprojects {
-    apply plugin: 'dev.architectury.loom'
-    apply plugin: 'architectury-plugin'
+    apply plugin: 'idea'
+    apply plugin: 'java-library'
     apply plugin: 'maven-publish'
 
-    base {
-        archivesName = "$rootProject.archives_name-$project.name"
+    version = mod_version
+    apply from: "https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/publishing.gradle"
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.release = 21
     }
 
     repositories {
         maven {
             url = "https://maven.ftb.dev/releases"
+            content {
+                includeGroup "dev.ftb.mods"
+            }
         }
         maven {
             name = "Jared's maven"
             url = "https://maven.blamejared.com/"
+            content {
+                includeGroup "mezz.jei"
+            }
+        }
+        maven {
+            url "https://cursemaven.com"
+            content {
+                includeGroup "curse.maven"
+            }
+        }
+        maven {
+            url = "https://repo.spongepowered.org/repository/maven-public/"
+            content {
+                includeGroup "org.spongepowered"
+            }
+        }
+        maven {
+            url = "https://maven.architectury.dev/"
+            content {
+                includeGroup "dev.architectury"
+            }
+        }
+        maven {
+            url = "https://maven.terraformersmc.com"
+            content {
+                includeGroup "com.terraformersmc"
+            }
         }
     }
 
-    loom {
-        silentMojangMappingsLicense()
+    idea {
+        module {
+            downloadSources = true
+            downloadJavadoc = true
+        }
+    }
+}
+
+subprojects {
+    base {
+        archivesName = "$rootProject.archives_name-$project.name"
     }
 
-    dependencies {
-        minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
-        mappings loom.officialMojangMappings()
+    if (project.name != "common") {
+        dependencies {
+            api project(":common")
+        }
+
+        jar {
+            from project(":common").sourceSets.main.output
+        }
     }
 
-    java {
-        withSourcesJar()
+    def replaceProperties = [
+            mod_id: mod_id,
+            version: version,
 
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
+            minecraft_version: libs.versions.minecraft.get(),
+    ]
 
-    tasks.withType(JavaCompile).configureEach {
-        it.options.release = 21
+    processResources {
+        inputs.properties replaceProperties
+
+        filesMatching(["META-INF/neoforge.mods.toml", "fabric.mod.json", "META-INF/mods.toml", "pack.mcmeta"]) {
+            expand replaceProperties
+        }
     }
 
     publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                artifactId = base.archivesName.get()
-                from components.java
-            }
-        }
-
         repositories {
             if (ftbPublishing.ftbToken) {
                 maven {
@@ -101,7 +142,7 @@ publishMods {
 
     def curseForgeOptions = curseforgeOptions {
         accessToken = providers.environmentVariable("CURSEFORGE_KEY")
-        minecraftVersions.add("${minecraft_version}")
+        minecraftVersions.add("${libs.versions.minecraft.get()}")
         javaVersions.add(JavaVersion.VERSION_21)
     }
 
