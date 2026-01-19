@@ -52,6 +52,8 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
             put(findBlockFromTypeAndComponent(Resource.IRON, ResourceType.NETHER_ORE), Items.RAW_IRON);
             put(findBlockFromTypeAndComponent(Resource.GOLD, ResourceType.NETHER_ORE), Items.RAW_GOLD);
             put(findBlockFromTypeAndComponent(Resource.COPPER, ResourceType.NETHER_ORE), Items.RAW_COPPER);
+            put(findBlockFromTypeAndComponent(Resource.QUARTZ, ResourceType.STONE_ORE), Items.QUARTZ);
+            put(findBlockFromTypeAndComponent(Resource.QUARTZ, ResourceType.DEEPSLATE_ORE), Items.QUARTZ);
         }};
 
         for (var entry : oreBlocks.entrySet()) {
@@ -68,7 +70,24 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
                 continue;
             }
 
+            if (registryId.toString().contains("copper")) {
+                add(blockSupplier.get(), createCopperOreDrops(blockSupplier.get()));
+                continue;
+            }
+
+            if (registryId.toString().contains("lapis")) {
+                add(blockSupplier.get(), createLapisOreDrops(blockSupplier.get()));
+                continue;
+            }
+
             add(blockSupplier.get(), createOreDrop(blockSupplier.get(), entry.getValue().asItem()));
+        }
+
+        // Bauxite is special as it does not have a raw ore item
+        for (ResourceType ore : ores) {
+            ResourceRegistry.get(Resource.BAUXITE)
+                    .flatMap(holder -> holder.getBlockFromType(ore))
+                    .ifPresent(blockFromType -> dropSelf(blockFromType.get()));
         }
     }
 
@@ -82,7 +101,7 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
             }
 
             var block = blockFromType.get().get();
-            var oreItem = holder.getItemFromType(ResourceType.RAW_ORE);
+            var oreItem = holder.getItemFromType(ResourceType.RAW_ORE).or(() -> holder.getItemFromType(ResourceType.GEM));
             if (oreItem.isEmpty()) {
                 continue;
             }

@@ -1,3 +1,34 @@
+## [21.1.3]
+
+### Changed
+
+- Updated Chinese translation (thanks to [#11](https://github.com/FTBTeam/FTB-Materials/pull/11))
+
+### Fixed
+
+- Bauxite loot tables
+
+## [21.1.2]
+
+### Added
+* Tiny Ruby Dust
+
+### Fixed
+* Quartz stone ore and deepslate ore not having a loot table
+* Copper and Lapis ores not dropping the correct amount of resources
+* Certain resources not having a loot table
+
+## [21.1.1]
+
+### Added
+* Tiny, small and tiny dust resources variants for various resources
+
+## [21.1.0]
+
+### Changed
+
+- Updated to a stable build
+
 ## [21.1.0-beta.8]
 
 ### Added
