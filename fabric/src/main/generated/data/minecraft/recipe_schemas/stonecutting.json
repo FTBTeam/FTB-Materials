@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "input": [
+    "ingredient"
+  ],
+  "output": [
+    "result"
+  ]
+}

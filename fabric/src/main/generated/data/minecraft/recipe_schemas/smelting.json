@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "input": [
+    "ingredient"
+  ],
+  "output": [
+    "result"
+  ]
+}

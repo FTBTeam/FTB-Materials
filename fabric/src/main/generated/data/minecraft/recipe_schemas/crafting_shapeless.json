@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "input": [
+    "ingredients.*"
+  ],
+  "output": [
+    "result"
+  ]
+}

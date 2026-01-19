@@ -18,6 +18,7 @@ dependencies {
     mappings loom.officialMojangMappings()
 
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
+    compileOnly "io.github.llamalad7:mixinextras-fabric:0.5.0"
 
     modCompileOnlyApi("mezz.jei:jei-${libs.versions.minecraft.get()}-common-api:${libs.versions.jei.get()}")
 }
