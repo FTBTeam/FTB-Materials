@@ -1,7 +1,6 @@
 package dev.ftb.mods.ftbmaterials.resources;
 
 import dev.ftb.mods.ftbmaterials.xplat.registry.XRegistry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
