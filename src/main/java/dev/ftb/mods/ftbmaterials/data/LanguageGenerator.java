@@ -2,7 +2,7 @@ package dev.ftb.mods.ftbmaterials.data;
 
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
-import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
+import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
 import it.unimi.dsi.fastutil.Pair;
@@ -25,7 +25,7 @@ public class LanguageGenerator extends LanguageProvider {
     protected void addTranslations() {
         add("itemGroup.ftbmaterials.ftbmaterials_main", "FTB Materials");
 
-        for (ResourceRegistryHolder holder : ResourceRegistry.RESOURCE_REGISTRY_HOLDERS) {
+        for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
             var reverseBlockLookup = holder.getReverseBlockLookup();
             var reverseItemLookup = holder.getReverseItemLookup();
 

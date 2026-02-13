@@ -9,7 +9,7 @@ public class ModBlocks {
     public static final DeferredRegister.Blocks REGISTRY
             = DeferredRegister.createBlocks(FTBMaterials.MOD_ID);
 
-    public static final Block.Properties defaultProps() {
+    public static Block.Properties defaultProps() {
         return Block.Properties.ofFullCopy(Blocks.STONE);
     }
 }

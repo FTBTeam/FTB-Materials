@@ -17,6 +17,7 @@ public class ResourceRegistryHolder {
     private final Resource resource;
 
     private final List<DeferredBlock<Block>> blocks = new LinkedList<>();
+    private final List<DeferredItem<Item>> blockItems = new LinkedList<>();
     private final List<DeferredItem<Item>> items = new LinkedList<>();
 
     private final Map<ResourceType, DeferredBlock<Block>> componentToBlockRegister = new LinkedHashMap<>();
@@ -28,7 +29,7 @@ public class ResourceRegistryHolder {
     public ResourceRegistryHolder(Resource resource) {
         this.resource = resource;
 
-        this.registerEntries(resource.getComponents());
+        this.registerEntries(resource.getResourceTypes());
     }
 
     private void registerEntries(Set<ResourceType> resourceTypes) {
@@ -36,22 +37,23 @@ public class ResourceRegistryHolder {
             String niceName = resource.name().toLowerCase() + "_" + resourceType.name().toLowerCase();
 
             if (resourceType.isBlock()) {
-                DeferredBlock<Block> regItem = ModBlocks.REGISTRY.register(niceName, () -> new Block(ModBlocks.defaultProps()));
-                DeferredItem<Item> blockItem = ModItems.REGISTRY.register(niceName, () -> new BlockItem(regItem.get(), ModItems.defaultProps()));
+                DeferredBlock<Block> regBlock = ModBlocks.REGISTRY.register(niceName, () -> new Block(ModBlocks.defaultProps()));
+                DeferredItem<Item> regBlockItem = ModItems.REGISTRY.register(niceName, () -> new BlockItem(regBlock.get(), ModItems.defaultProps()));
 
-                blocks.add(regItem);
-                componentToBlockRegister.put(resourceType, regItem);
-                componentToItemRegister.put(resourceType, blockItem);
+                blocks.add(regBlock);
+                blockItems.add(regBlockItem);
+                componentToBlockRegister.put(resourceType, regBlock);
+                componentToItemRegister.put(resourceType, regBlockItem);
 
-                reverseBlockLookup.put(regItem, Pair.of(resource, resourceType));
-                reverseItemLookup.put(blockItem, Pair.of(resource, resourceType));
+                reverseBlockLookup.put(regBlock, Pair.of(resource, resourceType));
+                reverseItemLookup.put(regBlockItem, Pair.of(resource, resourceType));
             } else {
-                DeferredItem<Item> regBlock = ModItems.REGISTRY.register(niceName, () -> new Item(ModItems.defaultProps()));
+                DeferredItem<Item> regItem = ModItems.REGISTRY.register(niceName, () -> new Item(ModItems.defaultProps()));
 
-                items.add(regBlock);
-                componentToItemRegister.put(resourceType, regBlock);
+                items.add(regItem);
+                componentToItemRegister.put(resourceType, regItem);
 
-                reverseItemLookup.put(regBlock, Pair.of(resource, resourceType));
+                reverseItemLookup.put(regItem, Pair.of(resource, resourceType));
             }
         }
     }
@@ -70,6 +72,10 @@ public class ResourceRegistryHolder {
 
     public ImmutableList<DeferredItem<Item>> getItems() {
         return ImmutableList.copyOf(this.items);
+    }
+
+    public List<DeferredItem<Item>> getBlockItems() {
+        return blockItems;
     }
 
     public Resource getResource() {

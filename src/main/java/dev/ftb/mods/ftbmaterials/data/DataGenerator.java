@@ -25,10 +25,11 @@ public class DataGenerator {
         generator.addProvider(event.includeClient(), new ItemModelGenerator(packOutput, existingFileHelper));
 
         BlockTagsProvider blockTagsProvider = new BlockTagsGenerator(packOutput, lookupProvider, existingFileHelper);
-        generator.addProvider(event.includeClient(), blockTagsProvider);
-        generator.addProvider(event.includeClient(), new ItemTagsGenerator(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
-        generator.addProvider(event.includeClient(), new LootTableGenerator(packOutput, lookupProvider));
-        generator.addProvider(event.includeClient(), new RecipesGenerator(packOutput, lookupProvider));
+        generator.addProvider(event.includeServer(), blockTagsProvider);
+        generator.addProvider(event.includeServer(), new ItemTagsGenerator(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        generator.addProvider(event.includeServer(), new LootTableGenerator(packOutput, lookupProvider));
+        generator.addProvider(event.includeServer(), new RecipesGenerator(packOutput, lookupProvider));
+        generator.addProvider(event.includeServer(), new LootModifiersGenerator(packOutput, lookupProvider));
 //        generator.addProvider(RecipeSchemaGenerator::new);
     }
 }

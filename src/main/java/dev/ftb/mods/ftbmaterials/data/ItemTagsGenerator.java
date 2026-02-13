@@ -2,7 +2,7 @@ package dev.ftb.mods.ftbmaterials.data;
 
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
-import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
+import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
 import dev.ftb.mods.ftbmaterials.util.CachedTagKeyLookup;
@@ -18,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 public class ItemTagsGenerator extends ItemTagsProvider {
     public ItemTagsGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
@@ -28,12 +27,12 @@ public class ItemTagsGenerator extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         final var cacheTagKeyLookup = new CachedTagKeyLookup<>(this.registryKey);
-        final var resourceRegistry = ResourceRegistry.RESOURCE_REGISTRY_HOLDERS;
+        final var resourceRegistry = ResourceRegistries.allHolders();
 
         for (ResourceRegistryHolder holder : resourceRegistry) {
             Resource resource = holder.getResource();
 
-            for (ResourceType resourceType : resource.getComponents()) {
+            for (ResourceType resourceType : resource.getResourceTypes()) {
                 holder.getItemFromType(resourceType).ifPresent(target -> {
                     if (target.getKey() != null) {
                         Set<TagKey<Item>> tags = collectTagsForElement(resource, resourceType, cacheTagKeyLookup);
@@ -56,7 +55,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         var resourceName = type.name().toLowerCase();
         var prefixRaw = component.getUnifiedTagPrefix();
 
-        if (prefixRaw == null) {
+        if (prefixRaw.isEmpty()) {
             return tags;
         }
 

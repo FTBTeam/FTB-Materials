@@ -2,7 +2,7 @@ package dev.ftb.mods.ftbmaterials.registry;
 
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
-import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
+import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -17,10 +17,11 @@ public class ModCreativeTab {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TAB = REGISTRY.register("tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.ftbmaterials.ftbmaterials_main"))
-            .icon(() -> new ItemStack(ResourceRegistry.get(Resource.LEAD).orElseThrow().getItems().getFirst().get()))
+            .icon(() -> new ItemStack(ResourceRegistries.get(Resource.LEAD).orElseThrow().getItems().getFirst().get()))
             .displayItems((params, out) -> {
-                for (ResourceRegistryHolder resourceRegistryHolder : ResourceRegistry.RESOURCE_REGISTRY_HOLDERS) {
+                for (ResourceRegistryHolder resourceRegistryHolder : ResourceRegistries.allHolders()) {
                     out.acceptAll(resourceRegistryHolder.getItems().stream().map(e -> new ItemStack(e.get())).toList());
+                    out.acceptAll(resourceRegistryHolder.getBlockItems().stream().map(e -> new ItemStack(e.get())).toList());
                 }
             })
             .build()

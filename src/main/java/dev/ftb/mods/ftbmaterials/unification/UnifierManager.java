@@ -44,6 +44,11 @@ public enum UnifierManager {
     private RecipeTweaker recipeTweaker() {
         if (recipeTweaker == null) {
             try {
+                if (!Files.exists(RECIPE_TWEAKER_NAME)) {
+                    DefaultCustomRules.create(RECIPE_TWEAKER_NAME);
+                    FTBMaterials.LOGGER.info("created new default custom rules file: {}", RECIPE_TWEAKER_NAME);
+                }
+
                 recipeTweaker = RecipeTweaker.load(RECIPE_TWEAKER_NAME);
             } catch (IOException e) {
                 FTBMaterials.LOGGER.error("can't load recipe tweaker rules from {}: {}", RECIPE_TWEAKER_NAME, e.getMessage());
@@ -53,7 +58,7 @@ public enum UnifierManager {
         return recipeTweaker;
     }
 
-    private UnifierDB unifierDB() {
+    public UnifierDB unifierDB() {
         if (unifierDB == null) {
             try {
                 unifierDB = UnifierDB.load(UNIFIER_DB_NAME);

@@ -12,8 +12,10 @@ import dev.ftb.mods.ftbmaterials.util.CachedTagKeyLookup;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.common.util.Lazy;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,6 +32,7 @@ public class UnifierDB {
 
     private final Map<String,String> itemMap;
     private final Map<String,String> tagMap;
+    private final Lazy<Map<Item,Item>> itemByItemMap = Lazy.of(this::buildItemByItemMap);
 
     public UnifierDB() {
         this(new HashMap<>(), new HashMap<>());
@@ -47,6 +50,10 @@ public class UnifierDB {
 
     public Optional<String> lookupItem(String key) {
         return Optional.ofNullable(itemMap.get(key));
+    }
+
+    public Optional<Item> lookupItem(Item item) {
+        return Optional.ofNullable(itemByItemMap.get().get(item));
     }
 
     public Optional<String> lookupTag(String key) {
@@ -109,7 +116,7 @@ public class UnifierDB {
         var resourceName = type.name().toLowerCase();
         var prefixRaw = resourceType.getUnifiedTagPrefix();
 
-        if (prefixRaw != null) {
+        if (!prefixRaw.isEmpty()) {
             String tagNames = resourceType.getTags().isEmpty() ? "c:" + prefixRaw : resourceType.getTags().getLast();
             for (String tagName : tagNames.split("\\|")) {
                 var tag = cacheTagKeyLookup.getOrCreateUnifiedTag(tagName, resourceName);
@@ -118,5 +125,16 @@ public class UnifierDB {
         }
 
         return tags;
+    }
+
+    private Map<Item, Item> buildItemByItemMap() {
+        Map<Item, Item> res = new HashMap<>();
+        itemMap.forEach((in, out) ->
+                BuiltInRegistries.ITEM.getOptional(ResourceLocation.parse(in)).ifPresent(itemIn ->
+                        BuiltInRegistries.ITEM.getOptional(ResourceLocation.parse(out)).ifPresent(itemOut ->
+                                res.put(itemIn, itemOut)
+                        )
+                ));
+        return res;
     }
 }

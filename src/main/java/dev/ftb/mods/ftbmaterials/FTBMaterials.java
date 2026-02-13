@@ -3,8 +3,11 @@ package dev.ftb.mods.ftbmaterials;
 import dev.ftb.mods.ftbmaterials.commands.BuildUnifierDB;
 import dev.ftb.mods.ftbmaterials.commands.ConstructAllResources;
 import dev.ftb.mods.ftbmaterials.commands.Reload;
-import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
-import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
+import dev.ftb.mods.ftbmaterials.registry.ModBlocks;
+import dev.ftb.mods.ftbmaterials.registry.ModCreativeTab;
+import dev.ftb.mods.ftbmaterials.registry.ModGlobalLootModifiers;
+import dev.ftb.mods.ftbmaterials.registry.ModItems;
+import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.unification.UnifierManager;
 import net.minecraft.commands.Commands;
 import net.minecraft.resources.ResourceLocation;
@@ -24,7 +27,12 @@ public class FTBMaterials {
     public static final Logger LOGGER = LoggerFactory.getLogger(FTBMaterials.class);
 
     public FTBMaterials(IEventBus modBus) {
-        ResourceRegistry.init(modBus);
+        ResourceRegistries.init();
+
+        ModBlocks.REGISTRY.register(modBus);
+        ModItems.REGISTRY.register(modBus);
+        ModCreativeTab.REGISTRY.register(modBus);
+        ModGlobalLootModifiers.REGISTRY.register(modBus);
 
         modBus.addListener(this::onSetup);
 
@@ -38,8 +46,8 @@ public class FTBMaterials {
             return;
         }
 
-        // This reverse lookup is only needed during data generation so we can clear it once the game is set up
-        ResourceRegistry.RESOURCE_REGISTRY_HOLDERS.forEach(ResourceRegistryHolder::clearReverseLookups);
+        // This reverse lookup is only needed during data generation, so we can clear it once the game is set up
+        ResourceRegistries.clearReverseLookups();
     }
 
     public void registerCommands(RegisterCommandsEvent event) {

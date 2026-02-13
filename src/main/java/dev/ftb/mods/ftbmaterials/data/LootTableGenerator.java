@@ -1,7 +1,7 @@
 package dev.ftb.mods.ftbmaterials.data;
 
 import dev.ftb.mods.ftbmaterials.resources.Resource;
-import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
+import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
 import it.unimi.dsi.fastutil.Pair;
@@ -119,14 +119,14 @@ public class LootTableGenerator extends LootTableProvider {
 
             // Bauxite is special as it does not have a raw ore item
             for (ResourceType ore : ORES) {
-                ResourceRegistry.get(Resource.BAUXITE)
+                ResourceRegistries.get(Resource.BAUXITE)
                         .flatMap(holder -> holder.getBlockFromType(ore))
                         .ifPresent(blockFromType -> dropSelf(blockFromType.get()));
             }
         }
 
         private void addSelfDropsForResourceTypes(ResourceType ...types) {
-            for (ResourceRegistryHolder holder : ResourceRegistry.RESOURCE_REGISTRY_HOLDERS) {
+            for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
                 for (var type : types) {
                     var blockFromType = holder.getBlockFromType(type);
                     if (blockFromType.isEmpty()) {
@@ -141,7 +141,7 @@ public class LootTableGenerator extends LootTableProvider {
         private List<Pair<Item, Block>> seekBlocksWithOreItem(ResourceType type) {
             List<Pair<Item, Block>> pairs = new ArrayList<>();
 
-            for (ResourceRegistryHolder holder : ResourceRegistry.RESOURCE_REGISTRY_HOLDERS) {
+            for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
                 var blockFromType = holder.getBlockFromType(type);
                 if (blockFromType.isEmpty()) {
                     continue;
@@ -161,7 +161,7 @@ public class LootTableGenerator extends LootTableProvider {
         }
 
         private Optional<DeferredHolder<Block,Block>> findBlockFromTypeAndComponent(Resource type, ResourceType component) {
-            for (ResourceRegistryHolder holder : ResourceRegistry.RESOURCE_REGISTRY_HOLDERS) {
+            for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
                 if (holder.getResource() == type) {
                     return holder.getBlockFromType(component);
                 }

@@ -1,7 +1,7 @@
 package dev.ftb.mods.ftbmaterials.data;
 
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
-import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
+import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +18,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        for (ResourceRegistryHolder resourceRegistryHolder : ResourceRegistry.RESOURCE_REGISTRY_HOLDERS) {
+        for (ResourceRegistryHolder resourceRegistryHolder : ResourceRegistries.allHolders()) {
             resourceRegistryHolder.getItems().forEach(e -> {
                 simpleItem(e.getId(), "item/" + e.getId().getPath());
             });

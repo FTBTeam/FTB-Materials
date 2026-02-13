@@ -1,6 +1,7 @@
 package dev.ftb.mods.ftbmaterials.data;
 
-import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
+import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
 import net.minecraft.core.HolderLookup;
@@ -39,7 +40,7 @@ public class RecipesGenerator extends RecipeProvider {
                     ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
                             .requires(inputItemLike)
                             .unlockedBy("has_item", has(inputItemLike))
-                            .save(recipeOutput, outputName + "_from_" + inputName);
+                            .save(recipeOutput, FTBMaterials.id(outputName + "_from_" + inputName));
                 });
 
         createInputOutputRecipeFromTypes(ResourceType.RAW_BLOCK, ResourceType.RAW_ORE, ResourceRegistryHolder::getBlockFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
@@ -49,7 +50,7 @@ public class RecipesGenerator extends RecipeProvider {
             ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
                     .requires(inputItemLike)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(recipeOutput, outputName + "_from_" + inputName);
+                    .save(recipeOutput, FTBMaterials.id(outputName + "_from_" + inputName));
         });
 
         // Ingots to nuggets
@@ -79,12 +80,12 @@ public class RecipesGenerator extends RecipeProvider {
 
             SimpleCookingRecipeBuilder.blasting(Ingredient.of(inputItemLike), RecipeCategory.MISC, outputItemLike, 0.7f, 100)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(recipeOutput, outputName + "_from_blasting_" + inputName);
+                    .save(recipeOutput, FTBMaterials.id(outputName + "_from_blasting_" + inputName));
 
             // Furnace
             SimpleCookingRecipeBuilder.smelting(Ingredient.of(inputItemLike), RecipeCategory.MISC, outputItemLike, 0.7f, 200)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(recipeOutput, outputName + "_from_smelting_" + inputName);
+                    .save(recipeOutput, FTBMaterials.id(outputName + "_from_smelting_" + inputName));
         });
 
         // Tiny Dust to Dust
@@ -98,7 +99,7 @@ public class RecipesGenerator extends RecipeProvider {
                     .pattern("NNN")
                     .pattern("NNN")
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(recipeOutput, outputName + "_from_" + inputName);
+                    .save(recipeOutput, FTBMaterials.id(outputName + "_from_" + inputName));
 
 
         });
@@ -111,7 +112,7 @@ public class RecipesGenerator extends RecipeProvider {
             ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
                     .requires(inputItemLike)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(recipeOutput, outputName + "_from_" + inputName);
+                    .save(recipeOutput, FTBMaterials.id(outputName + "_from_" + inputName));
         });
     }
 
@@ -146,7 +147,7 @@ public class RecipesGenerator extends RecipeProvider {
             BiFunction<ResourceRegistryHolder, ResourceType, Optional<DeferredHolder<O, O2>>> outputGetter,
             BuilderConsumer<I, I2, O, O2> recipeBuilder
     ) {
-        for (ResourceRegistryHolder holder : ResourceRegistry.RESOURCE_REGISTRY_HOLDERS) {
+        for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
             Optional<DeferredHolder<I, I2>> inputResource = inputGetter.apply(holder, input);
             Optional<DeferredHolder<O, O2>> outputResource = outputGetter.apply(holder, output);
 

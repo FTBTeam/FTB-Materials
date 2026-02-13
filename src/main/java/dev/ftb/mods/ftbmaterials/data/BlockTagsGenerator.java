@@ -2,7 +2,7 @@ package dev.ftb.mods.ftbmaterials.data;
 
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
-import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
+import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
 import dev.ftb.mods.ftbmaterials.util.CachedTagKeyLookup;
@@ -28,12 +28,11 @@ public class BlockTagsGenerator extends BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         final var cacheTagKeyLookup = new CachedTagKeyLookup<>(this.registryKey);
-        final var resourceRegistry = ResourceRegistry.RESOURCE_REGISTRY_HOLDERS;
 
-        for (ResourceRegistryHolder holder : resourceRegistry) {
+        for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
             Resource resource = holder.getResource();
 
-            for (ResourceType resourceType : resource.getComponents()) {
+            for (ResourceType resourceType : resource.getResourceTypes()) {
                 if (!resourceType.isBlock()) {
                     continue;
                 }

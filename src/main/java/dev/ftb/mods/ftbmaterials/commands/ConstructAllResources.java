@@ -4,7 +4,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
-import dev.ftb.mods.ftbmaterials.resources.ResourceRegistry;
+import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -17,8 +17,13 @@ import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Provides a simple way to spawn all items and blocks from this mods resources for debugging
@@ -37,15 +42,19 @@ public class ConstructAllResources {
         ServerPlayer player = context.getSource().getPlayerOrException();
         ServerLevel level = context.getSource().getLevel();
 
-        BlockPos pos = player.blockPosition();
+        Vec3 horizView = player.getViewVector(1f);
+        horizView.subtract(0, horizView.y, 0);
+        BlockPos pos = player.blockPosition().relative(Direction.getNearest(horizView), 2);
 
         int xOffset = 0;
         int yOffset = 0;
 
-        for (Resource resource : Resource.values()) {
-            var resourceHolder = ResourceRegistry.RESOURCE_REGISTRY_HOLDERS.stream()
-                    .filter(e -> e.getResource().equals(resource))
-                    .findFirst();
+        List<Resource> resources = Arrays.stream(Resource.values())
+                .sorted(Comparator.comparingInt(r -> r.getResourceTypes().size()))
+                .toList();
+
+        for (Resource resource : resources) {
+            var resourceHolder = ResourceRegistries.get(resource);
 
             if (resourceHolder.isEmpty()) {
                 LOGGER.warn("Unable to find {} in registry holders", resource);

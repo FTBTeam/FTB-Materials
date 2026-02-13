@@ -8,6 +8,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import net.minecraft.resources.ResourceLocation;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,12 +28,23 @@ public class RecipeTweaker {
         this.ruleDB = rules;
     }
 
+    public static RecipeTweaker createNew() {
+        return new RecipeTweaker(new HashMap<>());  // mutable
+    }
+
     public static RecipeTweaker load(Path path) throws IOException {
         if (Files.exists(path)) {
             JsonElement json = JsonParser.parseString(Files.readString(path));
             return CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
         } else {
             return EMPTY;
+        }
+    }
+
+    public void save(Path path) throws IOException {
+        var res = CODEC.encodeStart(JsonOps.INSTANCE, this);
+        if (res.isSuccess()) {
+            Files.writeString(path, res.getOrThrow().toString());
         }
     }
 
@@ -90,6 +102,10 @@ public class RecipeTweaker {
         toRemove.forEach(o::remove);
     }
 
+    public void addRule(ResourceLocation recipeType, Rule... rules) {
+        ruleDB.computeIfAbsent(recipeType.toString(), k -> new ArrayList<>()).addAll(List.of(rules));
+    }
+
     public record Rule(String path, RewriteAction action) {
         public static final Codec<Rule> CODEC = RecordCodecBuilder.create(builder -> builder.group(
                 Codec.STRING.fieldOf("path").forGetter(Rule::path),
@@ -144,8 +160,12 @@ public class RecipeTweaker {
                     if (o.has(part0) && o.get(part0).isJsonPrimitive()) {
                         res.add(Pair.of(o, part0));
                     }
+                } else if (el.isJsonArray()) {
+                    for (JsonElement arrayElement : el.getAsJsonArray()) {
+                        collectNodes(arrayElement, part0, new String[0], res);
+                    }
                 } else {
-                    throw new IllegalArgumentException("expected primitive member for leaf node " + part0);
+                    throw new IllegalArgumentException("expected primitive member for leaf node '" + part0 + "'");
                 }
             } else {
                 // intermediate node; element should be an object or array
