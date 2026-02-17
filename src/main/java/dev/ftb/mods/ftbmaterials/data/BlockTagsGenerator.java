@@ -33,27 +33,24 @@ public class BlockTagsGenerator extends BlockTagsProvider {
             Resource resource = holder.getResource();
 
             for (ResourceType resourceType : resource.getResourceTypes()) {
-                if (!resourceType.isBlock()) {
-                    continue;
+                if (resourceType.isBlock()) {
+                    holder.getBlockFromType(resourceType).ifPresent(target -> {
+                        Set<TagKey<Block>> tags = ItemTagsGenerator.collectTagsForElement(resource, resourceType, cacheTagKeyLookup);
+                        ResourceKey<Block> resourceKey = target.getKey();
+                        if (resourceKey != null) {
+                            tags.forEach(t -> tag(t).add(resourceKey));
+
+                            // Extra for blocks
+                            ResourceLocation breakableWith = resource.getBreakableWith();
+                            TagKey<Block> breakableWithTag = cacheTagKeyLookup.getOrCreateUnifiedTag(breakableWith.toString(), "");
+
+                            tag(breakableWithTag).add(resourceKey);
+                            tag(BlockTags.MINEABLE_WITH_PICKAXE).add(resourceKey);
+                            tag(BlockTags.INCORRECT_FOR_WOODEN_TOOL).add(resourceKey);
+                        }
+                    });
                 }
 
-                holder.getBlockFromType(resourceType).ifPresent(target -> {
-                    Set<TagKey<Block>> tags = ItemTagsGenerator.collectTagsForElement(resource, resourceType, cacheTagKeyLookup);
-                    ResourceKey<Block> resourceKey = target.getKey();
-                    if (resourceKey != null) {
-                        for (var tag : tags) {
-                            tag(tag).add(resourceKey);
-                        }
-
-                        // Extra for blocks
-                        ResourceLocation breakableWith = resource.getBreakableWith();
-                        TagKey<Block> breakableWithTag = cacheTagKeyLookup.getOrCreateUnifiedTag(breakableWith.toString(), "");
-
-                        tag(breakableWithTag).add(resourceKey);
-                        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(resourceKey);
-                        tag(BlockTags.INCORRECT_FOR_WOODEN_TOOL).add(resourceKey);
-                    }
-                });
             }
         }
     }

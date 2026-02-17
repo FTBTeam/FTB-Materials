@@ -15,37 +15,70 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.Lazy;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 public class UnifierDB {
     public static final Codec<UnifierDB> CODEC = RecordCodecBuilder.create(builder -> builder.group(
-            Codec.unboundedMap(Codec.STRING, Codec.STRING).fieldOf("items").forGetter(db -> db.itemMap),
-            Codec.unboundedMap(Codec.STRING, Codec.STRING).fieldOf("tags").forGetter(db -> db.tagMap)
+            Codec.unboundedMap(Codec.STRING, Codec.STRING)
+                    .fieldOf("items").forGetter(db -> db.itemMap),
+            Codec.unboundedMap(Codec.STRING, Codec.STRING)
+                    .fieldOf("item_tags").forGetter(db -> db.itemTagMap),
+            Codec.unboundedMap(Codec.STRING, Codec.STRING)
+                    .xmap((Function<Map<String, String>, Map<String, String>>) ConcurrentHashMap::new, Map::copyOf)
+                    .fieldOf("ore_blocks").forGetter(db -> db.blockMap)
     ).apply(builder, UnifierDB::new));
 
-    public static final UnifierDB EMPTY = new UnifierDB(Map.of(), Map.of());
+    public static final UnifierDB EMPTY = new UnifierDB(Map.of(), Map.of(), Map.of());
+
+    private static final List<ResourceType> ORE_TYPES = List.of(
+            ResourceType.STONE_ORE, ResourceType.DEEPSLATE_ORE, ResourceType.NETHER_ORE, ResourceType.END_ORE
+    );
 
     private final Map<String,String> itemMap;
-    private final Map<String,String> tagMap;
+    private final Map<String,String> itemTagMap;
     private final Lazy<Map<Item,Item>> itemByItemMap = Lazy.of(this::buildItemByItemMap);
 
-    public UnifierDB() {
-        this(new HashMap<>(), new HashMap<>());
+    private final Map<String,String> blockMap;
+    private final Lazy<Map<Block,Block>> blockByBlockMap = Lazy.of(this::buildBlockByBlockMap);
+
+    private UnifierDB() {
+        this(new HashMap<>(), new HashMap<>(), new HashMap<>());
     }
 
-    public UnifierDB(Map<String, String> itemMap, Map<String, String> tagMap) {
+    private UnifierDB(Map<String, String> itemMap, Map<String, String> itemTagMap, Map<String, String> blockMap) {
         this.itemMap = itemMap;
-        this.tagMap = tagMap;
+        this.itemTagMap = itemTagMap;
+        this.blockMap = blockMap;
     }
 
     public static UnifierDB load(Path path) throws IOException {
         JsonElement json = JsonParser.parseString(Files.readString(path));
         return CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+    }
+
+    public static UnifierDB build() {
+        CachedTagKeyLookup<Item> itemCache = new CachedTagKeyLookup<>(Registries.ITEM);
+        CachedTagKeyLookup<Block> blockCache = new CachedTagKeyLookup<>(Registries.BLOCK);
+        UnifierDB db = new UnifierDB();
+
+        for (Resource resource : Resource.values()) {
+            for (ResourceType type : ResourceType.values()) {
+                var itemTags = collectTags(resource, type, itemCache);
+                buildItemTags(itemTags, db);
+            }
+            buildOreBlockMap(resource, blockCache, db);
+        }
+
+        return db;
     }
 
     public Optional<String> lookupItem(String key) {
@@ -56,43 +89,71 @@ public class UnifierDB {
         return Optional.ofNullable(itemByItemMap.get().get(item));
     }
 
-    public Optional<String> lookupTag(String key) {
-        return Optional.ofNullable(tagMap.get(key));
+    public Optional<String> lookupItemTag(String key) {
+        return Optional.ofNullable(itemTagMap.get(key));
     }
 
-    public static UnifierDB build() {
-        CachedTagKeyLookup<Item> cache = new CachedTagKeyLookup<>(Registries.ITEM);
-        UnifierDB db = new UnifierDB();
+    public Optional<Block> lookupBlock(Block block) {
+        return Optional.ofNullable(blockByBlockMap.get().get(block));
+    }
 
-        for (Resource resource : Resource.values()) {
-            for (ResourceType type : ResourceType.values()) {
-                var tags = collectTags(resource, type, cache);
-                for (TagKey<Item> tag : tags) {
-                    Item ftbMaterialsItem = null;
-                    Item vanillaFallbackItem = null;
-                    Set<Item> otherItems = new HashSet<>();
-                    for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(tag)) {
-                        if (holder.unwrapKey().isPresent()) {
-                            var k = holder.unwrapKey().get();
-                            if (k.location().getNamespace().equals(FTBMaterials.MOD_ID)) {
-                                ftbMaterialsItem = holder.value();
-                            } else if (k.location().getNamespace().equals("minecraft")) {
-                                vanillaFallbackItem = holder.value();
-                            } else {
-                                otherItems.add(holder.value());
-                            }
+    public BlockState lookupBlock(BlockState state) {
+        Block res = blockByBlockMap.get().get(state.getBlock());
+        return res == null ? state : res.defaultBlockState();
+    }
+
+    private static void buildItemTags(Set<TagKey<Item>> itemTags, UnifierDB db) {
+        for (TagKey<Item> tag : itemTags) {
+            Item ftbMaterialsItem = null;
+            Item vanillaFallbackItem = null;
+            Set<Item> otherItems = new HashSet<>();
+            for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(tag)) {
+                if (holder.unwrapKey().isPresent()) {
+                    var k = holder.unwrapKey().get();
+                    if (k.location().getNamespace().equals(FTBMaterials.MOD_ID)) {
+                        ftbMaterialsItem = holder.value();
+                    } else if (k.location().getNamespace().equals("minecraft")) {
+                        vanillaFallbackItem = holder.value();
+                    } else {
+                        otherItems.add(holder.value());
+                    }
+                }
+            }
+            Item item = ftbMaterialsItem == null ? vanillaFallbackItem : ftbMaterialsItem;
+            if (item != null) {
+                otherItems.forEach(other -> db.addItemMapping(other, item));
+                db.addTagMapping(tag, item);
+            }
+        }
+    }
+
+    private static void buildOreBlockMap(Resource resource, CachedTagKeyLookup<Block> blockCache, UnifierDB db) {
+        EnumMap<ResourceType, String> ftbOreMap = new EnumMap<>(ResourceType.class);
+        EnumMap<ResourceType, Set<String>> otherOreMap = new EnumMap<>(ResourceType.class);
+
+        var tag = blockCache.getOrCreateUnifiedTag("c:ores", resource.name().toLowerCase());
+        for (Holder<Block> holder : BuiltInRegistries.BLOCK.getTagOrEmpty(tag)) {
+            for (ResourceType type : ORE_TYPES) {
+                TagKey<Block> tagKey = TagKey.create(Registries.BLOCK, ResourceLocation.parse(type.getTags().getLast()));
+                if (holder.is(tagKey)) {
+                    holder.unwrapKey().ifPresent(resKey -> {
+                        ResourceLocation blockId = resKey.location();
+                        if (blockId.getNamespace().equals(FTBMaterials.MOD_ID)) {
+                            ftbOreMap.put(type, blockId.toString());
+                        } else {
+                            otherOreMap.computeIfAbsent(type, k -> new HashSet<>()).add(blockId.toString());
                         }
-                    }
-                    Item item = ftbMaterialsItem == null ? vanillaFallbackItem : ftbMaterialsItem;
-                    if (item != null) {
-                        otherItems.forEach(other -> db.addItemMapping(other, item));
-                        db.addTagMapping(tag, item);
-                    }
+                    });
                 }
             }
         }
 
-        return db;
+        for (ResourceType type : ftbOreMap.keySet()) {
+            if (otherOreMap.containsKey(type)) {
+                String ftbBlockName = ftbOreMap.get(type);
+                otherOreMap.get(type).forEach(otherBlockName -> db.blockMap.put(otherBlockName, ftbBlockName));
+            }
+        }
     }
 
     public void addItemMapping(Item from, Item to) {
@@ -100,7 +161,7 @@ public class UnifierDB {
     }
 
     public void addTagMapping(TagKey<Item> from, Item to) {
-        tagMap.put(from.location().toString(), BuiltInRegistries.ITEM.getKey(to).toString());
+        itemTagMap.put(from.location().toString(), BuiltInRegistries.ITEM.getKey(to).toString());
     }
 
     public void save(Path path) throws IOException {
@@ -133,6 +194,17 @@ public class UnifierDB {
                 BuiltInRegistries.ITEM.getOptional(ResourceLocation.parse(in)).ifPresent(itemIn ->
                         BuiltInRegistries.ITEM.getOptional(ResourceLocation.parse(out)).ifPresent(itemOut ->
                                 res.put(itemIn, itemOut)
+                        )
+                ));
+        return res;
+    }
+
+    private Map<Block, Block> buildBlockByBlockMap() {
+        Map<Block, Block> res = new ConcurrentHashMap<>();
+        blockMap.forEach((in, out) ->
+                BuiltInRegistries.BLOCK.getOptional(ResourceLocation.parse(in)).ifPresent(blockIn ->
+                        BuiltInRegistries.BLOCK.getOptional(ResourceLocation.parse(out)).ifPresent(blockOut ->
+                                res.put(blockIn, blockOut)
                         )
                 ));
         return res;

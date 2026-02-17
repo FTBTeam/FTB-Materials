@@ -119,8 +119,7 @@ public class LootTableGenerator extends LootTableProvider {
 
             // Bauxite is special as it does not have a raw ore item
             for (ResourceType ore : ORES) {
-                ResourceRegistries.get(Resource.BAUXITE)
-                        .flatMap(holder -> holder.getBlockFromType(ore))
+                ResourceRegistries.get(Resource.BAUXITE).getBlockFromType(ore)
                         .ifPresent(blockFromType -> dropSelf(blockFromType.get()));
             }
         }

@@ -27,9 +27,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         final var cacheTagKeyLookup = new CachedTagKeyLookup<>(this.registryKey);
-        final var resourceRegistry = ResourceRegistries.allHolders();
 
-        for (ResourceRegistryHolder holder : resourceRegistry) {
+        for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
             Resource resource = holder.getResource();
 
             for (ResourceType resourceType : resource.getResourceTypes()) {
@@ -37,7 +36,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                     if (target.getKey() != null) {
                         Set<TagKey<Item>> tags = collectTagsForElement(resource, resourceType, cacheTagKeyLookup);
                         for (var tag : tags) {
-                            this.tag(tag).add(target.getKey());
+                            tag(tag).add(target.getKey());
                         }
                     }
                 });

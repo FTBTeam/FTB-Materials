@@ -30,6 +30,5 @@ public class DataGenerator {
         generator.addProvider(event.includeServer(), new LootTableGenerator(packOutput, lookupProvider));
         generator.addProvider(event.includeServer(), new RecipesGenerator(packOutput, lookupProvider));
         generator.addProvider(event.includeServer(), new LootModifiersGenerator(packOutput, lookupProvider));
-//        generator.addProvider(RecipeSchemaGenerator::new);
     }
 }

@@ -14,8 +14,8 @@ public class BlockStatesGenerator extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        for (ResourceRegistryHolder resourceRegistryHolder : ResourceRegistries.allHolders()) {
-            resourceRegistryHolder.getBlocks().forEach(e -> simpleBlock(e.get()));
+        for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
+            holder.getBlocks().forEach(b -> simpleBlock(b.get()));
         }
     }
 }

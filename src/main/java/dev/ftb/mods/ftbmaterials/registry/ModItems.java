@@ -8,6 +8,8 @@ public class ModItems {
     public static final DeferredRegister.Items REGISTRY
             = DeferredRegister.createItems(FTBMaterials.MOD_ID);
 
+    // see ResourceRegistryHolder for actual item registration
+
     public static Item.Properties defaultProps() {
         return new Item.Properties();
     }

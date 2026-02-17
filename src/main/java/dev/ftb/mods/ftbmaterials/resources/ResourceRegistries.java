@@ -24,8 +24,8 @@ public class ResourceRegistries {
         return RESOURCE_REGISTRY_HOLDERS.values();
     }
 
-    public static Optional<ResourceRegistryHolder> get(Resource type) {
-        return Optional.ofNullable(RESOURCE_REGISTRY_HOLDERS.get(type));
+    public static ResourceRegistryHolder get(Resource type) {
+        return RESOURCE_REGISTRY_HOLDERS.get(type);
     }
 
     public static void clearReverseLookups() {

@@ -36,10 +36,6 @@ public enum ResourceType {
     private final List<String> tags;
     private final Function<String, String> resourceNameMutator;
 
-//    ResourceType(boolean block, String translationText) {
-//        this(block, translationText, "");
-//    }
-
     ResourceType(boolean block, String translationText, String unifiedTagPrefix) {
         this(block, translationText, unifiedTagPrefix, List.of());
     }

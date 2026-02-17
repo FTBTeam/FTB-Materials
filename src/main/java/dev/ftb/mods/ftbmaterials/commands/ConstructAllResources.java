@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftbmaterials.commands;
 
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -54,21 +55,14 @@ public class ConstructAllResources {
                 .toList();
 
         for (Resource resource : resources) {
-            var resourceHolder = ResourceRegistries.get(resource);
+            var registryHolder = ResourceRegistries.get(resource);
 
-            if (resourceHolder.isEmpty()) {
-                LOGGER.warn("Unable to find {} in registry holders", resource);
-                continue;
+            for (var block : registryHolder.getBlocks()) {
+                level.setBlock(pos.relative(Direction.UP, yOffset).relative(Direction.NORTH, xOffset), block.get().defaultBlockState(), Block.UPDATE_ALL);
+                yOffset++;
             }
 
-            ResourceRegistryHolder resourceRegistryHolder = resourceHolder.get();
-            for (var block : resourceRegistryHolder.getBlocks()) {
-                Block actualBlock = block.get();
-                level.setBlock(pos.relative(Direction.UP, yOffset).relative(Direction.NORTH, xOffset), actualBlock.defaultBlockState(), Block.UPDATE_ALL);
-                yOffset ++;
-            }
-
-            for (var item : resourceRegistryHolder.getItems()) {
+            for (var item : registryHolder.getItems()) {
                 BlockPos relativeLocation = pos.relative(Direction.UP, yOffset).relative(Direction.NORTH, xOffset);
                 level.setBlock(relativeLocation, Blocks.STONE.defaultBlockState(), Block.UPDATE_ALL);
 
@@ -80,13 +74,13 @@ public class ConstructAllResources {
 
                 level.addFreshEntity(itemFrame);
 
-                yOffset ++;
+                yOffset++;
             }
 
-            xOffset ++;
+            xOffset++;
             yOffset = 0;
         }
 
-        return 0;
+        return Command.SINGLE_SUCCESS;
     }
 }

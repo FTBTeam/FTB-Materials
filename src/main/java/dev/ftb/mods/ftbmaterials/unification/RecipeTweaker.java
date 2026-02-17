@@ -85,7 +85,7 @@ public class RecipeTweaker {
                 }
             } else if (key.equals("tag")) {
                 if (val.isJsonPrimitive()) {
-                    unifierDB.lookupTag(val.getAsString()).ifPresent(r -> {
+                    unifierDB.lookupItemTag(val.getAsString()).ifPresent(r -> {
                         alterations.put("item", r);
                         toRemove.add("tag");
                     });
@@ -120,7 +120,7 @@ public class RecipeTweaker {
                     String fieldName = pair.getSecond();
 
                     String curVal = json.get(fieldName).getAsString();
-                    String tagMapped = unifierDB.lookupTag(curVal).orElse(curVal);
+                    String tagMapped = unifierDB.lookupItemTag(curVal).orElse(curVal);
                     String itemMapped = unifierDB.lookupItem(curVal).orElse(curVal);
 
                     if (!tagMapped.equals(curVal) || !itemMapped.equals(curVal)) {
