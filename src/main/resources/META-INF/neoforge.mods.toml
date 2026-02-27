@@ -17,7 +17,7 @@ as well as code to unify recipes, loot tables and worldgen to use those.
 [[dependencies.ftbmaterials]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.0,)"
+versionRange = "[21.1,)"
 ordering = "NONE"
 side = "BOTH"
 
@@ -25,6 +25,13 @@ side = "BOTH"
 modId = "minecraft"
 type = "required"
 versionRange = "[1.21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ftbmaterials]]
+modId = "ftblibrary"
+type = "required"
+versionRange = "[2101.1.30,)"
 ordering = "NONE"
 side = "BOTH"
 

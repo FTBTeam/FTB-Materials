@@ -19,20 +19,19 @@ public class ItemModelGenerator extends ItemModelProvider {
     @Override
     protected void registerModels() {
         for (ResourceRegistryHolder resourceRegistryHolder : ResourceRegistries.allHolders()) {
-            resourceRegistryHolder.getItems().forEach(e -> {
-                simpleItem(e.getId(), "item/" + e.getId().getPath());
+            resourceRegistryHolder.getItems().forEach(item -> {
+                simpleItem(item.getId(), "item/" + item.getId().getPath());
             });
-            resourceRegistryHolder.getBlocks().forEach(e -> {
-                withExistingParent(e.getId().getPath(), FTBMaterials.id("block/" + e.getId().getPath()));
+            resourceRegistryHolder.getBlocks().forEach(block -> {
+                withExistingParent(block.getId().getPath(), FTBMaterials.id("block/" + block.getId().getPath()));
             });
         }
     }
 
-    private ItemModelBuilder simpleItem(ResourceLocation itemKey, String... textures) {
+    private void simpleItem(ResourceLocation itemKey, String... textures) {
         ItemModelBuilder builder = withExistingParent(itemKey.getPath(), GENERATED);
         for (int i = 0; i < textures.length; i++) {
             builder.texture("layer" + i, textures[i]);
         }
-        return builder;
     }
 }

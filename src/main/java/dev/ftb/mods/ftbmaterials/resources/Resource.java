@@ -1,8 +1,11 @@
 package dev.ftb.mods.ftbmaterials.resources;
 
+import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public enum Resource {
@@ -170,6 +173,12 @@ public enum Resource {
             .build()),
     ;
 
+    private static final Map<String,Resource> MAP = Util.make(new HashMap<>(), m -> {
+        for (var val : Resource.values()) {
+            m.put(val.name().toLowerCase(), val);
+        }
+    });
+
     private final EnumSet<ResourceType> resourceTypes;
     private final ResourceLocation breakableWith;
 
@@ -180,6 +189,10 @@ public enum Resource {
     Resource(String breakableWith, EnumSet<ResourceType> resourceTypes) {
         this.resourceTypes = resourceTypes;
         this.breakableWith = ResourceLocation.withDefaultNamespace("needs_" + breakableWith + "_tool");
+    }
+
+    public static boolean isFTBResource(String resourceName) {
+        return MAP.containsKey(resourceName);
     }
 
     public Set<ResourceType> getResourceTypes() {

@@ -46,33 +46,20 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
     public static <T> Set<TagKey<T>> collectTagsForElement(
             Resource type,
-            ResourceType component,
+            ResourceType resourceType,
             CachedTagKeyLookup<T> cacheTagKeyLookup
     ) {
-        Set<TagKey<T>> tags = new HashSet<>();
-
         var resourceName = type.name().toLowerCase();
-        var prefixRaw = component.getUnifiedTagPrefix();
 
-        if (prefixRaw.isEmpty()) {
-            return tags;
-        }
-
-        var prefixes = prefixRaw.split("\\|");
-
-        for (String prefix : prefixes) {
-            resourceName = component.getResourceNameMutator().apply(resourceName);
-
-            var base = cacheTagKeyLookup.getOrCreateUnifiedTag(prefix, "");
-            var specific = cacheTagKeyLookup.getOrCreateUnifiedTag(prefix, resourceName);
-
-            tags.add(base);
-            tags.add(specific);
-        }
-
-        for (var tagName : component.getTags()) {
-            var tag = cacheTagKeyLookup.getOrCreateUnifiedTag(tagName, "");
-            tags.add(tag);
+        Set<TagKey<T>> tags = new HashSet<>();
+        for (var tagName : resourceType.getTags()) {
+            tags.add(cacheTagKeyLookup.getOrCreateUnifiedTag(tagName, ""));
+            tags.add(cacheTagKeyLookup.getOrCreateUnifiedTag(tagName, resourceType.getResourceNameMutator().apply(resourceName)));
+            if (tagName.startsWith("c:ores")) {
+                String ftbTagName = tagName.replace("c:", "ftbmaterials:");
+                tags.add(cacheTagKeyLookup.getOrCreateUnifiedTag(ftbTagName, ""));
+                tags.add(cacheTagKeyLookup.getOrCreateUnifiedTag(ftbTagName, resourceType.getResourceNameMutator().apply(resourceName)));
+            }
         }
 
         return tags;

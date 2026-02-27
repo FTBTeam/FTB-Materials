@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftbmaterials.mixin;
 
+import dev.ftb.mods.ftbmaterials.config.StartupConfig;
 import dev.ftb.mods.ftbmaterials.unification.UnifyingLevelChunkSection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.chunk.BulkSectionAccess;
@@ -12,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Debug(export = true)
 @Mixin(BulkSectionAccess.class)
 public class BulkSectionAccessMixin {
     @Shadow
@@ -20,6 +20,8 @@ public class BulkSectionAccessMixin {
 
     @Inject(method = "getSection", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/chunk/BulkSectionAccess;lastSectionKey:J", opcode = Opcodes.PUTFIELD))
     private void inject(BlockPos pos, CallbackInfoReturnable<LevelChunkSection> cir) {
-        lastSection = new UnifyingLevelChunkSection(lastSection);
+        if (StartupConfig.TWEAK_WORLDGEN.get()) {
+            lastSection = new UnifyingLevelChunkSection(lastSection);
+        }
     }
 }

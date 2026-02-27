@@ -1,8 +1,10 @@
 package dev.ftb.mods.ftbmaterials;
 
+import dev.ftb.mods.ftblibrary.config.manager.ConfigManager;
 import dev.ftb.mods.ftbmaterials.commands.BuildUnifierDB;
 import dev.ftb.mods.ftbmaterials.commands.ConstructAllResources;
 import dev.ftb.mods.ftbmaterials.commands.Reload;
+import dev.ftb.mods.ftbmaterials.config.StartupConfig;
 import dev.ftb.mods.ftbmaterials.registry.ModBlocks;
 import dev.ftb.mods.ftbmaterials.registry.ModCreativeTab;
 import dev.ftb.mods.ftbmaterials.registry.ModGlobalLootModifiers;
@@ -39,6 +41,8 @@ public class FTBMaterials {
         NeoForge.EVENT_BUS.addListener(this::registerCommands);
 
         UnifierManager.INSTANCE.init();
+
+        ConfigManager.getInstance().registerStartupConfig(StartupConfig.CONFIG, "startup");
     }
 
     public void onSetup(FMLCommonSetupEvent event) {

@@ -3,6 +3,7 @@ package dev.ftb.mods.ftbmaterials.unification;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.ftb.mods.ftbmaterials.config.StartupConfig;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -23,6 +24,10 @@ public class LootTableUnifier extends LootModifier {
 
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> itemsIn, LootContext lootContext) {
+        if (!StartupConfig.TWEAK_LOOT_TABLES.get()) {
+            return itemsIn;
+        }
+
         ObjectArrayList<ItemStack> itemsOut = new ObjectArrayList<>();
 
         itemsIn.forEach(stack ->

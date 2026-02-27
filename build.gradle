@@ -106,9 +106,17 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        url = "https://maven.architectury.dev"
+        content {
+            includeGroup("dev.architectury")
+        }
+    }
 }
 
 dependencies {
+    implementation "dev.ftb.mods:ftb-library-neoforge:${libs.versions.ftblibrary.get()}"
+
     // JEI
     compileOnlyApi("mezz.jei:jei-${libs.versions.minecraft.get()}-common-api:${libs.versions.jei.get()}")
     compileOnlyApi("mezz.jei:jei-${libs.versions.minecraft.get()}-neoforge-api:${libs.versions.jei.get()}")

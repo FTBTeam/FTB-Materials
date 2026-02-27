@@ -8,6 +8,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import dev.ftb.mods.ftbmaterials.resources.Resource;
 import net.minecraft.resources.ResourceLocation;
 
 import java.io.IOException;
@@ -85,10 +86,21 @@ public class RecipeTweaker {
                 }
             } else if (key.equals("tag")) {
                 if (val.isJsonPrimitive()) {
-                    unifierDB.lookupItemTag(val.getAsString()).ifPresent(r -> {
-                        alterations.put("item", r);
-                        toRemove.add("tag");
-                    });
+                    String strVal = val.getAsString();
+                    if (strVal.startsWith("c:ores/") && strVal.length() > 7) {
+                        // Ore tags need a little special handling: map c:ores/<X> to ftbmaterials:ores/<X>,
+                        //  assuming of course that <X> is a material that we handle. This is because there
+                        //  are four different subtypes of ore (stone, deepslate, nether & end).
+                        String resourceName = strVal.substring(strVal.indexOf('/') + 1);
+                        if (Resource.isFTBResource(resourceName)) {
+                            alterations.put("tag", "ftbmaterials:ores/" + resourceName);
+                        }
+                    } else {
+                        unifierDB.lookupItemTag(strVal).ifPresent(r -> {
+                            alterations.put("item", r);
+                            toRemove.add("tag");
+                        });
+                    }
                 }
             } else if (!val.isJsonPrimitive() && !key.startsWith("neoforge:")) {
                 scanAndMutateJsonElement(val, unifierDB);
@@ -192,14 +204,4 @@ public class RecipeTweaker {
             ).apply(builder, RewriteAction::new));
         }
     }
-
-//    {
-//        "rules": {
-//          "immersiveengineering:metal_press": [
-//           { "path": "/input/tag", "action": { "field": "item", "subst": "<tag_map>" } },
-//           { "path": "/input/item", "action": { "field": "item", "subst": "<item_map>" } },
-//           { "path": "/result/tag", "action": { "field": "tag", "subst": "{ \"id\": \"<tag_map>\" }" } }
-//          ]
-//        }
-//    }
 }

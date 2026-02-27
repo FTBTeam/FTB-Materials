@@ -17,6 +17,7 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
@@ -35,12 +36,11 @@ public class BlockTagsGenerator extends BlockTagsProvider {
             for (ResourceType resourceType : resource.getResourceTypes()) {
                 if (resourceType.isBlock()) {
                     holder.getBlockFromType(resourceType).ifPresent(target -> {
-                        Set<TagKey<Block>> tags = ItemTagsGenerator.collectTagsForElement(resource, resourceType, cacheTagKeyLookup);
+                        Set<TagKey<Block>> tags = collectTagsForElement(resource, resourceType, cacheTagKeyLookup);
                         ResourceKey<Block> resourceKey = target.getKey();
                         if (resourceKey != null) {
                             tags.forEach(t -> tag(t).add(resourceKey));
 
-                            // Extra for blocks
                             ResourceLocation breakableWith = resource.getBreakableWith();
                             TagKey<Block> breakableWithTag = cacheTagKeyLookup.getOrCreateUnifiedTag(breakableWith.toString(), "");
 
@@ -53,5 +53,25 @@ public class BlockTagsGenerator extends BlockTagsProvider {
 
             }
         }
+    }
+
+    public static <T> Set<TagKey<T>> collectTagsForElement(
+            Resource type,
+            ResourceType component,
+            CachedTagKeyLookup<T> cacheTagKeyLookup
+    ) {
+        var resourceName = type.name().toLowerCase();
+
+        Set<TagKey<T>> tags = new HashSet<>();
+        for (var tagName : component.getTags()) {
+            tags.add(cacheTagKeyLookup.getOrCreateUnifiedTag(tagName, ""));
+            tags.add(cacheTagKeyLookup.getOrCreateUnifiedTag(tagName, component.getResourceNameMutator().apply(resourceName)));
+        }
+        String extra = component.getExtraBlockTag();
+        if (component.isBlock() && !extra.isEmpty()) {
+            tags.add(cacheTagKeyLookup.getOrCreateUnifiedTag(extra, ""));
+        }
+
+        return tags;
     }
 }

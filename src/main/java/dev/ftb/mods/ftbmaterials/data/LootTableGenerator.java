@@ -4,7 +4,6 @@ import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
-import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.WritableRegistry;
@@ -27,13 +26,6 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 public class LootTableGenerator extends LootTableProvider {
-    private static final List<ResourceType> ORES = List.of(
-            ResourceType.STONE_ORE,
-            ResourceType.DEEPSLATE_ORE,
-            ResourceType.NETHER_ORE,
-            ResourceType.END_ORE
-    );
-
     protected LootTableGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, Set.of(), List.of(
                 new LootTableProvider.SubProviderEntry(BlockLoot::new, LootContextParamSets.BLOCK)
@@ -65,109 +57,79 @@ public class LootTableGenerator extends LootTableProvider {
 
         @Override
         protected void generate() {
-            var oreTargets = ORES.stream()
-                    .map(this::seekBlocksWithOreItem)
+            // Ores -> raw ore or gem
+            ResourceType.ORE_TYPES.stream()
+                    .map(this::findBlocksWithOreItem)
                     .flatMap(List::stream)
-                    .toList();
+                    .forEach(drop -> add(drop.block, createOreDrop(drop.block, drop.item)));
 
-            for (var pair : oreTargets) {
-                add(pair.value(), createOreDrop(pair.value(), pair.key()));
-            }
+            // Self drops for blocks & raw ore blocks
+            addSelfDrops(ResourceType.BLOCK, ResourceType.RAW_BLOCK);
 
-            addSelfDropsForResourceTypes(ResourceType.BLOCK, ResourceType.RAW_BLOCK);
+            // Special handling for vanilla ores (no ftbmaterials ores for these)
+            addVanillaOreDrops();
 
-            // Drops something from vanilla. This means we can't do the normal one
-            // Ore drops special case
-            Map<Optional<DeferredHolder<Block,Block>>, ItemLike> oreBlocks = Util.make(new HashMap<>(), map -> {
-                map.put(findBlockFromTypeAndComponent(Resource.EMERALD, ResourceType.END_ORE), Items.EMERALD);
-                map.put(findBlockFromTypeAndComponent(Resource.DIAMOND, ResourceType.END_ORE), Items.DIAMOND);
-                map.put(findBlockFromTypeAndComponent(Resource.LAPIS_LAZULI, ResourceType.END_ORE), Items.LAPIS_LAZULI);
-                map.put(findBlockFromTypeAndComponent(Resource.REDSTONE, ResourceType.END_ORE), Items.REDSTONE);
-                map.put(findBlockFromTypeAndComponent(Resource.IRON, ResourceType.END_ORE), Items.RAW_IRON);
-                map.put(findBlockFromTypeAndComponent(Resource.GOLD, ResourceType.END_ORE), Items.RAW_GOLD);
-                map.put(findBlockFromTypeAndComponent(Resource.COPPER, ResourceType.END_ORE), Items.RAW_COPPER);
-                map.put(findBlockFromTypeAndComponent(Resource.QUARTZ, ResourceType.END_ORE), Items.QUARTZ);
-                map.put(findBlockFromTypeAndComponent(Resource.EMERALD, ResourceType.NETHER_ORE), Items.EMERALD);
-                map.put(findBlockFromTypeAndComponent(Resource.DIAMOND, ResourceType.NETHER_ORE), Items.DIAMOND);
-                map.put(findBlockFromTypeAndComponent(Resource.LAPIS_LAZULI, ResourceType.NETHER_ORE), Items.LAPIS_LAZULI);
-                map.put(findBlockFromTypeAndComponent(Resource.REDSTONE, ResourceType.NETHER_ORE), Items.REDSTONE);
-                map.put(findBlockFromTypeAndComponent(Resource.IRON, ResourceType.NETHER_ORE), Items.RAW_IRON);
-                map.put(findBlockFromTypeAndComponent(Resource.GOLD, ResourceType.NETHER_ORE), Items.RAW_GOLD);
-                map.put(findBlockFromTypeAndComponent(Resource.COPPER, ResourceType.NETHER_ORE), Items.RAW_COPPER);
-                map.put(findBlockFromTypeAndComponent(Resource.QUARTZ, ResourceType.STONE_ORE), Items.QUARTZ);
-                map.put(findBlockFromTypeAndComponent(Resource.QUARTZ, ResourceType.DEEPSLATE_ORE), Items.QUARTZ);
-            });
-
-            for (var entry : oreBlocks.entrySet()) {
-                if (entry.getKey().isEmpty()) {
-                    continue;
-                }
-
-                DeferredHolder<Block,Block> blockSupplier = entry.getKey().get();
-                ResourceLocation registryId = blockSupplier.getId();
-
-                if (registryId.toString().contains("redstone")) {
-                    add(blockSupplier.get(), createRedstoneOreDrops(blockSupplier.get()));
-                } else if (registryId.toString().contains("copper")) {
-                    add(blockSupplier.get(), createCopperOreDrops(blockSupplier.get()));
-                } else if (registryId.toString().contains("lapis")) {
-                    add(blockSupplier.get(), createLapisOreDrops(blockSupplier.get()));
-                } else {
-                    add(blockSupplier.get(), createOreDrop(blockSupplier.get(), entry.getValue().asItem()));
-                }
-            }
-
-            // Bauxite is special as it does not have a raw ore item
-            for (ResourceType ore : ORES) {
+            // Special handling for bauxite ore (no raw ore item)
+            for (ResourceType ore : ResourceType.ORE_TYPES) {
                 ResourceRegistries.get(Resource.BAUXITE).getBlockFromType(ore)
                         .ifPresent(blockFromType -> dropSelf(blockFromType.get()));
             }
         }
 
-        private void addSelfDropsForResourceTypes(ResourceType ...types) {
-            for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
-                for (var type : types) {
-                    var blockFromType = holder.getBlockFromType(type);
-                    if (blockFromType.isEmpty()) {
-                        continue;
-                    }
+        private void addVanillaOreDrops() {
+            Map<DeferredHolder<Block,Block>, ItemLike> oreBlocks = Util.make(new HashMap<>(), map -> {
+                List.of(ResourceType.END_ORE, ResourceType.NETHER_ORE).forEach(type -> {
+                    addOreIfPresent(map, Resource.EMERALD, type, Items.EMERALD);
+                    addOreIfPresent(map, Resource.DIAMOND, type, Items.DIAMOND);
+                    addOreIfPresent(map, Resource.LAPIS_LAZULI, type, Items.LAPIS_LAZULI);
+                    addOreIfPresent(map, Resource.REDSTONE, type, Items.REDSTONE);
+                    addOreIfPresent(map, Resource.IRON, type, Items.RAW_IRON);
+                    addOreIfPresent(map, Resource.GOLD, type, Items.RAW_GOLD);
+                    addOreIfPresent(map, Resource.COPPER, type, Items.RAW_COPPER);
+                });
+                List.of(ResourceType.END_ORE, ResourceType.STONE_ORE, ResourceType.DEEPSLATE_ORE)
+                        .forEach(type -> addOreIfPresent(map, Resource.QUARTZ, type, Items.QUARTZ));
+            });
 
-                    dropSelf(blockFromType.get().get());
+            for (var entry : oreBlocks.entrySet()) {
+                Block block = entry.getKey().get();
+                ResourceLocation registryId = entry.getKey().getId();
+
+                if (registryId.toString().contains("redstone")) {
+                    add(block, createRedstoneOreDrops(block));
+                } else if (registryId.toString().contains("copper")) {
+                    add(block, createCopperOreDrops(block));
+                } else if (registryId.toString().contains("lapis")) {
+                    add(block, createLapisOreDrops(block));
+                } else {
+                    add(block, createOreDrop(block, entry.getValue().asItem()));
                 }
             }
         }
 
-        private List<Pair<Item, Block>> seekBlocksWithOreItem(ResourceType type) {
-            List<Pair<Item, Block>> pairs = new ArrayList<>();
-
-            for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
-                var blockFromType = holder.getBlockFromType(type);
-                if (blockFromType.isEmpty()) {
-                    continue;
-                }
-
-                var block = blockFromType.get().get();
-                var oreItem = holder.getItemFromType(ResourceType.RAW_ORE).or(() -> holder.getItemFromType(ResourceType.GEM));
-                if (oreItem.isEmpty()) {
-                    continue;
-                }
-
-                var item = oreItem.get().get();
-                pairs.add(Pair.of(item, block));
-            }
-
-            return pairs;
+        private void addOreIfPresent(Map<DeferredHolder<Block, Block>, ItemLike> map, Resource resource, ResourceType type, Item item) {
+            ResourceRegistries.get(resource).getBlockFromType(type).ifPresent(b -> map.put(b, item));
         }
 
-        private Optional<DeferredHolder<Block,Block>> findBlockFromTypeAndComponent(Resource type, ResourceType component) {
+        private void addSelfDrops(ResourceType... resourceTypes) {
             for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
-                if (holder.getResource() == type) {
-                    return holder.getBlockFromType(component);
+                for (var type : resourceTypes) {
+                    holder.getBlockFromType(type).ifPresent(block -> dropSelf(block.get()));
                 }
             }
-
-            return Optional.empty();
         }
+
+        private List<BlockAndItem> findBlocksWithOreItem(ResourceType resourceType) {
+            return Util.make(new ArrayList<>(), result -> {
+                for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
+                    holder.getBlockFromType(resourceType).ifPresent(deferredBlock ->
+                            holder.getItemFromType(ResourceType.RAW_ORE).or(() -> holder.getItemFromType(ResourceType.GEM))
+                                    .ifPresent(oreItem -> result.add(new BlockAndItem(deferredBlock.get(), oreItem.get()))));
+                }
+            });
+        }
+
+        private record BlockAndItem(Block block, Item item) {}
     }
 
 }
