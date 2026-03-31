@@ -4,6 +4,7 @@ import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
+import net.minecraft.util.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.WritableRegistry;
 import net.minecraft.data.PackOutput;
@@ -76,18 +77,19 @@ public class LootTableGenerator extends LootTableProvider {
         }
 
         private void addVanillaOreDrops() {
-            Map<DeferredHolder<Block,Block>, ItemLike> oreBlocks = new HashMap<>();
+            Map<DeferredHolder<Block,Block>, ItemLike> oreBlocks = Util.make(new HashMap<>(), map -> {
             List.of(ResourceType.END_ORE, ResourceType.NETHER_ORE).forEach(type -> {
-                addOreIfPresent(oreBlocks, Resource.EMERALD, type, Items.EMERALD);
-                addOreIfPresent(oreBlocks, Resource.DIAMOND, type, Items.DIAMOND);
-                addOreIfPresent(oreBlocks, Resource.LAPIS_LAZULI, type, Items.LAPIS_LAZULI);
-                addOreIfPresent(oreBlocks, Resource.REDSTONE, type, Items.REDSTONE);
-                addOreIfPresent(oreBlocks, Resource.IRON, type, Items.RAW_IRON);
-                addOreIfPresent(oreBlocks, Resource.GOLD, type, Items.RAW_GOLD);
-                addOreIfPresent(oreBlocks, Resource.COPPER, type, Items.RAW_COPPER);
+                addOreIfPresent(map, Resource.EMERALD, type, Items.EMERALD);
+                addOreIfPresent(map, Resource.DIAMOND, type, Items.DIAMOND);
+                addOreIfPresent(map, Resource.LAPIS_LAZULI, type, Items.LAPIS_LAZULI);
+                addOreIfPresent(map, Resource.REDSTONE, type, Items.REDSTONE);
+                addOreIfPresent(map, Resource.IRON, type, Items.RAW_IRON);
+                addOreIfPresent(map, Resource.GOLD, type, Items.RAW_GOLD);
+                addOreIfPresent(map, Resource.COPPER, type, Items.RAW_COPPER);
             });
             List.of(ResourceType.END_ORE, ResourceType.STONE_ORE, ResourceType.DEEPSLATE_ORE)
-                    .forEach(type -> addOreIfPresent(oreBlocks, Resource.QUARTZ, type, Items.QUARTZ));
+                    .forEach(type -> addOreIfPresent(map, Resource.QUARTZ, type, Items.QUARTZ));
+            });
 
             for (var entry : oreBlocks.entrySet()) {
                 Block block = entry.getKey().get();
@@ -118,13 +120,13 @@ public class LootTableGenerator extends LootTableProvider {
         }
 
         private List<BlockAndItem> findBlocksWithOreItem(ResourceType resourceType) {
-            List<BlockAndItem> result = new ArrayList<>();
-            for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
-                holder.getBlockFromType(resourceType).ifPresent(deferredBlock ->
-                        holder.getItemFromType(ResourceType.RAW_ORE).or(() -> holder.getItemFromType(ResourceType.GEM))
-                                .ifPresent(oreItem -> result.add(new BlockAndItem(deferredBlock.get(), oreItem.get()))));
-            }
-            return result;
+            return Util.make(new ArrayList<>(), result -> {
+                for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
+                    holder.getBlockFromType(resourceType).ifPresent(deferredBlock ->
+                            holder.getItemFromType(ResourceType.RAW_ORE).or(() -> holder.getItemFromType(ResourceType.GEM))
+                                    .ifPresent(oreItem -> result.add(new BlockAndItem(deferredBlock.get(), oreItem.get()))));
+                }
+            });
         }
 
         private record BlockAndItem(Block block, Item item) {}
