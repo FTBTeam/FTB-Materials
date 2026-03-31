@@ -87,33 +87,25 @@ public class RecipesGenerator extends RecipeProvider {
                     .save(this.output, FTBMaterials.id(outputName + "_from_smelting_" + inputName).toString());
         });
 
-        // Ore blocks smelt to ingots (or gems)
+        // Ore blocks smelt to ingots, or gems if no ingot exists
         for (ResourceType oreType : ResourceType.ORE_TYPES) {
-            createInputOutputRecipeFromTypes(oreType, ResourceType.INGOT, ResourceRegistryHolder::getBlockFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-                var inputName = inputReg.getId().getPath();
-                var outputName = outputReg.getId().getPath();
+            for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
+                holder.getBlockFromType(oreType).ifPresent(oreBlock -> {
+                    ResourceType smeltOutput = holder.getItemFromType(ResourceType.INGOT).isPresent() ? ResourceType.INGOT : ResourceType.GEM;
+                    holder.getItemFromType(smeltOutput).ifPresent(resultItem -> {
+                        var inputName = oreBlock.getId().getPath();
+                        var outputName = resultItem.getId().getPath();
 
-                SimpleCookingRecipeBuilder.blasting(Ingredient.of(inputItemLike), RecipeCategory.MISC, CookingBookCategory.MISC, outputItemLike, 0.7f, 100)
-                        .unlockedBy("has_item", has(inputItemLike))
-                        .save(this.output, FTBMaterials.id(outputName + "_from_blasting_" + inputName).toString());
+                        SimpleCookingRecipeBuilder.blasting(Ingredient.of(oreBlock.get()), RecipeCategory.MISC, CookingBookCategory.MISC, resultItem.get(), 0.7f, 100)
+                                .unlockedBy("has_item", has(oreBlock.get()))
+                                .save(this.output, FTBMaterials.id(outputName + "_from_blasting_" + inputName).toString());
 
-                SimpleCookingRecipeBuilder.smelting(Ingredient.of(inputItemLike), RecipeCategory.MISC, CookingBookCategory.MISC, outputItemLike, 0.7f, 200)
-                        .unlockedBy("has_item", has(inputItemLike))
-                        .save(this.output, FTBMaterials.id(outputName + "_from_smelting_" + inputName).toString());
-            });
-
-            createInputOutputRecipeFromTypes(oreType, ResourceType.GEM, ResourceRegistryHolder::getBlockFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-                var inputName = inputReg.getId().getPath();
-                var outputName = outputReg.getId().getPath();
-
-                SimpleCookingRecipeBuilder.blasting(Ingredient.of(inputItemLike), RecipeCategory.MISC, CookingBookCategory.MISC, outputItemLike, 0.7f, 100)
-                        .unlockedBy("has_item", has(inputItemLike))
-                        .save(this.output, FTBMaterials.id(outputName + "_from_blasting_" + inputName).toString());
-
-                SimpleCookingRecipeBuilder.smelting(Ingredient.of(inputItemLike), RecipeCategory.MISC, CookingBookCategory.MISC, outputItemLike, 0.7f, 200)
-                        .unlockedBy("has_item", has(inputItemLike))
-                        .save(this.output, FTBMaterials.id(outputName + "_from_smelting_" + inputName).toString());
-            });
+                        SimpleCookingRecipeBuilder.smelting(Ingredient.of(oreBlock.get()), RecipeCategory.MISC, CookingBookCategory.MISC, resultItem.get(), 0.7f, 200)
+                                .unlockedBy("has_item", has(oreBlock.get()))
+                                .save(this.output, FTBMaterials.id(outputName + "_from_smelting_" + inputName).toString());
+                    });
+                });
+            }
         }
 
         // Clusters smelt to ingots
