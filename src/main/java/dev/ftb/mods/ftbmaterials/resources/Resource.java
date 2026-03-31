@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftbmaterials.resources;
 
+import net.minecraft.util.Util;
 import net.minecraft.resources.Identifier;
 
 import java.util.EnumSet;
@@ -172,12 +173,11 @@ public enum Resource {
             .build()),
     ;
 
-    private static final Map<String,Resource> MAP = new HashMap<>();
-    static {
+    private static final Map<String,Resource> MAP = Util.make(new HashMap<>(), m -> {
         for (var val : Resource.values()) {
-            MAP.put(val.name().toLowerCase(), val);
+            m.put(val.name().toLowerCase(), val);
         }
-    }
+    });
 
     private final EnumSet<ResourceType> resourceTypes;
     private final Identifier breakableWith;
