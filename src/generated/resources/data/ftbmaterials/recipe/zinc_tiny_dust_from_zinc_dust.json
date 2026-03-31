@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ftbmaterials:zinc_dust"
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:zinc_tiny_dust"
+  }
+}

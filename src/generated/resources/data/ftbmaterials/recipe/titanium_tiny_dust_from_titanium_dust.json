@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ftbmaterials:titanium_dust"
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:titanium_tiny_dust"
+  }
+}

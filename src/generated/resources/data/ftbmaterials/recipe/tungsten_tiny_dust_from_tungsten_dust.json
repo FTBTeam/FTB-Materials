@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ftbmaterials:tungsten_dust"
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:tungsten_tiny_dust"
+  }
+}

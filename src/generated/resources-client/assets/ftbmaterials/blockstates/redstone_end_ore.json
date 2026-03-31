@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "ftbmaterials:block/redstone_end_ore"
+    }
+  }
+}

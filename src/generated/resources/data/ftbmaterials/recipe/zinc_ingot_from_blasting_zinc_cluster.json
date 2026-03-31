@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": "ftbmaterials:zinc_cluster",
+  "result": {
+    "id": "ftbmaterials:zinc_ingot"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ftbmaterials:brass_raw_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:brass_raw_ore"
+  }
+}
