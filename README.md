@@ -2,7 +2,7 @@
 
 FTB Materials is our home grown resources mod that attempts to provide a wide range of resources from a wide range of mods. It's designed to provide a unified set of resources and recipes to simplify resource unification in Modpack. 
 
-Our mod is likened to mods like [`Emendatus Enigmatica`](https://www.curseforge.com/minecraft/mc-mods/emendatus-enigmatica), [`All the Ores`](https://www.curseforge.com/minecraft/mc-mods/ato), etc but differs in a few ways. Primarily, it's designed to hold all resources, not just the ones we need, this is intended for mods like KubeJS to remove anything that is not needed. We do not require addons to provide additional resources, and we're un-opinionated on world gen allowing modpacks to unify mods ore gen to our resources.
+It's designed to hold all resources, not just the ones we need, this is intended for mods like KubeJS to remove anything that is not needed. We do not require addons to provide additional resources.
 
 ![Preview of all the resources provided by FTB Materials](https://cdn.feed-the-beast.com/mods/ftb-materials/ftb-materials.webp)
 
