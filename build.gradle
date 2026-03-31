@@ -22,15 +22,16 @@ base {
 apply from: 'https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/changelog.gradle'
 apply from: "https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/publishing.gradle"
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 neoForge {
     version = "${libs.versions.neoforge.get()}"
 
-    parchment {
-        mappingsVersion = project.parchment_mappings_version
-        minecraftVersion = project.parchment_minecraft_version.replace("\${mc_version}", libs.versions.minecraft.get())
-    }
+    // Parchment not yet available for 26.1
+    // parchment {
+    //     mappingsVersion = project.parchment_mappings_version
+    //     minecraftVersion = project.parchment_minecraft_version
+    // }
 
     runs {
         configureEach {
@@ -56,8 +57,13 @@ neoForge {
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
-        data {
-            data()
+        clientData {
+            clientData()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        serverData {
+            serverData()
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
     }
@@ -118,13 +124,7 @@ dependencies {
     implementation "dev.ftb.mods:ftb-library-neoforge:${libs.versions.ftblibrary.get()}"
 
     // JEI
-    compileOnlyApi("mezz.jei:jei-${libs.versions.minecraft.get()}-common-api:${libs.versions.jei.get()}")
-    compileOnlyApi("mezz.jei:jei-${libs.versions.minecraft.get()}-neoforge-api:${libs.versions.jei.get()}")
-
-    runtimeOnly("mezz.jei:jei-${libs.versions.minecraft.get()}-neoforge:${libs.versions.jei.get()}")
-
-    // Gives tag names
-    runtimeOnly("curse.maven:cucumber-272335:5711793")
+    implementation "curse.maven:jei-238222:7850293"
 }
 
 tasks.register("sourcesJar", Jar) {
@@ -188,7 +188,12 @@ idea {
 def getMinorAndPatchFromMc() {
     String mcVersion = project.minecraft_version
     String[] split = mcVersion.split("\\.")
-    return split[1] + "." + (split[2] ?: "0")
+    if (split.length >= 3) {
+        return split[1] + "." + split[2]
+    } else if (split.length == 2) {
+        return split[0] + "." + split[1]
+    }
+    return mcVersion
 }
 
 publishMods {
@@ -209,7 +214,7 @@ publishMods {
         accessToken = CFToken.orElse("missing")
         projectId = project.curseforge_id
         minecraftVersions.add(project.minecraft_version)
-        javaVersions.add(JavaVersion.VERSION_21)
+        javaVersions.add(JavaVersion.VERSION_25)
     }
 }
 

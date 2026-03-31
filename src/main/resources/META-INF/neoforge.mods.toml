@@ -1,12 +1,12 @@
 modLoader = "javafml"
-loaderVersion = "[4,)"
+loaderVersion = "${loader_version_range}"
 #issueTrackerURL = ""
 license = "All Rights Reserved"
 
 [[mods]]
-modId = "ftbmaterials"
+modId = "${mod_id}"
 version = "${version}"
-displayName = "FTB Materials"
+displayName = "${mod_name}"
 authors = "FTB Team"
 description = '''
 Adds a large collection of ores, ingots and other derived items,
@@ -17,21 +17,21 @@ as well as code to unify recipes, loot tables and worldgen to use those.
 [[dependencies.ftbmaterials]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.1,)"
+versionRange = "${mod_loader_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ftbmaterials]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21,)"
+versionRange = "[26.1,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ftbmaterials]]
 modId = "ftblibrary"
 type = "required"
-versionRange = "[2101.1.30,)"
+versionRange = "[26.1.0.3,)"
 ordering = "NONE"
 side = "BOTH"
 

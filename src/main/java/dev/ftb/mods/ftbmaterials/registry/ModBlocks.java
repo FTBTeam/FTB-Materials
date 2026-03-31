@@ -12,6 +12,6 @@ public class ModBlocks {
     // see ResourceRegistryHolder for actual block registration
 
     public static Block.Properties defaultProps() {
-        return Block.Properties.ofFullCopy(Blocks.STONE);
+        return Block.Properties.of().requiresCorrectToolForDrops().strength(1.5F, 6.0F);
     }
 }

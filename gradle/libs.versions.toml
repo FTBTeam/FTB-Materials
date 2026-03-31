@@ -1,18 +1,16 @@
 [versions]
-minecraft = "1.21.1"
+minecraft = "26.1"
 
-moddev = "2.0.112"
+moddev = "2.0.140"
 modpublish = "1.1.0"
 
-neoforge = "21.1.219"
+neoforge = "26.1.0.18-beta"
 
-ftblibrary = "2101.1.30"
-jei = "19.27.0.340"
-modmenu = "11.0.2"
+ftblibrary = "26.1.0.3-SNAPSHOT"
+# jei = "" # TODO: uncomment when 26.1 JEI is available
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
-modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 
 [plugins]
 moddev = { id = "net.neoforged.moddev", version.ref = "moddev" }

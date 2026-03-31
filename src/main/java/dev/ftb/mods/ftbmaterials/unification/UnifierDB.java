@@ -12,12 +12,12 @@ import dev.ftb.mods.ftbmaterials.util.CachedTagKeyLookup;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.util.Lazy;
+import com.google.common.base.Suppliers;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class UnifierDB {
@@ -42,10 +43,10 @@ public class UnifierDB {
 
     private final Map<String,String> itemMap;
     private final Map<String,String> itemTagMap;
-    private final Lazy<Map<Item,Item>> itemByItemMap = Lazy.of(this::buildItemByItemMap);
+    private final Supplier<Map<Item,Item>> itemByItemMap = Suppliers.memoize(this::buildItemByItemMap);
 
     private final Map<String,String> blockMap;
-    private final Lazy<Map<Block,Block>> blockByBlockMap = Lazy.of(this::buildBlockByBlockMap);
+    private final Supplier<Map<Block,Block>> blockByBlockMap = Suppliers.memoize(this::buildBlockByBlockMap);
 
     private UnifierDB() {
         this(new HashMap<>(), new HashMap<>(), new HashMap<>());
@@ -107,11 +108,11 @@ public class UnifierDB {
             for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(tag)) {
                 if (holder.unwrapKey().isPresent()) {
                     var k = holder.unwrapKey().get();
-                    if (k.location().getNamespace().equals(FTBMaterials.MOD_ID)) {
+                    if (k.identifier().getNamespace().equals(FTBMaterials.MOD_ID)) {
                         if (ftbMaterialsItem == null) {
                             ftbMaterialsItem = holder.value();
                         }
-                    } else if (k.location().getNamespace().equals("minecraft")) {
+                    } else if (k.identifier().getNamespace().equals("minecraft")) {
                         vanillaFallbackItem = holder.value();
                     } else {
                         otherItems.add(holder.value());
@@ -133,10 +134,10 @@ public class UnifierDB {
         var tag = blockCache.getOrCreateUnifiedTag("c:ores", resource.name().toLowerCase());
         for (Holder<Block> holder : BuiltInRegistries.BLOCK.getTagOrEmpty(tag)) {
             for (ResourceType type : ResourceType.ORE_TYPES) {
-                TagKey<Block> tagKey = TagKey.create(Registries.BLOCK, ResourceLocation.parse(type.getExtraBlockTag()));
+                TagKey<Block> tagKey = TagKey.create(Registries.BLOCK, Identifier.parse(type.getExtraBlockTag()));
                 if (holder.is(tagKey)) {
                     holder.unwrapKey().ifPresent(resKey -> {
-                        ResourceLocation blockId = resKey.location();
+                        Identifier blockId = resKey.identifier();
                         if (blockId.getNamespace().equals(FTBMaterials.MOD_ID)) {
                             ftbOreMap.put(type, blockId.toString());
                         } else {
@@ -184,8 +185,8 @@ public class UnifierDB {
     private Map<Item, Item> buildItemByItemMap() {
         Map<Item, Item> res = new HashMap<>();
         itemMap.forEach((in, out) ->
-                BuiltInRegistries.ITEM.getOptional(ResourceLocation.parse(in)).ifPresent(itemIn ->
-                        BuiltInRegistries.ITEM.getOptional(ResourceLocation.parse(out)).ifPresent(itemOut ->
+                BuiltInRegistries.ITEM.getOptional(Identifier.parse(in)).ifPresent(itemIn ->
+                        BuiltInRegistries.ITEM.getOptional(Identifier.parse(out)).ifPresent(itemOut ->
                                 res.put(itemIn, itemOut)
                         )
                 ));
@@ -195,8 +196,8 @@ public class UnifierDB {
     private Map<Block, Block> buildBlockByBlockMap() {
         Map<Block, Block> res = new ConcurrentHashMap<>();
         blockMap.forEach((in, out) ->
-                BuiltInRegistries.BLOCK.getOptional(ResourceLocation.parse(in)).ifPresent(blockIn ->
-                        BuiltInRegistries.BLOCK.getOptional(ResourceLocation.parse(out)).ifPresent(blockOut ->
+                BuiltInRegistries.BLOCK.getOptional(Identifier.parse(in)).ifPresent(blockIn ->
+                        BuiltInRegistries.BLOCK.getOptional(Identifier.parse(out)).ifPresent(blockOut ->
                                 res.put(blockIn, blockOut)
                         )
                 ));

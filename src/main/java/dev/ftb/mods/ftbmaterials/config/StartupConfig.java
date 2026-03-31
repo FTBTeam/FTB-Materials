@@ -1,15 +1,15 @@
 package dev.ftb.mods.ftbmaterials.config;
 
-import dev.ftb.mods.ftblibrary.snbt.config.BooleanValue;
-import dev.ftb.mods.ftblibrary.snbt.config.SNBTConfig;
+import dev.ftb.mods.ftblibrary.config.value.BooleanValue;
+import dev.ftb.mods.ftblibrary.config.value.Config;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 
 public interface StartupConfig {
     String KEY = FTBMaterials.MOD_ID + "-startup";
 
-    SNBTConfig CONFIG = SNBTConfig.create(KEY);
+    Config CONFIG = Config.create(KEY);
 
-    SNBTConfig TWEAKS = CONFIG.addGroup("tweaks");
+    Config TWEAKS = CONFIG.addGroup("tweaks");
     BooleanValue TWEAK_RECIPES = TWEAKS.addBoolean("tweak_recipes", true)
             .comment("If true, tweaks recipes during the recipe manager load phase so that all relevant modded inputs & outputs use their FTB Materials counterparts instead. Vanilla materials are not affected.");
     BooleanValue TWEAK_LOOT_TABLES = TWEAKS.addBoolean("tweak_loot_tables", true)

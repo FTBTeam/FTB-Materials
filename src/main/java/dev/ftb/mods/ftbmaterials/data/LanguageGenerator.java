@@ -39,7 +39,7 @@ public class LanguageGenerator extends LanguageProvider {
                 var resourceType = resourceAndType.value();
                 var translationText = resourceType.getTranslationText()
                         .replace("{material}", toTitleCase(resource.name().replace("_", " ")));
-                var translationKey = resourceKey.location().getNamespace() + "." + resourceKey.location().getPath();
+                var translationKey = resourceKey.identifier().getNamespace() + "." + resourceKey.identifier().getPath();
                 var keyPrefix = holder.get() instanceof Item ? "item" : "block";
                 add(keyPrefix + "." + translationKey, translationText);
             }

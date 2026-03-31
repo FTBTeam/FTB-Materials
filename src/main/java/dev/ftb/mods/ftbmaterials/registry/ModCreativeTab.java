@@ -15,7 +15,7 @@ public class ModCreativeTab {
     public static final DeferredRegister<CreativeModeTab> REGISTRY
             = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, FTBMaterials.MOD_ID);
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TAB = REGISTRY.register("tab", () -> CreativeModeTab.builder()
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TAB = REGISTRY.register("tab", id -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.ftbmaterials.ftbmaterials_main"))
             .icon(() -> new ItemStack(ResourceRegistries.get(Resource.LEAD).getItems().getFirst().get()))
             .displayItems((params, out) -> {
