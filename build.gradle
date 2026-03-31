@@ -59,7 +59,7 @@ neoForge {
 
         clientData {
             clientData()
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources-client/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing', file('src/generated/resources/').getAbsolutePath()
         }
 
         serverData {
@@ -75,7 +75,10 @@ neoForge {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+    srcDir 'src/generated/resources-client'
+}
 
 // Sets up a dependency configuration called 'localRuntime'.
 // This configuration should be used instead of 'runtimeOnly' to declare
