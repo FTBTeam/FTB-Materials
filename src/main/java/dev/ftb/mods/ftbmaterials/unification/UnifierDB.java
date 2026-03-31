@@ -17,7 +17,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import com.google.common.base.Suppliers;
+import net.neoforged.neoforge.common.util.Lazy;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,7 +25,6 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class UnifierDB {
@@ -43,10 +42,10 @@ public class UnifierDB {
 
     private final Map<String,String> itemMap;
     private final Map<String,String> itemTagMap;
-    private final Supplier<Map<Item,Item>> itemByItemMap = Suppliers.memoize(this::buildItemByItemMap);
+    private final Lazy<Map<Item,Item>> itemByItemMap = Lazy.of(this::buildItemByItemMap);
 
     private final Map<String,String> blockMap;
-    private final Supplier<Map<Block,Block>> blockByBlockMap = Suppliers.memoize(this::buildBlockByBlockMap);
+    private final Lazy<Map<Block,Block>> blockByBlockMap = Lazy.of(this::buildBlockByBlockMap);
 
     private UnifierDB() {
         this(new HashMap<>(), new HashMap<>(), new HashMap<>());
