@@ -10,28 +10,22 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-def mcMinorAndPatch = getMinorAndPatchFromMc()
+apply from: 'https://raw.githubusercontent.com/FTBTeam/mods-meta/v1/gradle/maven.gradle'
+apply from: 'https://raw.githubusercontent.com/FTBTeam/mods-meta/v1/gradle/publishing-2.gradle'
+apply from: 'https://raw.githubusercontent.com/FTBTeam/mods-meta/v1/gradle/utils.gradle'
+apply from: 'https://raw.githubusercontent.com/FTBTeam/mods-meta/v1/gradle/changelog.gradle'
 
-version = "${mcMinorAndPatch}.${mod_version}"
+version = createModVersion(project)
 group = project.maven_group
 
 base {
     archivesName = project.archives_base_name
 }
 
-apply from: 'https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/changelog.gradle'
-apply from: "https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/publishing.gradle"
-
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 neoForge {
     version = "${libs.versions.neoforge.get()}"
-
-    // Parchment not yet available for 26.1
-    // parchment {
-    //     mappingsVersion = project.parchment_mappings_version
-    //     minecraftVersion = project.parchment_minecraft_version
-    // }
 
     runs {
         configureEach {
@@ -90,18 +84,8 @@ configurations {
 
 repositories {
     mavenLocal()
-    maven {
-        url = "https://maven.ftb.dev/releases"
-        content {
-            includeGroup("dev.ftb.mods")
-        }
-    }
-    maven {
-        url = "https://maven.ftb.dev/snapshots"
-        content {
-            includeGroup("dev.ftb.mods")
-        }
-    }
+    commonMavenRepos(repositories)
+
     maven {
         name = "Jared's maven"
         url = "https://maven.blamejared.com/"
@@ -109,25 +93,15 @@ repositories {
             includeGroup "mezz.jei"
         }
     }
-    maven {
-        url "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
-    maven {
-        url = "https://maven.architectury.dev"
-        content {
-            includeGroup("dev.architectury")
-        }
-    }
 }
 
 dependencies {
     implementation "dev.ftb.mods:ftb-library-neoforge:${libs.versions.ftblibrary.get()}"
 
-    // JEI
-    implementation "curse.maven:jei-238222:7850293"
+    compileOnlyApi("mezz.jei:jei-${libs.versions.minecraft.get()}-common-api:${libs.versions.jei.get()}")
+    compileOnlyApi("mezz.jei:jei-${libs.versions.minecraft.get()}-neoforge-api:${libs.versions.jei.get()}")
+
+    runtimeOnly("mezz.jei:jei-${libs.versions.minecraft.get()}-neoforge:${libs.versions.jei.get()}")
 }
 
 tasks.register("sourcesJar", Jar) {
@@ -159,10 +133,7 @@ tasks.withType(ProcessResources).configureEach {
             pack_format: pack_format,
             loader_version_range: loader_version_range,
             // 99.9% of the time we're only going to target a very vague version of neoforge so this is fine.
-            mod_loader_range: mod_loader_range.replace("\${mc_base}", mcMinorAndPatch), // Replace the version in the mod loader range
-//            ftblibraryversion: ftb_library_version,
-//            ftbteamsversion: ftb_teams_version,
-//            ftbchunksversion: ftb_chunks_version
+            mod_loader_range: mod_loader_range.replace("\${mc_base}", normalisedMcVersion(project)), // Replace the version in the mod loader range
     ]
 
     inputs.properties replaceProperties
@@ -188,16 +159,6 @@ idea {
     }
 }
 
-def getMinorAndPatchFromMc() {
-    String mcVersion = project.minecraft_version
-    String[] split = mcVersion.split("\\.")
-    if (split.length < 3) {
-        return mcVersion + ".0"
-    }
-
-    return mcVersion
-}
-
 publishMods {
     def CFToken = providers.environmentVariable("CURSEFORGE_KEY")
 
@@ -209,8 +170,7 @@ publishMods {
     file = jar.archiveFile
     version = project.version // Pretty sure it defaults to this
 
-    def tag = providers.environmentVariable("TAG").getOrElse("release")
-    type = tag.endsWith("-beta") ? BETA : (tag.endsWith("-alpha") ? ALPHA : STABLE)
+    type = createReleaseType(project)
 
     curseforge {
         accessToken = CFToken.orElse("missing")
@@ -220,27 +180,4 @@ publishMods {
     }
 }
 
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            version = ftbPublishing.mavenVersion
-            artifactId = archives_base_name
-            from components.java
-            artifact sourcesJar
-            // Uncomment this if you want to create an API jar
-            // artifact apiJar
-        }
-    }
-
-    repositories {
-        if (ftbPublishing.ftbToken) {
-            maven {
-                url ftbPublishing.ftbURL
-                credentials {
-                    username = ftbPublishing.ftbUser
-                    password = ftbPublishing.ftbToken
-                }
-            }
-        }
-    }
-}
+createPublishingBlock(project)

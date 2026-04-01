@@ -7,10 +7,7 @@ modpublish = "1.1.0"
 neoforge = "26.1.0.18-beta"
 
 ftblibrary = "26.1.0.3-SNAPSHOT"
-# jei = "" # TODO: uncomment when 26.1 JEI is available
-
-[libraries]
-minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+jei = "29.2.0.20"
 
 [plugins]
 moddev = { id = "net.neoforged.moddev", version.ref = "moddev" }
