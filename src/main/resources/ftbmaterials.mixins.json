@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "dev.ftb.mods.ftbmaterials.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "BulkSectionAccessMixin",
+    "SimpleJsonResourceReloadListenerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

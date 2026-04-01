@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ftbmaterials:chromium_raw_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:chromium_raw_ore"
+  }
+}

@@ -1,0 +1,39 @@
+modLoader = "javafml"
+loaderVersion = "${loader_version_range}"
+#issueTrackerURL = ""
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "${mod_id}"
+version = "${version}"
+displayName = "${mod_name}"
+authors = "FTB Team"
+description = '''
+Adds a large collection of ores, ingots and other derived items,
+as well as code to unify recipes, loot tables and worldgen to use those.
+'''
+#logoFile = ""
+
+[[dependencies.ftbmaterials]]
+modId = "neoforge"
+type = "required"
+versionRange = "${mod_loader_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ftbmaterials]]
+modId = "minecraft"
+type = "required"
+versionRange = "[26.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ftbmaterials]]
+modId = "ftblibrary"
+type = "required"
+versionRange = "[26.1.0.3,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[mixins]]
+config = "ftbmaterials.mixins.json"

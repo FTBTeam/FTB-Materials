@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ftbmaterials:charcoal_dust"
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:charcoal_tiny_dust"
+  }
+}

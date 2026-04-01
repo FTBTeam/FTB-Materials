@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ftbmaterials:nickel_ingot"
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:nickel_nugget"
+  }
+}
