@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:silver_dust"
-    }
+    "ftbmaterials:silver_dust"
   ],
   "result": {
     "count": 9,

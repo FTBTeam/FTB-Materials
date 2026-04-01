@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:stainless_steel_dust"
-    }
+    "ftbmaterials:stainless_steel_dust"
   ],
   "result": {
     "count": 9,

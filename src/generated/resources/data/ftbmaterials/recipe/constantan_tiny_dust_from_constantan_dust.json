@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:constantan_dust"
-    }
+    "ftbmaterials:constantan_dust"
   ],
   "result": {
     "count": 9,

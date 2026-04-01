@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "N": {
-      "item": "ftbmaterials:plutonium_nugget"
-    }
+    "N": "ftbmaterials:plutonium_nugget"
   },
   "pattern": [
     "NNN",
@@ -12,7 +10,6 @@
     "NNN"
   ],
   "result": {
-    "count": 1,
     "id": "ftbmaterials:plutonium_ingot"
   }
 }

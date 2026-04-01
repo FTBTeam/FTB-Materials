@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:stainless_steel_ingot"
-    }
+    "ftbmaterials:stainless_steel_ingot"
   ],
   "result": {
     "count": 9,

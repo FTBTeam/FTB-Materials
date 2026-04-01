@@ -3,7 +3,7 @@ package dev.ftb.mods.ftbmaterials.unification;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 import dev.ftb.mods.ftbmaterials.unification.RecipeTweaker.Rule;
 import dev.ftb.mods.ftbmaterials.unification.RecipeTweaker.Rule.RewriteAction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -12,13 +12,13 @@ public class DefaultCustomRules {
     public static void create(Path path) {
         RecipeTweaker tweaker = RecipeTweaker.createNew();
 
-        tweaker.addRule(ResourceLocation.fromNamespaceAndPath("immersiveengineering", "arcfurnace"),
+        tweaker.addRule(Identifier.fromNamespaceAndPath("immersiveengineering", "arcfurnace"),
                 new Rule("input/tag", new RewriteAction("item", "<tag_map>")),
                 new Rule("additives/tag", new RewriteAction("item", "<tag_map>")),
                 new Rule("input/item", new RewriteAction("item", "<item_map>")),
                 new Rule("additives/item", new RewriteAction("item", "<item_map>"))
         );
-        tweaker.addRule(ResourceLocation.fromNamespaceAndPath("immersiveengineering", "alloy"),
+        tweaker.addRule(Identifier.fromNamespaceAndPath("immersiveengineering", "alloy"),
                 new Rule("input0/tag", new RewriteAction("item", "<tag_map>")),
                 new Rule("input0/tag", new RewriteAction("item", "<tag_map>")),
                 new Rule("input1/item", new RewriteAction("item", "<item_map>")),
@@ -41,7 +41,7 @@ public class DefaultCustomRules {
 
     private static void standardIERule(RecipeTweaker tweaker, String type) {
         // for machines with just a single input
-        tweaker.addRule(ResourceLocation.fromNamespaceAndPath("immersiveengineering", type),
+        tweaker.addRule(Identifier.fromNamespaceAndPath("immersiveengineering", type),
                 new Rule("input/tag", new RewriteAction("item", "<tag_map>")),
                 new Rule("input/item", new RewriteAction("item", "<item_map>"))
         );

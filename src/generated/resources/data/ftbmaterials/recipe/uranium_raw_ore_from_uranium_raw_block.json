@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:uranium_raw_block"
-    }
+    "ftbmaterials:uranium_raw_block"
   ],
   "result": {
     "count": 9,

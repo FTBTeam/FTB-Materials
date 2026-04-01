@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:refined_glowstone_ingot"
-    }
+    "ftbmaterials:refined_glowstone_ingot"
   ],
   "result": {
     "count": 9,

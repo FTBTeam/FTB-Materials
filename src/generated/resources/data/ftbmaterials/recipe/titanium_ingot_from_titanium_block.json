@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:titanium_block"
-    }
+    "ftbmaterials:titanium_block"
   ],
   "result": {
     "count": 9,

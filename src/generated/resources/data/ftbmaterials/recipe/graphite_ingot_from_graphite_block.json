@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:graphite_block"
-    }
+    "ftbmaterials:graphite_block"
   ],
   "result": {
     "count": 9,

@@ -14,5 +14,5 @@ public class ModGlobalLootModifiers {
             = DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, FTBMaterials.MOD_ID);
 
     public static final Supplier<MapCodec<? extends IGlobalLootModifier>> LOOT_TABLE_UNIFIER
-            = REGISTRY.register("unifier", LootTableUnifier.CODEC);
+            = REGISTRY.register("unifier", id -> LootTableUnifier.CODEC.get());
 }

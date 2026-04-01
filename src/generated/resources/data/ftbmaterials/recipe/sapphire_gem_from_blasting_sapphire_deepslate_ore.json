@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": "ftbmaterials:sapphire_deepslate_ore",
+  "result": {
+    "id": "ftbmaterials:sapphire_gem"
+  }
+}

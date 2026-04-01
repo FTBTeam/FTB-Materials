@@ -27,3 +27,5 @@ src/generated/resources/.cache
 # Mac
 repo
 .DS_Store
+
+src/generated/resources-client/.cache/

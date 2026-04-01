@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:monazite_dust"
-    }
+    "ftbmaterials:monazite_dust"
   ],
   "result": {
     "count": 9,

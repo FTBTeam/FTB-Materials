@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:nickel_ingot"
-    }
+    "ftbmaterials:nickel_ingot"
   ],
   "result": {
     "count": 9,

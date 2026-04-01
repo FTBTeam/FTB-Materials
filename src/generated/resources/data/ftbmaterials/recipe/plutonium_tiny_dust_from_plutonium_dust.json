@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:plutonium_dust"
-    }
+    "ftbmaterials:plutonium_dust"
   ],
   "result": {
     "count": 9,

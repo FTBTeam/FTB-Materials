@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:quartz_dust"
-    }
+    "ftbmaterials:quartz_dust"
   ],
   "result": {
     "count": 9,

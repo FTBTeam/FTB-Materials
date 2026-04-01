@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:iridium_ingot"
-    }
+    "ftbmaterials:iridium_ingot"
   ],
   "result": {
     "count": 9,

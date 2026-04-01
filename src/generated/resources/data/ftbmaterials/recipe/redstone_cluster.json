@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "item": "ftbmaterials:redstone_chunk"
-    }
+    "I": "ftbmaterials:redstone_chunk"
   },
   "pattern": [
     "II ",
@@ -12,7 +10,6 @@
     "   "
   ],
   "result": {
-    "count": 1,
     "id": "ftbmaterials:redstone_cluster"
   }
 }

@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "item": "ftbmaterials:antimony_ingot"
-    }
+    "I": "ftbmaterials:antimony_ingot"
   },
   "pattern": [
     "III",
@@ -12,7 +10,6 @@
     "III"
   ],
   "result": {
-    "count": 1,
     "id": "ftbmaterials:antimony_block"
   }
 }

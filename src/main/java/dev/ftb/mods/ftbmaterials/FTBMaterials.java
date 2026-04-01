@@ -12,11 +12,13 @@ import dev.ftb.mods.ftbmaterials.registry.ModItems;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.unification.UnifierManager;
 import net.minecraft.commands.Commands;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.loading.FMLLoader;
+
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import org.slf4j.Logger;
@@ -28,7 +30,7 @@ public class FTBMaterials {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(FTBMaterials.class);
 
-    public FTBMaterials(IEventBus modBus) {
+    public FTBMaterials(IEventBus modBus, ModContainer container, Dist dist) {
         ResourceRegistries.init();
 
         ModBlocks.REGISTRY.register(modBus);
@@ -46,10 +48,6 @@ public class FTBMaterials {
     }
 
     public void onSetup(FMLCommonSetupEvent event) {
-        if (!FMLLoader.isProduction()) {
-            return;
-        }
-
         // This reverse lookup is only needed during data generation, so we can clear it once the game is set up
         ResourceRegistries.clearReverseLookups();
     }
@@ -57,7 +55,7 @@ public class FTBMaterials {
     public void registerCommands(RegisterCommandsEvent event) {
         event.getDispatcher().register(Commands.literal(MOD_ID)
                 .then(Commands.literal("dev")
-                        .requires(cs -> cs.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(ConstructAllResources.register())
                         .then(BuildUnifierDB.register())
                         .then(Reload.register())
@@ -65,7 +63,7 @@ public class FTBMaterials {
         );
     }
 
-    public static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(FTBMaterials.MOD_ID, path);
+    public static Identifier id(String path) {
+        return Identifier.fromNamespaceAndPath(FTBMaterials.MOD_ID, path);
     }
 }

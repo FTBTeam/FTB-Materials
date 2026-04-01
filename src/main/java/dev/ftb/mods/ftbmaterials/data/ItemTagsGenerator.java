@@ -8,20 +8,17 @@ import dev.ftb.mods.ftbmaterials.resources.ResourceType;
 import dev.ftb.mods.ftbmaterials.util.CachedTagKeyLookup;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.ItemTagsProvider;
+import net.neoforged.neoforge.common.data.ItemTagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class ItemTagsGenerator extends ItemTagsProvider {
-    public ItemTagsGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, blockTags, FTBMaterials.MOD_ID, existingFileHelper);
+    public ItemTagsGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, FTBMaterials.MOD_ID);
     }
 
     @Override
@@ -33,11 +30,10 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
             for (ResourceType resourceType : resource.getResourceTypes()) {
                 holder.getItemFromType(resourceType).ifPresent(target -> {
-                    if (target.getKey() != null) {
-                        Set<TagKey<Item>> tags = collectTagsForElement(resource, resourceType, cacheTagKeyLookup);
-                        for (var tag : tags) {
-                            tag(tag).add(target.getKey());
-                        }
+                    Item item = target.get();
+                    Set<TagKey<Item>> tags = collectTagsForElement(resource, resourceType, cacheTagKeyLookup);
+                    for (var tag : tags) {
+                        tag(tag).add(item);
                     }
                 });
             }
@@ -60,6 +56,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 tags.add(cacheTagKeyLookup.getOrCreateUnifiedTag(ftbTagName, ""));
                 tags.add(cacheTagKeyLookup.getOrCreateUnifiedTag(ftbTagName, resourceType.getResourceNameMutator().apply(resourceName)));
             }
+        }
+
+        String extra = resourceType.getExtraBlockTag();
+        if (!extra.isEmpty()) {
+            tags.add(cacheTagKeyLookup.getOrCreateUnifiedTag(extra, ""));
         }
 
         return tags;

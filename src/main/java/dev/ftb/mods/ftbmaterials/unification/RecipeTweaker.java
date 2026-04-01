@@ -9,7 +9,7 @@ import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -114,7 +114,7 @@ public class RecipeTweaker {
         toRemove.forEach(o::remove);
     }
 
-    public void addRule(ResourceLocation recipeType, Rule... rules) {
+    public void addRule(Identifier recipeType, Rule... rules) {
         ruleDB.computeIfAbsent(recipeType.toString(), k -> new ArrayList<>()).addAll(List.of(rules));
     }
 

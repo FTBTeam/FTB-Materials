@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:uranium_ingot"
-    }
+    "ftbmaterials:uranium_ingot"
   ],
   "result": {
     "count": 9,

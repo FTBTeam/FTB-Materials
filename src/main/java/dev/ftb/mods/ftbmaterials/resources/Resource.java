@@ -1,7 +1,7 @@
 package dev.ftb.mods.ftbmaterials.resources;
 
-import net.minecraft.Util;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Util;
+import net.minecraft.resources.Identifier;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public enum Resource {
     CONSTANTAN(emptyBuilder().allCraftedProducts().allDusts()
             .build()),
     COPPER(emptyBuilder().netherOre(true).endOre(true)
-            .allCraftedProducts().ingot(false).block(false)
+            .allCraftedProducts().ingot(false).block(false).nugget(false)
             .allProcessingProducts().chunkAndCluster().allDusts()
             .blade(true)
             .build()),
@@ -180,7 +180,7 @@ public enum Resource {
     });
 
     private final EnumSet<ResourceType> resourceTypes;
-    private final ResourceLocation breakableWith;
+    private final Identifier breakableWith;
 
     Resource(EnumSet<ResourceType> resourceTypes) {
         this("stone", resourceTypes);
@@ -188,7 +188,7 @@ public enum Resource {
 
     Resource(String breakableWith, EnumSet<ResourceType> resourceTypes) {
         this.resourceTypes = resourceTypes;
-        this.breakableWith = ResourceLocation.withDefaultNamespace("needs_" + breakableWith + "_tool");
+        this.breakableWith = Identifier.withDefaultNamespace("needs_" + breakableWith + "_tool");
     }
 
     public static boolean isFTBResource(String resourceName) {
@@ -199,7 +199,7 @@ public enum Resource {
         return resourceTypes;
     }
 
-    public ResourceLocation getBreakableWith() {
+    public Identifier getBreakableWith() {
         return breakableWith;
     }
 

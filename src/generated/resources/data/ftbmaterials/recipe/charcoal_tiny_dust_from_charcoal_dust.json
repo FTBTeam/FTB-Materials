@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:charcoal_dust"
-    }
+    "ftbmaterials:charcoal_dust"
   ],
   "result": {
     "count": 9,

@@ -3,11 +3,8 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": {
-    "item": "ftbmaterials:uranium_raw_ore"
-  },
+  "ingredient": "ftbmaterials:uranium_raw_ore",
   "result": {
-    "count": 1,
     "id": "ftbmaterials:uranium_ingot"
   }
 }

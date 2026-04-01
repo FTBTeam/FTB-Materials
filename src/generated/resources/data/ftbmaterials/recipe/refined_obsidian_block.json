@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "item": "ftbmaterials:refined_obsidian_ingot"
-    }
+    "I": "ftbmaterials:refined_obsidian_ingot"
   },
   "pattern": [
     "III",
@@ -12,7 +10,6 @@
     "III"
   ],
   "result": {
-    "count": 1,
     "id": "ftbmaterials:refined_obsidian_block"
   }
 }

@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:antimony_block"
-    }
+    "ftbmaterials:antimony_block"
   ],
   "result": {
     "count": 9,

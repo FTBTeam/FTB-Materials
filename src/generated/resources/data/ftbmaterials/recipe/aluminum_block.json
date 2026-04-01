@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "item": "ftbmaterials:aluminum_ingot"
-    }
+    "I": "ftbmaterials:aluminum_ingot"
   },
   "pattern": [
     "III",
@@ -12,7 +10,6 @@
     "III"
   ],
   "result": {
-    "count": 1,
     "id": "ftbmaterials:aluminum_block"
   }
 }

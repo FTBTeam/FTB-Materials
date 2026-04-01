@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:bronze_dust"
-    }
+    "ftbmaterials:bronze_dust"
   ],
   "result": {
     "count": 9,

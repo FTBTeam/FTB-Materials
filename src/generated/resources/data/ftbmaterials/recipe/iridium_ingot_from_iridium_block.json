@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:iridium_block"
-    }
+    "ftbmaterials:iridium_block"
   ],
   "result": {
     "count": 9,

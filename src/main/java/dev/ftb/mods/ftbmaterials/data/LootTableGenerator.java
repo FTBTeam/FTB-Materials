@@ -4,13 +4,13 @@ import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.WritableRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.ValidationContext;
+import net.minecraft.world.level.storage.loot.ValidationContextSource;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -33,7 +33,7 @@ public class LootTableGenerator extends LootTableProvider {
     }
 
     @Override
-    protected void validate(WritableRegistry<LootTable> writableregistry, ValidationContext validationcontext, ProblemReporter.Collector problemreporter$collector) {
+    protected void validate(WritableRegistry<LootTable> writableregistry, ValidationContextSource validationcontext, ProblemReporter.Collector problemreporter$collector) {
     }
 
     private static class BlockLoot extends BlockLootSubProvider {
@@ -78,22 +78,22 @@ public class LootTableGenerator extends LootTableProvider {
 
         private void addVanillaOreDrops() {
             Map<DeferredHolder<Block,Block>, ItemLike> oreBlocks = Util.make(new HashMap<>(), map -> {
-                List.of(ResourceType.END_ORE, ResourceType.NETHER_ORE).forEach(type -> {
-                    addOreIfPresent(map, Resource.EMERALD, type, Items.EMERALD);
-                    addOreIfPresent(map, Resource.DIAMOND, type, Items.DIAMOND);
-                    addOreIfPresent(map, Resource.LAPIS_LAZULI, type, Items.LAPIS_LAZULI);
-                    addOreIfPresent(map, Resource.REDSTONE, type, Items.REDSTONE);
-                    addOreIfPresent(map, Resource.IRON, type, Items.RAW_IRON);
-                    addOreIfPresent(map, Resource.GOLD, type, Items.RAW_GOLD);
-                    addOreIfPresent(map, Resource.COPPER, type, Items.RAW_COPPER);
-                });
-                List.of(ResourceType.END_ORE, ResourceType.STONE_ORE, ResourceType.DEEPSLATE_ORE)
-                        .forEach(type -> addOreIfPresent(map, Resource.QUARTZ, type, Items.QUARTZ));
+            List.of(ResourceType.END_ORE, ResourceType.NETHER_ORE).forEach(type -> {
+                addOreIfPresent(map, Resource.EMERALD, type, Items.EMERALD);
+                addOreIfPresent(map, Resource.DIAMOND, type, Items.DIAMOND);
+                addOreIfPresent(map, Resource.LAPIS_LAZULI, type, Items.LAPIS_LAZULI);
+                addOreIfPresent(map, Resource.REDSTONE, type, Items.REDSTONE);
+                addOreIfPresent(map, Resource.IRON, type, Items.RAW_IRON);
+                addOreIfPresent(map, Resource.GOLD, type, Items.RAW_GOLD);
+                addOreIfPresent(map, Resource.COPPER, type, Items.RAW_COPPER);
+            });
+            List.of(ResourceType.END_ORE, ResourceType.STONE_ORE, ResourceType.DEEPSLATE_ORE)
+                    .forEach(type -> addOreIfPresent(map, Resource.QUARTZ, type, Items.QUARTZ));
             });
 
             for (var entry : oreBlocks.entrySet()) {
                 Block block = entry.getKey().get();
-                ResourceLocation registryId = entry.getKey().getId();
+                Identifier registryId = entry.getKey().getId();
 
                 if (registryId.toString().contains("redstone")) {
                     add(block, createRedstoneOreDrops(block));

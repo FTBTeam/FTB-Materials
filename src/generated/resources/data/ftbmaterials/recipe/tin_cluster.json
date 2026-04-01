@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "item": "ftbmaterials:tin_chunk"
-    }
+    "I": "ftbmaterials:tin_chunk"
   },
   "pattern": [
     "II ",
@@ -12,7 +10,6 @@
     "   "
   ],
   "result": {
-    "count": 1,
     "id": "ftbmaterials:tin_cluster"
   }
 }

@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:sapphire_dust"
-    }
+    "ftbmaterials:sapphire_dust"
   ],
   "result": {
     "count": 9,

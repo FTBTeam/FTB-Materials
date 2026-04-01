@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:tin_dust"
-    }
+    "ftbmaterials:tin_dust"
   ],
   "result": {
     "count": 9,

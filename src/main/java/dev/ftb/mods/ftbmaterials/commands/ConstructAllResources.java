@@ -11,6 +11,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -35,7 +36,7 @@ public class ConstructAllResources {
 
     public static LiteralArgumentBuilder<CommandSourceStack> register() {
         return Commands.literal("construct-all-resources")
-                .requires(e -> e.hasPermission(Commands.LEVEL_OWNERS))
+                .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
                 .executes(ConstructAllResources::construct);
     }
 
@@ -45,7 +46,7 @@ public class ConstructAllResources {
 
         Vec3 horizView = player.getViewVector(1f);
         horizView.subtract(0, horizView.y, 0);
-        BlockPos pos = player.blockPosition().relative(Direction.getNearest(horizView), 2);
+        BlockPos pos = player.blockPosition().relative(Direction.getNearest(new Vec3i((int) horizView.x, (int) horizView.y, (int) horizView.z), Direction.NORTH), 2);
 
         int xOffset = 0;
         int yOffset = 0;

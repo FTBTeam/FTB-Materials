@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "ftbmaterials:refined_obsidian_ingot"
-    }
+    "ftbmaterials:refined_obsidian_ingot"
   ],
   "result": {
     "count": 9,

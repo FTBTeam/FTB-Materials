@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "N": {
-      "item": "ftbmaterials:electrum_nugget"
-    }
+    "N": "ftbmaterials:electrum_nugget"
   },
   "pattern": [
     "NNN",
@@ -12,7 +10,6 @@
     "NNN"
   ],
   "result": {
-    "count": 1,
     "id": "ftbmaterials:electrum_ingot"
   }
 }
