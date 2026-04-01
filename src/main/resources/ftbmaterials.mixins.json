@@ -4,11 +4,10 @@
   "compatibilityLevel": "JAVA_25",
   "minVersion": "0.8",
   "client": [
-
   ],
   "mixins": [
-    "RecipeManagerMixin",
-    "BulkSectionAccessMixin"
+    "BulkSectionAccessMixin",
+    "SimpleJsonResourceReloadListenerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
