@@ -180,4 +180,4 @@ publishMods {
     }
 }
 
-createPublishingBlock(project)
+createMavenPublishingBlock(project)
