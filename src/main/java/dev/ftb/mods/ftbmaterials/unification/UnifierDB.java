@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftbmaterials.unification;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -169,7 +170,8 @@ public class UnifierDB {
     public void save(Path path) throws IOException {
         var res = CODEC.encodeStart(JsonOps.INSTANCE, this);
         if (res.isSuccess()) {
-            Files.writeString(path, res.getOrThrow().toString());
+            var gson = new Gson().newBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+            Files.writeString(path, gson.toJson(res.getOrThrow()));
         }
     }
 
