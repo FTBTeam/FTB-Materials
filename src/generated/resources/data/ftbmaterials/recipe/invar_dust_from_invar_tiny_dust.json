@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "invar_tiny_dust",
+        "invar_dust"
+      ]
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {

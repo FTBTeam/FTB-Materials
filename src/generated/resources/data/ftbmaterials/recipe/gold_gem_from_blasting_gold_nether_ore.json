@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "gold_gem",
+        "gold_nether_ore"
+      ]
+    }
+  ],
   "type": "minecraft:blasting",
   "category": "misc",
   "cookingtime": 100,

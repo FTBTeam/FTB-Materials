@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "silicon_tiny_dust",
+        "silicon_dust"
+      ]
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_item": {

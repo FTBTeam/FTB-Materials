@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "diamond_dust",
+        "diamond_tiny_dust"
+      ]
+    }
+  ],
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [

@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "zinc_nugget",
+        "zinc_ingot"
+      ]
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_item": {

@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "invar_block",
+        "invar_ingot"
+      ]
+    }
+  ],
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [

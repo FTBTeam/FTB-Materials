@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "tungsten_ingot",
+        "tungsten_nugget"
+      ]
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_item": {

@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "refined_glowstone_nugget",
+        "refined_glowstone_ingot"
+      ]
+    }
+  ],
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [

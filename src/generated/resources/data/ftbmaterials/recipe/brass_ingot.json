@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "brass_nugget",
+        "brass_ingot"
+      ]
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {

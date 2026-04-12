@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "tungsten_raw_ore",
+        "tungsten_ingot"
+      ]
+    }
+  ],
   "type": "minecraft:smelting",
   "category": "misc",
   "cookingtime": 200,

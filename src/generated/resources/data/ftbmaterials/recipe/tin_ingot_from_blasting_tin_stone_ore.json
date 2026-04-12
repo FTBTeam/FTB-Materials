@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "tin_ingot",
+        "tin_stone_ore"
+      ]
+    }
+  ],
   "type": "minecraft:blasting",
   "category": "misc",
   "cookingtime": 100,

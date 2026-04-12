@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "uranium_chunk",
+        "uranium_cluster"
+      ]
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {

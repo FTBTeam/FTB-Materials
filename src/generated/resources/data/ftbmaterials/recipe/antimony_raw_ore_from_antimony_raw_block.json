@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "antimony_raw_ore",
+        "antimony_raw_block"
+      ]
+    }
+  ],
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [

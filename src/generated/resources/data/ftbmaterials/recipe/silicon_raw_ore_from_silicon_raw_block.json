@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "silicon_raw_ore",
+        "silicon_raw_block"
+      ]
+    }
+  ],
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [

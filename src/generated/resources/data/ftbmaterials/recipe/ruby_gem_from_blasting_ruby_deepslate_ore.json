@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "ruby_gem",
+        "ruby_deepslate_ore"
+      ]
+    }
+  ],
   "type": "minecraft:blasting",
   "category": "misc",
   "cookingtime": 100,

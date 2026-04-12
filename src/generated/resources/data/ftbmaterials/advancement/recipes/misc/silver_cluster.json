@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "silver_cluster",
+        "silver_chunk"
+      ]
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_item": {

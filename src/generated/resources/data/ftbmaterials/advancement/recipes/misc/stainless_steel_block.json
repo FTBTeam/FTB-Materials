@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "stainless_steel_ingot",
+        "stainless_steel_block"
+      ]
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_item": {

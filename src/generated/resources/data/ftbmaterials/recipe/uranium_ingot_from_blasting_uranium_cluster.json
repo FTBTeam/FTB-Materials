@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "uranium_ingot",
+        "uranium_cluster"
+      ]
+    }
+  ],
   "type": "minecraft:blasting",
   "category": "misc",
   "cookingtime": 100,

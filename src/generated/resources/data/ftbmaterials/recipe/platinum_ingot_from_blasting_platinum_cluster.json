@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "platinum_ingot",
+        "platinum_cluster"
+      ]
+    }
+  ],
   "type": "minecraft:blasting",
   "category": "misc",
   "cookingtime": 100,
