@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "graphite_nugget",
-        "graphite_ingot"
+        "graphite_ingot",
+        "graphite_nugget"
       ]
     }
   ],

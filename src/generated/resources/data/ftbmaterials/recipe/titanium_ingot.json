@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "titanium_ingot",
-        "titanium_nugget"
+        "titanium_nugget",
+        "titanium_ingot"
       ]
     }
   ],

@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "gold_tiny_dust",
-        "gold_dust"
+        "gold_dust",
+        "gold_tiny_dust"
       ]
     }
   ],

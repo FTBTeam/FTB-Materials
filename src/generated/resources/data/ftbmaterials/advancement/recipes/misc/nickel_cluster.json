@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "nickel_cluster",
-        "nickel_chunk"
+        "nickel_chunk",
+        "nickel_cluster"
       ]
     }
   ],

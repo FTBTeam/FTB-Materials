@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "quartz_tiny_dust",
-        "quartz_dust"
+        "quartz_dust",
+        "quartz_tiny_dust"
       ]
     }
   ],

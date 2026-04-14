@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "plutonium_dust",
-        "plutonium_tiny_dust"
+        "plutonium_tiny_dust",
+        "plutonium_dust"
       ]
     }
   ],

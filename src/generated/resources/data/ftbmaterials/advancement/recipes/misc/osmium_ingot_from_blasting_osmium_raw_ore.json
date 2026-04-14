@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "osmium_ingot",
-        "osmium_raw_ore"
+        "osmium_raw_ore",
+        "osmium_ingot"
       ]
     }
   ],

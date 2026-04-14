@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "platinum_ingot",
-        "platinum_raw_ore"
+        "platinum_raw_ore",
+        "platinum_ingot"
       ]
     }
   ],

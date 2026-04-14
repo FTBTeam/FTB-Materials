@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "iron_cluster",
-        "iron_chunk"
+        "iron_chunk",
+        "iron_cluster"
       ]
     }
   ],

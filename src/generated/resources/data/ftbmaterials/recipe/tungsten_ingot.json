@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "tungsten_ingot",
-        "tungsten_nugget"
+        "tungsten_nugget",
+        "tungsten_ingot"
       ]
     }
   ],

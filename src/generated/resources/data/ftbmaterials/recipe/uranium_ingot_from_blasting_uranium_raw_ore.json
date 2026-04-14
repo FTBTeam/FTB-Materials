@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "uranium_ingot",
-        "uranium_raw_ore"
+        "uranium_raw_ore",
+        "uranium_ingot"
       ]
     }
   ],

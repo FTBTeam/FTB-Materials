@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "titanium_ingot",
-        "titanium_raw_ore"
+        "titanium_raw_ore",
+        "titanium_ingot"
       ]
     }
   ],

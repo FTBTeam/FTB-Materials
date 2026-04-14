@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "silver_cluster",
-        "silver_chunk"
+        "silver_chunk",
+        "silver_cluster"
       ]
     }
   ],

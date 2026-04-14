@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "nickel_ingot",
-        "nickel_cluster"
+        "nickel_cluster",
+        "nickel_ingot"
       ]
     }
   ],

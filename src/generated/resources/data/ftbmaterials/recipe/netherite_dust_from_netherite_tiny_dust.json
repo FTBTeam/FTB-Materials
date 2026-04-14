@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "netherite_dust",
-        "netherite_tiny_dust"
+        "netherite_tiny_dust",
+        "netherite_dust"
       ]
     }
   ],

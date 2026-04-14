@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "emerald_tiny_dust",
-        "emerald_dust"
+        "emerald_dust",
+        "emerald_tiny_dust"
       ]
     }
   ],

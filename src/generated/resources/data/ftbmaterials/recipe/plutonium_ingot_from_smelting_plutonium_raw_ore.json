@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "plutonium_ingot",
-        "plutonium_raw_ore"
+        "plutonium_raw_ore",
+        "plutonium_ingot"
       ]
     }
   ],

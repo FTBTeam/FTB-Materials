@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "invar_nugget",
-        "invar_ingot"
+        "invar_ingot",
+        "invar_nugget"
       ]
     }
   ],

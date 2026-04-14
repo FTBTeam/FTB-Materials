@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "stainless_steel_nugget",
-        "stainless_steel_ingot"
+        "stainless_steel_ingot",
+        "stainless_steel_nugget"
       ]
     }
   ],

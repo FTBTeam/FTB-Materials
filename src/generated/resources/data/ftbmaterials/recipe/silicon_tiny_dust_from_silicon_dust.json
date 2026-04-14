@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "silicon_tiny_dust",
-        "silicon_dust"
+        "silicon_dust",
+        "silicon_tiny_dust"
       ]
     }
   ],

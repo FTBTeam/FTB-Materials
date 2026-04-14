@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "refined_obsidian_nugget",
-        "refined_obsidian_ingot"
+        "refined_obsidian_ingot",
+        "refined_obsidian_nugget"
       ]
     }
   ],

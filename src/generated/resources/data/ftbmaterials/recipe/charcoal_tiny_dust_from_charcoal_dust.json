@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "charcoal_tiny_dust",
-        "charcoal_dust"
+        "charcoal_dust",
+        "charcoal_tiny_dust"
       ]
     }
   ],

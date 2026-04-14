@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "lumium_tiny_dust",
-        "lumium_dust"
+        "lumium_dust",
+        "lumium_tiny_dust"
       ]
     }
   ],

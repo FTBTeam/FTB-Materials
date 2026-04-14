@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "lumium_ingot",
-        "lumium_nugget"
+        "lumium_nugget",
+        "lumium_ingot"
       ]
     }
   ],

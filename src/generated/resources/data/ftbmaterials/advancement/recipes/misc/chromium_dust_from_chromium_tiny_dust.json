@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "chromium_dust",
-        "chromium_tiny_dust"
+        "chromium_tiny_dust",
+        "chromium_dust"
       ]
     }
   ],

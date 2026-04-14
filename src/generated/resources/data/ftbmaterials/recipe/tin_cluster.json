@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "tin_cluster",
-        "tin_chunk"
+        "tin_chunk",
+        "tin_cluster"
       ]
     }
   ],

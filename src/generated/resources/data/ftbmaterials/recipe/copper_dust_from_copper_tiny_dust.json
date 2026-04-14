@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "copper_dust",
-        "copper_tiny_dust"
+        "copper_tiny_dust",
+        "copper_dust"
       ]
     }
   ],

@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "obsidian_dust",
-        "obsidian_tiny_dust"
+        "obsidian_tiny_dust",
+        "obsidian_dust"
       ]
     }
   ],

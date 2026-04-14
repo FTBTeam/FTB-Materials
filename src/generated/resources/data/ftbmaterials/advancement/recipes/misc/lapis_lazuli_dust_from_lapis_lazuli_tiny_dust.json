@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "lapis_lazuli_dust",
-        "lapis_lazuli_tiny_dust"
+        "lapis_lazuli_tiny_dust",
+        "lapis_lazuli_dust"
       ]
     }
   ],

@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "osmium_dust",
-        "osmium_tiny_dust"
+        "osmium_tiny_dust",
+        "osmium_dust"
       ]
     }
   ],

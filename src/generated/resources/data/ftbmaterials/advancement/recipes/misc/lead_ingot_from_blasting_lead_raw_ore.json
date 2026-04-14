@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "lead_ingot",
-        "lead_raw_ore"
+        "lead_raw_ore",
+        "lead_ingot"
       ]
     }
   ],

@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "uranium_dust",
-        "uranium_tiny_dust"
+        "uranium_tiny_dust",
+        "uranium_dust"
       ]
     }
   ],

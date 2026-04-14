@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "iridium_ingot",
-        "iridium_nugget"
+        "iridium_nugget",
+        "iridium_ingot"
       ]
     }
   ],

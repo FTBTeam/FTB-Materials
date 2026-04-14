@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "stainless_steel_dust",
-        "stainless_steel_tiny_dust"
+        "stainless_steel_tiny_dust",
+        "stainless_steel_dust"
       ]
     }
   ],

@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "silver_ingot",
-        "silver_raw_ore"
+        "silver_raw_ore",
+        "silver_ingot"
       ]
     }
   ],

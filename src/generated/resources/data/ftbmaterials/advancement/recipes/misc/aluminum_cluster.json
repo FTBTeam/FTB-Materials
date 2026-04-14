@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "aluminum_cluster",
-        "aluminum_chunk"
+        "aluminum_chunk",
+        "aluminum_cluster"
       ]
     }
   ],

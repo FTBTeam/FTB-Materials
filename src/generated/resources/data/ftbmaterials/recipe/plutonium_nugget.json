@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "plutonium_nugget",
-        "plutonium_ingot"
+        "plutonium_ingot",
+        "plutonium_nugget"
       ]
     }
   ],

@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "lead_ingot",
-        "lead_cluster"
+        "lead_cluster",
+        "lead_ingot"
       ]
     }
   ],

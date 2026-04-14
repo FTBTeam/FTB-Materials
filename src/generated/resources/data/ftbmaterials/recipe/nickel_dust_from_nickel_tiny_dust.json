@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "nickel_dust",
-        "nickel_tiny_dust"
+        "nickel_tiny_dust",
+        "nickel_dust"
       ]
     }
   ],

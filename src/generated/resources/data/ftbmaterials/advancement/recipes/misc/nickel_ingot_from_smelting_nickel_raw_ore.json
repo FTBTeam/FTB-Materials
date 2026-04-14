@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "nickel_ingot",
-        "nickel_raw_ore"
+        "nickel_raw_ore",
+        "nickel_ingot"
       ]
     }
   ],

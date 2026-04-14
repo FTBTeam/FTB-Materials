@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "salt_tiny_dust",
-        "salt_dust"
+        "salt_dust",
+        "salt_tiny_dust"
       ]
     }
   ],

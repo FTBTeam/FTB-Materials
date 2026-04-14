@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "constantan_ingot",
-        "constantan_nugget"
+        "constantan_nugget",
+        "constantan_ingot"
       ]
     }
   ],

@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "iridium_dust",
-        "iridium_tiny_dust"
+        "iridium_tiny_dust",
+        "iridium_dust"
       ]
     }
   ],

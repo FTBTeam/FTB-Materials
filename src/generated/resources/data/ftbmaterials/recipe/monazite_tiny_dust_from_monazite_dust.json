@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "monazite_tiny_dust",
-        "monazite_dust"
+        "monazite_dust",
+        "monazite_tiny_dust"
       ]
     }
   ],

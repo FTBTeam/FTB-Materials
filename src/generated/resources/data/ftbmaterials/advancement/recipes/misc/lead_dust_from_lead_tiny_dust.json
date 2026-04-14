@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "lead_dust",
-        "lead_tiny_dust"
+        "lead_tiny_dust",
+        "lead_dust"
       ]
     }
   ],

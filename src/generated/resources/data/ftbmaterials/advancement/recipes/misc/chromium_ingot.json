@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "chromium_ingot",
-        "chromium_nugget"
+        "chromium_nugget",
+        "chromium_ingot"
       ]
     }
   ],

@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "fluorite_dust",
-        "fluorite_tiny_dust"
+        "fluorite_tiny_dust",
+        "fluorite_dust"
       ]
     }
   ],

@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "silicon_ingot",
-        "silicon_raw_ore"
+        "silicon_raw_ore",
+        "silicon_ingot"
       ]
     }
   ],

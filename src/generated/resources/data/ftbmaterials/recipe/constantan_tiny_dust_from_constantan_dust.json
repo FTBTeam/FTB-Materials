@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "constantan_tiny_dust",
-        "constantan_dust"
+        "constantan_dust",
+        "constantan_tiny_dust"
       ]
     }
   ],

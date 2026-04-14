@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "sapphire_dust",
-        "sapphire_tiny_dust"
+        "sapphire_tiny_dust",
+        "sapphire_dust"
       ]
     }
   ],

@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "osmium_ingot",
-        "osmium_cluster"
+        "osmium_cluster",
+        "osmium_ingot"
       ]
     }
   ],

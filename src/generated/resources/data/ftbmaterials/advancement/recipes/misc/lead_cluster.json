@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "lead_cluster",
-        "lead_chunk"
+        "lead_chunk",
+        "lead_cluster"
       ]
     }
   ],

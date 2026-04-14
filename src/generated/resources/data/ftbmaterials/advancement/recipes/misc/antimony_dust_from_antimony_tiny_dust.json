@@ -3,8 +3,8 @@
     {
       "type": "ftbmaterials:components_available",
       "used_materials": [
-        "antimony_dust",
-        "antimony_tiny_dust"
+        "antimony_tiny_dust",
+        "antimony_dust"
       ]
     }
   ],
