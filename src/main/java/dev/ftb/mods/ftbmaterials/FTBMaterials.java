@@ -33,6 +33,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -58,8 +59,8 @@ public class FTBMaterials {
         ModGlobalLootModifiers.REGISTRY.register(modBus);
 
         modBus.addListener(this::onSetup);
-        modBus.addListener(this::modifyRecipeJsonResults);
 
+        NeoForge.EVENT_BUS.addListener(this::modifyRecipeJsonResults);
         NeoForge.EVENT_BUS.addListener(this::registerCommands);
 
         UnifierManager.INSTANCE.init();
@@ -69,9 +70,10 @@ public class FTBMaterials {
     }
 
     private void modifyRecipeJsonResults(ModifyRecipeJsonsEvent event) {
-        Map<Identifier, JsonElement> recipeJsons = event.getRecipeJsons();
+        System.out.printf("Help me\n");
+        Map<Identifier, JsonElement> recipeJsons = new HashMap<>(event.getRecipeJsons());
         for (Map.Entry<Identifier, JsonElement> entry : recipeJsons.entrySet()) {
-            UnifierManager.INSTANCE.mutateRecipeJson(entry.getValue());
+            event.getRecipeJsons().put(entry.getKey(), UnifierManager.INSTANCE.mutateRecipeJson(entry.getValue()));
         }
     }
 

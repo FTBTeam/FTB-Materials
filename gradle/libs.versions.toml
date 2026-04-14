@@ -2,8 +2,6 @@
 moddev = "2.0.140"
 modpublish = "1.1.0"
 
-neoforge = "26.1.2.8-beta"
-
 ftblibrary = "26.1.1.1-SNAPSHOT"
 jei = "29.5.0.26"
 

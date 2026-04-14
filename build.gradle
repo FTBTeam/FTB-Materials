@@ -25,7 +25,7 @@ base {
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 neoForge {
-    version = "${libs.versions.neoforge.get()}"
+    version = project.neoforge_version
 
     runs {
         configureEach {
