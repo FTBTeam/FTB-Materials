@@ -14,6 +14,7 @@ import dev.ftb.mods.ftbmaterials.registry.ModGlobalLootModifiers;
 import dev.ftb.mods.ftbmaterials.registry.ModItems;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.unification.UnifierManager;
+import com.google.gson.JsonElement;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.commands.Commands;
 import net.minecraft.resources.Identifier;
@@ -25,12 +26,14 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.event.ModifyRecipeJsonsEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 @Mod(FTBMaterials.MOD_ID)
@@ -55,6 +58,7 @@ public class FTBMaterials {
         ModGlobalLootModifiers.REGISTRY.register(modBus);
 
         modBus.addListener(this::onSetup);
+        modBus.addListener(this::modifyRecipeJsonResults);
 
         NeoForge.EVENT_BUS.addListener(this::registerCommands);
 
@@ -62,6 +66,13 @@ public class FTBMaterials {
 
         ConfigManager.getInstance().registerStartupConfig(StartupConfig.CONFIG, "startup");
         ConfigManager.getInstance().registerStartupConfig(DisabledMaterialList.CONFIG, "disabled_materials");
+    }
+
+    private void modifyRecipeJsonResults(ModifyRecipeJsonsEvent event) {
+        Map<Identifier, JsonElement> recipeJsons = event.getRecipeJsons();
+        for (Map.Entry<Identifier, JsonElement> entry : recipeJsons.entrySet()) {
+            UnifierManager.INSTANCE.mutateRecipeJson(entry.getValue());
+        }
     }
 
     public void onSetup(FMLCommonSetupEvent event) {

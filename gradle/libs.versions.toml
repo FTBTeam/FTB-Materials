@@ -1,13 +1,11 @@
 [versions]
-minecraft = "26.1.1"
-
 moddev = "2.0.140"
 modpublish = "1.1.0"
 
-neoforge = "26.1.1.1-beta"
+neoforge = "26.1.2.8-beta"
 
 ftblibrary = "26.1.1.1-SNAPSHOT"
-jei = "29.4.0.23"
+jei = "29.5.0.26"
 
 [plugins]
 moddev = { id = "net.neoforged.moddev", version.ref = "moddev" }

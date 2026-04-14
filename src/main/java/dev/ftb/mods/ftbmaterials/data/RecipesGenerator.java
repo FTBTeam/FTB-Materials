@@ -49,7 +49,7 @@ public class RecipesGenerator extends RecipeProvider {
                             .requires(inputItemLike)
                             .unlockedBy("has_item", has(inputItemLike))
                             .save(
-                                    this.output.withConditions(new ComponentsAvailableCondition(Set.of(inputName, outputName))),
+                                    this.output.withConditions(new ComponentsAvailableCondition(List.of(inputName, outputName))),
                                     FTBMaterials.id(outputName + "_from_" + inputName).toString()
                             );
                 });

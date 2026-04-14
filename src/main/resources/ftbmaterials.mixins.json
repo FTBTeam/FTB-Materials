@@ -6,8 +6,7 @@
   "client": [
   ],
   "mixins": [
-    "BulkSectionAccessMixin",
-    "SimpleJsonResourceReloadListenerMixin"
+    "BulkSectionAccessMixin"
   ],
   "injectors": {
     "defaultRequire": 1

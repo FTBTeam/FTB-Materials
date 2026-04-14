@@ -1,10 +1,10 @@
 modLoader = "javafml"
-loaderVersion = "${loader_version_range}"
+loaderVersion = "[${neoforge_loader_version},)"
 #issueTrackerURL = ""
 license = "All Rights Reserved"
 
 [[mods]]
-modId = "${mod_id}"
+modId = "ftbmaterials"
 version = "${version}"
 displayName = "${mod_name}"
 authors = "FTB Team"
@@ -17,21 +17,21 @@ as well as code to unify recipes, loot tables and worldgen to use those.
 [[dependencies.ftbmaterials]]
 modId = "neoforge"
 type = "required"
-versionRange = "${mod_loader_range}"
+versionRange = "${neoforge_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ftbmaterials]]
 modId = "minecraft"
 type = "required"
-versionRange = "[26.1,)"
+versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ftbmaterials]]
 modId = "ftblibrary"
 type = "required"
-versionRange = "[26.1.0.3,)"
+versionRange = "${ftb_library_version_range}"
 ordering = "NONE"
 side = "BOTH"
 

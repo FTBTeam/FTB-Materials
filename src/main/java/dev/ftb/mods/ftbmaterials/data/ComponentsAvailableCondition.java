@@ -10,39 +10,37 @@ import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public record ComponentsAvailableCondition(
-        Set<String> usedMaterials
+        List<String> usedMaterials
 ) implements ICondition {
     public static final MapCodec<ComponentsAvailableCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Codec.STRING.listOf().fieldOf("used_materials")
-                            .xmap(Set::copyOf, List::copyOf)
                             .forGetter(condition -> condition.usedMaterials)
             ).apply(instance, ComponentsAvailableCondition::new)
     );
 
     public static ComponentsAvailableCondition of(String... usedMaterials) {
-        return new ComponentsAvailableCondition(Set.of(usedMaterials));
+        return new ComponentsAvailableCondition(List.of(usedMaterials));
     }
 
     @SafeVarargs
     public static ComponentsAvailableCondition fromBlocks(DeferredHolder<Block, Block>... blocks) {
-        return new ComponentsAvailableCondition(Set.of(blocks).stream().map(b -> b.getId().getPath()).collect(Collectors.toSet()));
+        return new ComponentsAvailableCondition(Stream.of(blocks).map(b -> b.getId().getPath()).toList());
     }
 
     @SafeVarargs
     public static ComponentsAvailableCondition fromItems(DeferredHolder<Item, Item>... items) {
-        return new ComponentsAvailableCondition(Set.of(items).stream().map(b -> b.getId().getPath()).collect(Collectors.toSet()));
+        return new ComponentsAvailableCondition(Stream.of(items).map(b -> b.getId().getPath()).toList());
     }
 
     public static ComponentsAvailableCondition fromItemToBlock(DeferredHolder<Item, Item> item, DeferredHolder<Block , Block> block) {
-        return new ComponentsAvailableCondition(Set.of(item.getId().getPath(), block.getId().getPath()));
+        return new ComponentsAvailableCondition(List.of(item.getId().getPath(), block.getId().getPath()));
     }
 
     public static ComponentsAvailableCondition fromBlockToItem(DeferredHolder<Block, Block> block, DeferredHolder<Item, Item> item) {
-        return new ComponentsAvailableCondition(Set.of(item.getId().getPath(), block.getId().getPath()));
+        return new ComponentsAvailableCondition(List.of(item.getId().getPath(), block.getId().getPath()));
     }
 
     @Override

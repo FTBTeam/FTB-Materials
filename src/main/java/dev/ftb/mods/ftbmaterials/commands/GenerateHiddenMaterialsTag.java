@@ -13,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 public class GenerateHiddenMaterialsTag {

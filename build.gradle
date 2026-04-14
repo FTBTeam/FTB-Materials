@@ -98,10 +98,10 @@ repositories {
 dependencies {
     implementation "dev.ftb.mods:ftb-library-neoforge:${libs.versions.ftblibrary.get()}"
 
-    compileOnlyApi("mezz.jei:jei-${libs.versions.minecraft.get()}-common-api:${libs.versions.jei.get()}")
-    compileOnlyApi("mezz.jei:jei-${libs.versions.minecraft.get()}-neoforge-api:${libs.versions.jei.get()}")
+    compileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${libs.versions.jei.get()}")
+    compileOnlyApi("mezz.jei:jei-${minecraft_version}-neoforge-api:${libs.versions.jei.get()}")
 
-    runtimeOnly("mezz.jei:jei-${libs.versions.minecraft.get()}-neoforge:${libs.versions.jei.get()}")
+    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${libs.versions.jei.get()}")
 }
 
 tasks.register("sourcesJar", Jar) {
@@ -127,18 +127,17 @@ tasks.named("jar") {
 tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
             version: version,
-            mcversion: libs.versions.minecraft.get(),
             mod_id: mod_id,
             mod_name: mod_name,
-            pack_format: pack_format,
-            loader_version_range: loader_version_range,
-            // 99.9% of the time we're only going to target a very vague version of neoforge so this is fine.
-            mod_loader_range: mod_loader_range.replace("\${mc_base}", normalisedMcVersion(project)), // Replace the version in the mod loader range
+            neoforge_version_range: neoforge_version_range,
+            neoforge_loader_version: neoforge_loader_version,
+            minecraft_version_range: minecraft_version_range,
+            ftb_library_version_range: ftb_library_version_range,
     ]
 
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
+    filesMatching(['META-INF/neoforge.mods.toml']) {
         expand replaceProperties
     }
 
