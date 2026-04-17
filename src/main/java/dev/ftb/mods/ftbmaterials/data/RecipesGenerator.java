@@ -124,6 +124,22 @@ public class RecipesGenerator extends RecipeProvider {
             }
         }
 
+        // Dust smelts to ingots
+        createInputOutputRecipeFromTypes(ResourceType.DUST, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
+            var inputName = inputReg.getId().getPath();
+            var outputName = outputReg.getId().getPath();
+
+            SimpleCookingRecipeBuilder.blasting(Ingredient.of(inputItemLike), RecipeCategory.MISC, CookingBookCategory.MISC, outputItemLike, 0.7f, 100)
+                    .unlockedBy("has_item", has(inputItemLike))
+                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)),
+                            FTBMaterials.id(outputName + "_from_blasting_" + inputName).toString());
+
+            SimpleCookingRecipeBuilder.smelting(Ingredient.of(inputItemLike), RecipeCategory.MISC, CookingBookCategory.MISC, outputItemLike, 0.7f, 200)
+                    .unlockedBy("has_item", has(inputItemLike))
+                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)),
+                            FTBMaterials.id(outputName + "_from_smelting_" + inputName).toString());
+        });
+
         // Clusters smelt to ingots
         createInputOutputRecipeFromTypes(ResourceType.CLUSTER, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
             var inputName = inputReg.getId().getPath();
