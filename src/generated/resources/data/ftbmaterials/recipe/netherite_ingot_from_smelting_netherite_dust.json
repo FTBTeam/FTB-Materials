@@ -1,0 +1,18 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "netherite_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": "ftbmaterials:netherite_dust",
+  "result": {
+    "id": "minecraft:netherite_ingot"
+  }
+}

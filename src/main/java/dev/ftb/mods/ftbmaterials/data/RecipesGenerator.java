@@ -2,6 +2,7 @@ package dev.ftb.mods.ftbmaterials.data;
 
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 import dev.ftb.mods.ftbmaterials.config.DisabledMaterialList;
+import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
@@ -9,8 +10,11 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -124,6 +128,12 @@ public class RecipesGenerator extends RecipeProvider {
             }
         }
 
+        // Dust smelts to vanilla ingots (for materials without an FTB Materials ingot registration)
+        addVanillaDustSmelting(Resource.COPPER, Items.COPPER_INGOT);
+        addVanillaDustSmelting(Resource.GOLD, Items.GOLD_INGOT);
+        addVanillaDustSmelting(Resource.IRON, Items.IRON_INGOT);
+        addVanillaDustSmelting(Resource.NETHERITE, Items.NETHERITE_INGOT);
+
         // Dust smelts to ingots
         createInputOutputRecipeFromTypes(ResourceType.DUST, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
             var inputName = inputReg.getId().getPath();
@@ -183,6 +193,23 @@ public class RecipesGenerator extends RecipeProvider {
                     .unlockedBy("has_item", has(inputItemLike))
                     .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))
                             , FTBMaterials.id(outputName + "_from_" + inputName).toString());
+        });
+    }
+
+    private void addVanillaDustSmelting(Resource resource, Item vanillaIngot) {
+        ResourceRegistries.get(resource).getItemFromType(ResourceType.DUST).ifPresent(dustHolder -> {
+            var inputName = dustHolder.getId().getPath();
+            var outputName = BuiltInRegistries.ITEM.getKey(vanillaIngot).getPath();
+
+            SimpleCookingRecipeBuilder.blasting(Ingredient.of(dustHolder.get()), RecipeCategory.MISC, CookingBookCategory.MISC, vanillaIngot, 0.7f, 100)
+                    .unlockedBy("has_item", has(dustHolder.get()))
+                    .save(this.output.withConditions(ComponentsAvailableCondition.of(inputName)),
+                            FTBMaterials.id(outputName + "_from_blasting_" + inputName).toString());
+
+            SimpleCookingRecipeBuilder.smelting(Ingredient.of(dustHolder.get()), RecipeCategory.MISC, CookingBookCategory.MISC, vanillaIngot, 0.7f, 200)
+                    .unlockedBy("has_item", has(dustHolder.get()))
+                    .save(this.output.withConditions(ComponentsAvailableCondition.of(inputName)),
+                            FTBMaterials.id(outputName + "_from_smelting_" + inputName).toString());
         });
     }
 
