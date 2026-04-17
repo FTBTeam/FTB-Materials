@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "refined_obsidian_dust",
+        "refined_obsidian_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": "ftbmaterials:refined_obsidian_dust",
+  "result": {
+    "id": "ftbmaterials:refined_obsidian_ingot"
+  }
+}
