@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "stainless_steel_dust",
+        "stainless_steel_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": "ftbmaterials:stainless_steel_dust",
+  "result": {
+    "id": "ftbmaterials:stainless_steel_ingot"
+  }
+}
