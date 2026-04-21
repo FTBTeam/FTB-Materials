@@ -40,7 +40,7 @@ public class ResourceRegistryHolder {
 
             if (resourceType.isBlock()) {
                 DeferredBlock<Block> regBlock = ModBlocks.REGISTRY.register(niceName,
-                        id -> new Block(ModBlocks.defaultProps().setId(ResourceKey.create(Registries.BLOCK, id))));
+                        id -> new Block(ModBlocks.propsFor(resourceType).setId(ResourceKey.create(Registries.BLOCK, id))));
                 DeferredItem<Item> regBlockItem = ModItems.REGISTRY.register(niceName,
                         id -> new BlockItem(regBlock.get(), ModItems.defaultProps().setId(ResourceKey.create(Registries.ITEM, id))));
 
