@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "resonating_ore_gem",
+        "resonating_ore_stone_ore"
+      ]
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": "ftbmaterials:resonating_ore_stone_ore",
+  "result": {
+    "id": "ftbmaterials:resonating_ore_gem"
+  }
+}

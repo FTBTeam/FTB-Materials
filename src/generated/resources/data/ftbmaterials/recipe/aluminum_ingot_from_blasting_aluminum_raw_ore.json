@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "aluminum_raw_ore",
+        "aluminum_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": "ftbmaterials:aluminum_raw_ore",
+  "result": {
+    "id": "ftbmaterials:aluminum_ingot"
+  }
+}

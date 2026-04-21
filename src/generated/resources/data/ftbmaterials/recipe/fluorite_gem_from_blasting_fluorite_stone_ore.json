@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "fluorite_gem",
+        "fluorite_stone_ore"
+      ]
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": "ftbmaterials:fluorite_stone_ore",
+  "result": {
+    "id": "ftbmaterials:fluorite_gem"
+  }
+}

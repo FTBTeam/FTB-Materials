@@ -1,0 +1,20 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "tin_dust",
+        "tin_tiny_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ftbmaterials:tin_dust"
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:tin_tiny_dust"
+  }
+}
