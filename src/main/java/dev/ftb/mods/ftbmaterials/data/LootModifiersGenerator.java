@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -16,6 +17,6 @@ public class LootModifiersGenerator extends GlobalLootModifierProvider {
 
     @Override
     protected void start() {
-        add("unification", new LootTableUnifier(new LootItemCondition[] { }));
+        add("unification", new LootTableUnifier(new LootItemCondition[] { }, IGlobalLootModifier.DEFAULT_PRIORITY));
     }
 }
