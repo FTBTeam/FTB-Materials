@@ -18,8 +18,8 @@ public class LootTableUnifier extends LootModifier {
             builder -> codecStart(builder).apply(builder, LootTableUnifier::new))
     );
 
-    public LootTableUnifier(LootItemCondition[] lootItemConditions) {
-        super(lootItemConditions);
+    public LootTableUnifier(LootItemCondition[] lootItemConditions, int priority) {
+        super(lootItemConditions, priority);
     }
 
     @Override
