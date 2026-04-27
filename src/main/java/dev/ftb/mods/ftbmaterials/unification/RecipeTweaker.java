@@ -52,7 +52,7 @@ public class RecipeTweaker {
 
     private static void scanExtraRulesDir(RecipeTweaker res) {
         try (Stream<Path> s = Files.list(UnifierManager.RULES_DIR)) {
-            s.filter(p -> p.endsWith(".json")).forEach(rulesFile -> {
+            s.filter(p -> p.toString().endsWith(".json")).forEach(rulesFile -> {
                 try {
                     JsonElement rulesJson = JsonParser.parseString(Files.readString(rulesFile));
                     res.addExtraRules(RULES_CODEC.parse(JsonOps.INSTANCE, rulesJson).getOrThrow());
