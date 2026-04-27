@@ -8,6 +8,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.codecs.UnboundedMapCodec;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
 import net.minecraft.resources.Identifier;
@@ -16,10 +17,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class RecipeTweaker {
+    public static final UnboundedMapCodec<String, List<Rule>> RULES_CODEC
+            = Codec.unboundedMap(Codec.STRING, Rule.CODEC.listOf());
+
     public static final Codec<RecipeTweaker> CODEC = RecordCodecBuilder.create(builder -> builder.group(
-            Codec.unboundedMap(Codec.STRING, Rule.CODEC.listOf()).fieldOf("rules").forGetter(r -> r.ruleDB)
+            RULES_CODEC.fieldOf("rules").forGetter(r -> r.ruleDB)
     ).apply(builder, RecipeTweaker::new));
 
     public static final RecipeTweaker EMPTY = new RecipeTweaker(Map.of());
@@ -37,10 +42,33 @@ public class RecipeTweaker {
     public static RecipeTweaker load(Path path) throws IOException {
         if (Files.exists(path)) {
             JsonElement json = JsonParser.parseString(Files.readString(path));
-            return CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+            RecipeTweaker res = CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+            scanExtraRulesDir(res);
+            return res;
         } else {
             return EMPTY;
         }
+    }
+
+    private static void scanExtraRulesDir(RecipeTweaker res) {
+        try (Stream<Path> s = Files.list(UnifierManager.RULES_DIR)) {
+            s.filter(p -> p.endsWith(".json")).forEach(rulesFile -> {
+                try {
+                    JsonElement rulesJson = JsonParser.parseString(Files.readString(rulesFile));
+                    res.addExtraRules(RULES_CODEC.parse(JsonOps.INSTANCE, rulesJson).getOrThrow());
+                } catch (Exception ex) {
+                    FTBMaterials.LOGGER.error("can't read rules file {}: {}", rulesFile, ex.getMessage());
+                }
+            });
+        } catch (Exception ex) {
+            FTBMaterials.LOGGER.error("can't read directory {}: {}", UnifierManager.RULES_DIR, ex.getMessage());
+        }
+    }
+
+    private void addExtraRules(Map<String, List<Rule>> ruleMap) {
+        ruleMap.forEach((type, rules) ->
+                ruleDB.computeIfAbsent(type, _ -> new ArrayList<>()).addAll(rules)
+        );
     }
 
     public void save(Path path) throws IOException {
@@ -54,14 +82,18 @@ public class RecipeTweaker {
     public JsonElement mutateRecipe(JsonElement element, UnifierDB unifierDB) {
         if (element.isJsonObject() && element.getAsJsonObject().has("type")) {
             List<Rule> customRules = ruleDB.get(element.getAsJsonObject().get("type").getAsString());
-            if (customRules == null) {
-                // just autoscan
-                return scanAndMutateJsonElement(element, unifierDB);
-            } else {
+            boolean madeChange = false;
+            if (customRules != null) {
                 // apply all custom rules
                 for (Rule rule : customRules) {
-                    rule.apply(element.getAsJsonObject(), unifierDB);
+                    if (rule.apply(element.getAsJsonObject(), unifierDB)) {
+                        madeChange = true;
+                    }
                 }
+            }
+            if (!madeChange) {
+                // just autoscan
+                return scanAndMutateJsonElement(element, unifierDB);
             }
         }
         return element;
@@ -85,6 +117,8 @@ public class RecipeTweaker {
             if (key.equals("id") || key.equals("item")) {
                 if (val.isJsonPrimitive()) {
                     unifierDB.lookupItem(val.getAsString()).ifPresent(r -> alterations.put(key, r));
+                } else {
+                    scanAndMutateJsonElement(val, unifierDB);
                 }
             } else if (key.equals("tag")) {
                 if (val.isJsonPrimitive()) {
@@ -117,7 +151,7 @@ public class RecipeTweaker {
     }
 
     public void addRule(Identifier recipeType, Rule... rules) {
-        ruleDB.computeIfAbsent(recipeType.toString(), k -> new ArrayList<>()).addAll(List.of(rules));
+        ruleDB.computeIfAbsent(recipeType.toString(), _ -> new ArrayList<>()).addAll(List.of(rules));
     }
 
     public record Rule(String path, RewriteAction action) {
@@ -126,10 +160,12 @@ public class RecipeTweaker {
                 RewriteAction.CODEC.fieldOf("action").forGetter(Rule::action)
         ).apply(builder, Rule::new));
 
-        public void apply(JsonObject recipeJson, UnifierDB unifierDB) {
+        public boolean apply(JsonObject recipeJson, UnifierDB unifierDB) {
+            boolean madeChange = false;
+
             try {
                 var matchedNodes = getMatchedNodes(recipeJson);
-                matchedNodes.forEach(pair -> {
+                for (Pair<JsonObject, String> pair : matchedNodes) {
                     JsonObject json = pair.getFirst();
                     String fieldName = pair.getSecond();
 
@@ -137,19 +173,23 @@ public class RecipeTweaker {
                     String tagMapped = unifierDB.lookupItemTag(curVal).orElse(curVal);
                     String itemMapped = unifierDB.lookupItem(curVal).orElse(curVal);
 
-                    if (!tagMapped.equals(curVal) || !itemMapped.equals(curVal)) {
-                        String newVal = action.substitution
+                    if (!action.inputValue.isEmpty() && action.inputValue.equals(curVal)
+                            || action.inputValue.isEmpty() && (!tagMapped.equals(curVal) || !itemMapped.equals(curVal))) {
+                        String newVal = action.outputValue
                                 .replace("<tag_map>", tagMapped)
                                 .replace("<item_map>", itemMapped);
                         json.addProperty(action.fieldName, newVal);
                         if (!fieldName.equals(action.fieldName)) {
                             json.remove(fieldName);
                         }
+                        madeChange = true;
                     }
-                });
+                }
             } catch (IllegalArgumentException e) {
                 FTBMaterials.LOGGER.error("invalid rule {} for recipe {}: {}", path, recipeJson.toString(), e.getMessage());
             }
+
+            return madeChange;
         }
 
         private List<Pair<JsonObject,String>> getMatchedNodes(JsonObject object) {
@@ -191,7 +231,7 @@ public class RecipeTweaker {
                     }
                 } else if (el.isJsonArray()) {
                     for (JsonElement arrayElement : el.getAsJsonArray()) {
-                        collectNodes(arrayElement, otherParts[0], rest, res);
+                        collectNodes(arrayElement, part0, otherParts, res);
                     }
                 } else {
                     throw new IllegalArgumentException("expected object or array for intermediate node " + part0);
@@ -199,11 +239,16 @@ public class RecipeTweaker {
             }
         }
 
-        public record RewriteAction(String fieldName, String substitution) {
+        public record RewriteAction(String fieldName, String outputValue, String inputValue) {
             public static final Codec<RewriteAction> CODEC = RecordCodecBuilder.create(builder -> builder.group(
                     Codec.STRING.fieldOf("field").forGetter(RewriteAction::fieldName),
-                    Codec.STRING.fieldOf("sub").forGetter(RewriteAction::substitution)
+                    Codec.STRING.fieldOf("output_value").forGetter(RewriteAction::outputValue),
+                    Codec.STRING.optionalFieldOf("input_value","").forGetter(RewriteAction::inputValue)
             ).apply(builder, RewriteAction::new));
+
+            public static RewriteAction create(String fieldName, String outputValue) {
+                return new RewriteAction(fieldName, outputValue, "");
+            }
         }
     }
 }

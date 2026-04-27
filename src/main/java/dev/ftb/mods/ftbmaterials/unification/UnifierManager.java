@@ -13,8 +13,9 @@ public enum UnifierManager {
 
     private static final Path CONFIG_DIR = FMLPaths.GAMEDIR.get().resolve("config").resolve(FTBMaterials.MOD_ID);
 
+    public static final Path RULES_DIR = CONFIG_DIR.resolve("rules");
     public static final Path UNIFIER_DB_NAME = CONFIG_DIR.resolve("unifier-db.json");
-    private static final Path RECIPE_TWEAKER_NAME = CONFIG_DIR.resolve("custom-rules.json");
+    private static final Path CUSTOM_RULES_NAME = CONFIG_DIR.resolve("custom-rules-default.json");
 
     private UnifierDB unifierDB;
     private RecipeTweaker recipeTweaker;
@@ -22,6 +23,7 @@ public enum UnifierManager {
     public void init() {
         try {
             Files.createDirectories(CONFIG_DIR);
+            Files.createDirectories(RULES_DIR);
         } catch (IOException e) {
             FTBMaterials.LOGGER.error("can't create dir {} ! {}", CONFIG_DIR, e.getMessage());
         }
@@ -44,14 +46,14 @@ public enum UnifierManager {
     private RecipeTweaker recipeTweaker() {
         if (recipeTweaker == null) {
             try {
-                if (!Files.exists(RECIPE_TWEAKER_NAME)) {
-                    DefaultCustomRules.create(RECIPE_TWEAKER_NAME);
-                    FTBMaterials.LOGGER.info("created new default custom rules file: {}", RECIPE_TWEAKER_NAME);
+                if (!Files.exists(CUSTOM_RULES_NAME)) {
+                    DefaultCustomRules.create(CUSTOM_RULES_NAME);
+                    FTBMaterials.LOGGER.info("created new default custom rules file: {}", CUSTOM_RULES_NAME);
                 }
 
-                recipeTweaker = RecipeTweaker.load(RECIPE_TWEAKER_NAME);
+                recipeTweaker = RecipeTweaker.load(CUSTOM_RULES_NAME);
             } catch (IOException e) {
-                FTBMaterials.LOGGER.error("can't load recipe tweaker rules from {}: {}", RECIPE_TWEAKER_NAME, e.getMessage());
+                FTBMaterials.LOGGER.error("can't load recipe tweaker rules from {}: {}", CUSTOM_RULES_NAME, e.getMessage());
                 recipeTweaker = RecipeTweaker.EMPTY;
             }
         }
