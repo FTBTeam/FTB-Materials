@@ -11,10 +11,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.data.ItemTagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.common.data.ItemTagsProvider;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.HashSet;
@@ -23,8 +22,8 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class ItemTagsGenerator extends ItemTagsProvider {
-    private static final TagKey<Item> SILICON = TagKey.create(Registries.ITEM, conventional("silicon"));
-    private static final TagKey<Item> DUST_WOODS = TagKey.create(Registries.ITEM, conventional("dusts/wood"));
+    public static final TagKey<Item> SILICON = TagKey.create(Registries.ITEM, conventional("silicon"));
+    public static final TagKey<Item> DUST_WOODS = TagKey.create(Registries.ITEM, conventional("dusts/wood"));
 
     public ItemTagsGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider, FTBMaterials.MOD_ID);

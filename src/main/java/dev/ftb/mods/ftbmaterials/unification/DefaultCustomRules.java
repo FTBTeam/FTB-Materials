@@ -33,7 +33,6 @@ public class DefaultCustomRules {
         standardIERule(tweaker, "sawmill");
 
         tweaker.addRule(Identifier.fromNamespaceAndPath("enderio", "sag_milling"),
-                new Rule("outputs/item/tag", new RewriteAction("id", "ftbmaterials:silicon_gem", "c:silicon")),
                 new Rule("outputs/item/id", new RewriteAction("id", "ftbmaterials:silicon_gem", "enderio:silicon"))
         );
 

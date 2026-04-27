@@ -7,7 +7,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import dev.ftb.mods.ftbmaterials.data.ItemTagsGenerator;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
+import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
 import dev.ftb.mods.ftbmaterials.util.CachedTagKeyLookup;
 import net.minecraft.core.Holder;
@@ -125,6 +127,14 @@ public class UnifierDB {
                 addTagMapping(tag, item);
             }
         }
+        // special cases for silicon & sawdust
+        specialCase(Resource.SILICON, ResourceType.GEM, ItemTagsGenerator.SILICON);
+        specialCase(Resource.SAW, ResourceType.DUST, ItemTagsGenerator.DUST_WOODS);
+    }
+
+    private void specialCase(Resource resource, ResourceType resourceType, TagKey<Item> tag) {
+        ResourceRegistries.get(resource).getItemFromType(resourceType).ifPresent(itemHolder ->
+                addTagMapping(tag, itemHolder.get()));
     }
 
     private void buildOreBlockMap(Resource resource, CachedTagKeyLookup<Block> blockCache) {
