@@ -189,7 +189,7 @@ public class UnifierDB {
         var resourceName = type.name().toLowerCase();
 
         return resourceType.getTags().stream()
-                .map(tagName -> cacheTagKeyLookup.getOrCreateUnifiedTag(tagName, resourceName))
+                .map(tagName -> cacheTagKeyLookup.getOrCreateUnifiedTag(tagName, resourceType.getResourceNameMutator().apply(resourceName)))
                 .collect(Collectors.toSet());
     }
 
