@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [26.1.2.3]
+
+### Changed
+* Several improvements to recipe unification
+  * Better detection of modded items and tags in `/ftbmaterials dev build-unifier-db`
+  * Better handling of json arrays in recipes
+  * Raw storage blocks are now added to the Unifier DB
+* Changes to handling of custom rules file `config/ftbmaterials/custom-rules.json`
+  * Now scans `config/ftbmaterials/rules/` to load supplementary rules files (recommended to use these rather than edit the base `custom-rules.json` file)
+  * The "sub" field in custom rules is "output_value"
+  * Rules can take an optional "input_value" field which, if present, makes the rules run only on recipes with a matching input value
+  * If custom rules exist for a recipe but none match for a particular recipe, the default recipe scanner (scanning for items and tags in the Unifier DB) is now run
+
 ## [26.1.2.2]
 
 ### Changed
