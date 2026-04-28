@@ -14,13 +14,21 @@ public class BuildUnifierDB {
     public static LiteralArgumentBuilder<CommandSourceStack> register() {
         return Commands.literal("build-unifier-db")
                 .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
-                .executes(BuildUnifierDB::buildDB);
+                .executes(ctx -> BuildUnifierDB.buildDB(ctx, true))
+                .then(Commands.literal("noreload")
+                        .executes(ctx -> BuildUnifierDB.buildDB(ctx, false))
+                );
     }
 
-    private static int buildDB(CommandContext<CommandSourceStack> ctx) {
+    private static int buildDB(CommandContext<CommandSourceStack> ctx, boolean reload) {
         try {
             UnifierManager.INSTANCE.buildDB();
-            ctx.getSource().sendSuccess(() -> Component.literal("Wrote unifier DB!"), false);
+            if (reload) {
+                UnifierManager.INSTANCE.reload();
+                ctx.getSource().sendSuccess(() -> Component.literal("Wrote & reloaded unifier DB!"), false);
+            } else {
+                ctx.getSource().sendSuccess(() -> Component.literal("Wrote unifier DB! Use '/ftbmaterials dev reload' to reload it."), false);
+            }
             return Command.SINGLE_SUCCESS;
         } catch (IOException e) {
             ctx.getSource().sendFailure(Component.literal("Failed to write unifier DB: " + e.getMessage()));
