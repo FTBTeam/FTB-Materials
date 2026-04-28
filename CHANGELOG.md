@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * The "sub" field in custom rules is "output_value"
   * Rules can take an optional "input_value" field which, if present, makes the rules run only on recipes with a matching input value
   * If custom rules exist for a recipe but none match for a particular recipe, the default recipe scanner (scanning for items and tags in the Unifier DB) is now run
+* The `ftbmaterials dev build-unifier-db` now automatically marks the Unifier DB for reload
+  * No need to manually run `/ftbmaterials dev reload` anymore
+  * If you need the old functionality, use `/ftbmaterials dev build-unifier-db noreload`
 
 ## [26.1.2.2]
 
