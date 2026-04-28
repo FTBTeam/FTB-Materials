@@ -135,6 +135,21 @@ public class UnifierDB {
     private void specialCase(Resource resource, ResourceType resourceType, TagKey<Item> tag) {
         ResourceRegistries.get(resource).getItemFromType(resourceType).ifPresent(itemHolder ->
                 addTagMapping(tag, itemHolder.get()));
+
+        BuiltInRegistries.ITEM.get(tag).ifPresent(items -> {
+            Item[] ftbItem = new Item[] { null };
+            List<Item> otherItems = new ArrayList<>();
+            items.stream().forEach(holder -> holder.unwrapKey().ifPresent(key -> {
+                if (key.identifier().getNamespace().equals(FTBMaterials.MOD_ID)) {
+                    ftbItem[0] = holder.value();
+                } else {
+                    otherItems.add(holder.value());
+                }
+            }));
+            if (ftbItem[0] != null) {
+                otherItems.forEach(item -> addItemMapping(item, ftbItem[0]));
+            }
+        });
     }
 
     private void buildOreBlockMap(Resource resource, CachedTagKeyLookup<Block> blockCache) {
