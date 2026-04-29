@@ -12,11 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Better handling of json arrays in recipes
   * Raw storage blocks are now added to the Unifier DB
 * Changes to handling of custom rules file `config/ftbmaterials/custom-rules.json`
-  * If updating on an existing world, remove the current `config/ftbmaterials/custom-rules.json` file first
-  * Now scans `config/ftbmaterials/rules/` to load supplementary rules files (recommended to use these rather than edit the base `custom-rules.json` file)
+  * The file is now located at `config/ftbmaterials/custom-rules-default.json` 
+  * Now scans `config/ftbmaterials/rules/` to load supplementary rules files (recommended to use these rather than edit the base `custom-rules-default.json` file)
+  * If updating on an existing world _and_ you have added rules, you will need to re-add those rules to a supplementary rules file (see above)
   * The "sub" field in custom rules is now "output_value"
   * Rules can take an optional "input_value" field which, if present, makes the rules run only on recipes with a matching input value
-  * If custom rules exist for a recipe but none match for a particular recipe, the default recipe scanner (scanning for items and tags in the Unifier DB) is now run
+  * If custom rules exist for a recipe type, but none match for a particular recipe of that type, the default recipe scanner (scanning for items and tags in the Unifier DB) is now run for that recipe
 * The `ftbmaterials dev build-unifier-db` now automatically marks the Unifier DB for reload
   * No need to manually run `/ftbmaterials dev reload` anymore
   * If you need the old functionality, use `/ftbmaterials dev build-unifier-db noreload`
