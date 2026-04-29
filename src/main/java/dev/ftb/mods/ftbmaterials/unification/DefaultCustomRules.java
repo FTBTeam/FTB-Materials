@@ -13,16 +13,16 @@ public class DefaultCustomRules {
         RecipeTweaker tweaker = RecipeTweaker.createNew();
 
         tweaker.addRule(Identifier.fromNamespaceAndPath("immersiveengineering", "arcfurnace"),
-                new Rule("input/tag", new RewriteAction("item", "<tag_map>")),
-                new Rule("additives/tag", new RewriteAction("item", "<tag_map>")),
-                new Rule("input/item", new RewriteAction("item", "<item_map>")),
-                new Rule("additives/item", new RewriteAction("item", "<item_map>"))
+                new Rule("input/tag", RewriteAction.create("item", "<tag_map>")),
+                new Rule("additives/tag", RewriteAction.create("item", "<tag_map>")),
+                new Rule("input/item", RewriteAction.create("item", "<item_map>")),
+                new Rule("additives/item", RewriteAction.create("item", "<item_map>"))
         );
         tweaker.addRule(Identifier.fromNamespaceAndPath("immersiveengineering", "alloy"),
-                new Rule("input0/tag", new RewriteAction("item", "<tag_map>")),
-                new Rule("input0/tag", new RewriteAction("item", "<tag_map>")),
-                new Rule("input1/item", new RewriteAction("item", "<item_map>")),
-                new Rule("input1/item", new RewriteAction("item", "<item_map>"))
+                new Rule("input0/tag", RewriteAction.create("item", "<tag_map>")),
+                new Rule("input0/tag", RewriteAction.create("item", "<tag_map>")),
+                new Rule("input1/item", RewriteAction.create("item", "<item_map>")),
+                new Rule("input1/item", RewriteAction.create("item", "<item_map>"))
         );
         standardIERule(tweaker, "blast_furnace");
         standardIERule(tweaker, "bottling_machine");
@@ -42,8 +42,8 @@ public class DefaultCustomRules {
     private static void standardIERule(RecipeTweaker tweaker, String type) {
         // for machines with just a single input
         tweaker.addRule(Identifier.fromNamespaceAndPath("immersiveengineering", type),
-                new Rule("input/tag", new RewriteAction("item", "<tag_map>")),
-                new Rule("input/item", new RewriteAction("item", "<item_map>"))
+                new Rule("input/tag", RewriteAction.create("item", "<tag_map>")),
+                new Rule("input/item", RewriteAction.create("item", "<item_map>"))
         );
     }
 }

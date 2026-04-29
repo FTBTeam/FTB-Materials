@@ -7,7 +7,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import dev.ftb.mods.ftbmaterials.data.ItemTagsGenerator;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
+import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
 import dev.ftb.mods.ftbmaterials.util.CachedTagKeyLookup;
 import net.minecraft.core.Holder;
@@ -125,6 +127,29 @@ public class UnifierDB {
                 addTagMapping(tag, item);
             }
         }
+        // special cases for silicon & sawdust
+        specialCase(Resource.SILICON, ResourceType.GEM, ItemTagsGenerator.SILICON);
+        specialCase(Resource.SAW, ResourceType.DUST, ItemTagsGenerator.DUST_WOODS);
+    }
+
+    private void specialCase(Resource resource, ResourceType resourceType, TagKey<Item> tag) {
+        ResourceRegistries.get(resource).getItemFromType(resourceType).ifPresent(itemHolder ->
+                addTagMapping(tag, itemHolder.get()));
+
+        BuiltInRegistries.ITEM.get(tag).ifPresent(items -> {
+            Item[] ftbItem = new Item[] { null };
+            List<Item> otherItems = new ArrayList<>();
+            items.stream().forEach(holder -> holder.unwrapKey().ifPresent(key -> {
+                if (key.identifier().getNamespace().equals(FTBMaterials.MOD_ID)) {
+                    ftbItem[0] = holder.value();
+                } else {
+                    otherItems.add(holder.value());
+                }
+            }));
+            if (ftbItem[0] != null) {
+                otherItems.forEach(item -> addItemMapping(item, ftbItem[0]));
+            }
+        });
     }
 
     private void buildOreBlockMap(Resource resource, CachedTagKeyLookup<Block> blockCache) {
@@ -179,7 +204,7 @@ public class UnifierDB {
         var resourceName = type.name().toLowerCase();
 
         return resourceType.getTags().stream()
-                .map(tagName -> cacheTagKeyLookup.getOrCreateUnifiedTag(tagName, resourceName))
+                .map(tagName -> cacheTagKeyLookup.getOrCreateUnifiedTag(tagName, resourceType.getResourceNameMutator().apply(resourceName)))
                 .collect(Collectors.toSet());
     }
 
