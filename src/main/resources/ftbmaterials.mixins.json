@@ -1,12 +1,13 @@
 {
   "required": true,
   "package": "dev.ftb.mods.ftbmaterials.mixin",
-  "compatibilityLevel": "JAVA_25",
+  "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
   ],
   "mixins": [
-    "BulkSectionAccessMixin"
+    "BulkSectionAccessMixin",
+    "RecipeManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

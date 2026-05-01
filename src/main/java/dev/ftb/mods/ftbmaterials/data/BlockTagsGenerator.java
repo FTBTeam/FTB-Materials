@@ -8,19 +8,21 @@ import dev.ftb.mods.ftbmaterials.resources.ResourceType;
 import dev.ftb.mods.ftbmaterials.util.CachedTagKeyLookup;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockTagsGenerator extends BlockTagsProvider {
-    public BlockTagsGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture, FTBMaterials.MOD_ID);
+    public BlockTagsGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(output, lookupProvider, FTBMaterials.MOD_ID, existingFileHelper);
     }
 
     @Override
@@ -37,7 +39,7 @@ public class BlockTagsGenerator extends BlockTagsProvider {
                         Block block = target.get();
                         tags.forEach(t -> tag(t).add(block));
 
-                        Identifier breakableWith = resource.getBreakableWith();
+                        ResourceLocation breakableWith = resource.getBreakableWith();
                         TagKey<Block> breakableWithTag = cacheTagKeyLookup.getOrCreateUnifiedTag(breakableWith.toString(), "");
 
                         tag(breakableWithTag).add(block);

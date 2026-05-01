@@ -36,7 +36,7 @@ public class ConstructAllResources {
 
     public static LiteralArgumentBuilder<CommandSourceStack> register() {
         return Commands.literal("construct-all-resources")
-                .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
+                .requires(e -> e.hasPermission(Commands.LEVEL_OWNERS))
                 .executes(ConstructAllResources::construct);
     }
 
@@ -46,7 +46,7 @@ public class ConstructAllResources {
 
         Vec3 horizView = player.getViewVector(1f);
         horizView.subtract(0, horizView.y, 0);
-        BlockPos pos = player.blockPosition().relative(Direction.getNearest(new Vec3i((int) horizView.x, (int) horizView.y, (int) horizView.z), Direction.NORTH), 2);
+        BlockPos pos = player.blockPosition().relative(Direction.getNearest((int) horizView.x, (int) horizView.y, (int) horizView.z), 2);
 
         int xOffset = 0;
         int yOffset = 0;

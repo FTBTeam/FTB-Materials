@@ -15,7 +15,7 @@ import dev.ftb.mods.ftbmaterials.util.CachedTagKeyLookup;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -110,11 +110,11 @@ public class UnifierDB {
             for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(tag)) {
                 if (holder.unwrapKey().isPresent()) {
                     var k = holder.unwrapKey().get();
-                    if (k.identifier().getNamespace().equals(FTBMaterials.MOD_ID)) {
+                    if (k.location().getNamespace().equals(FTBMaterials.MOD_ID)) {
                         if (ftbMaterialsItem == null) {
                             ftbMaterialsItem = holder.value();
                         }
-                    } else if (k.identifier().getNamespace().equals("minecraft")) {
+                    } else if (k.location().getNamespace().equals("minecraft")) {
                         vanillaFallbackItem = holder.value();
                     } else {
                         otherItems.add(holder.value());
@@ -136,11 +136,11 @@ public class UnifierDB {
         ResourceRegistries.get(resource).getItemFromType(resourceType).ifPresent(itemHolder ->
                 addTagMapping(tag, itemHolder.get()));
 
-        BuiltInRegistries.ITEM.get(tag).ifPresent(items -> {
+        BuiltInRegistries.ITEM.getTag(tag).ifPresent(items -> {
             Item[] ftbItem = new Item[] { null };
             List<Item> otherItems = new ArrayList<>();
             items.stream().forEach(holder -> holder.unwrapKey().ifPresent(key -> {
-                if (key.identifier().getNamespace().equals(FTBMaterials.MOD_ID)) {
+                if (key.location().getNamespace().equals(FTBMaterials.MOD_ID)) {
                     ftbItem[0] = holder.value();
                 } else {
                     otherItems.add(holder.value());
@@ -159,10 +159,10 @@ public class UnifierDB {
         var tag = blockCache.getOrCreateUnifiedTag("c:ores", resource.name().toLowerCase());
         for (Holder<Block> holder : BuiltInRegistries.BLOCK.getTagOrEmpty(tag)) {
             for (ResourceType type : ResourceType.ORE_TYPES) {
-                TagKey<Block> tagKey = TagKey.create(Registries.BLOCK, Identifier.parse(type.getExtraBlockTag()));
+                TagKey<Block> tagKey = TagKey.create(Registries.BLOCK, ResourceLocation.parse(type.getExtraBlockTag()));
                 if (holder.is(tagKey)) {
                     holder.unwrapKey().ifPresent(resKey -> {
-                        Identifier blockId = resKey.identifier();
+                        ResourceLocation blockId = resKey.location();
                         if (blockId.getNamespace().equals(FTBMaterials.MOD_ID)) {
                             ftbOreMap.put(type, blockId.toString());
                         } else {
@@ -211,8 +211,8 @@ public class UnifierDB {
     private Map<Item, Item> buildItemByItemMap() {
         Map<Item, Item> res = new HashMap<>();
         itemMap.forEach((in, out) ->
-                BuiltInRegistries.ITEM.getOptional(Identifier.parse(in)).ifPresent(itemIn ->
-                        BuiltInRegistries.ITEM.getOptional(Identifier.parse(out)).ifPresent(itemOut ->
+                BuiltInRegistries.ITEM.getOptional(ResourceLocation.parse(in)).ifPresent(itemIn ->
+                        BuiltInRegistries.ITEM.getOptional(ResourceLocation.parse(out)).ifPresent(itemOut ->
                                 res.put(itemIn, itemOut)
                         )
                 ));
@@ -222,8 +222,8 @@ public class UnifierDB {
     private Map<Block, Block> buildBlockByBlockMap() {
         Map<Block, Block> res = new ConcurrentHashMap<>();
         blockMap.forEach((in, out) ->
-                BuiltInRegistries.BLOCK.getOptional(Identifier.parse(in)).ifPresent(blockIn ->
-                        BuiltInRegistries.BLOCK.getOptional(Identifier.parse(out)).ifPresent(blockOut ->
+                BuiltInRegistries.BLOCK.getOptional(ResourceLocation.parse(in)).ifPresent(blockIn ->
+                        BuiltInRegistries.BLOCK.getOptional(ResourceLocation.parse(out)).ifPresent(blockOut ->
                                 res.put(blockIn, blockOut)
                         )
                 ));

@@ -2,7 +2,7 @@ package dev.ftb.mods.ftbmaterials.util;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class CachedTagKeyLookup<T> {
 
         return tagCache.computeIfAbsent(
                 this.cacheKey(namespace, prefix, name),
-                t -> TagKey.create(registry, Identifier.fromNamespaceAndPath(finalNamespace, finalOutputName))
+                t -> TagKey.create(registry, ResourceLocation.fromNamespaceAndPath(finalNamespace, finalOutputName))
         );
     }
 

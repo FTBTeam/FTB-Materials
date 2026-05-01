@@ -28,16 +28,16 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 
 public class RecipesGenerator extends RecipeProvider {
-    protected RecipesGenerator(HolderLookup.Provider registries, RecipeOutput output) {
-        super(registries, output);
+    public RecipesGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+        super(output, provider);
     }
 
     @Override
-    protected void buildRecipes() {
+    protected void buildRecipes(RecipeOutput output) {
         // Raw/Ingot to Blocks Of
-        createBlocksOfMaterial(ResourceType.RAW_ORE, ResourceType.RAW_BLOCK);
-        createBlocksOfMaterial(ResourceType.INGOT, ResourceType.BLOCK);
-        create4x4OfMaterial(ResourceType.CHUNK, ResourceType.CLUSTER);
+        createBlocksOfMaterial(ResourceType.RAW_ORE, ResourceType.RAW_BLOCK, output);
+        createBlocksOfMaterial(ResourceType.INGOT, ResourceType.BLOCK, output);
+        create4x4OfMaterial(ResourceType.CHUNK, ResourceType.CLUSTER, output);
 
         // Blocks of material to ingots
         createInputOutputRecipeFromTypes(ResourceType.BLOCK,
@@ -49,11 +49,11 @@ public class RecipesGenerator extends RecipeProvider {
                     var inputName = inputReg.getId().getPath();
                     var outputName = outputReg.getId().getPath();
 
-                    ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.MISC, outputItemLike, 9)
+                    ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
                             .requires(inputItemLike)
                             .unlockedBy("has_item", has(inputItemLike))
                             .save(
-                                    this.output.withConditions(new ComponentsAvailableCondition(List.of(inputName, outputName))),
+                                    output.withConditions(new ComponentsAvailableCondition(List.of(inputName, outputName))),
                                     FTBMaterials.id(outputName + "_from_" + inputName).toString()
                             );
                 });
@@ -63,30 +63,30 @@ public class RecipesGenerator extends RecipeProvider {
             var inputName = inputReg.getId().getPath();
             var outputName = outputReg.getId().getPath();
 
-            ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.MISC, outputItemLike, 9)
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
                     .requires(inputItemLike)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromBlockToItem(inputReg, outputReg))
+                    .save(output.withConditions(ComponentsAvailableCondition.fromBlockToItem(inputReg, outputReg))
                             , FTBMaterials.id(outputName + "_from_" + inputName).toString());
         });
 
         // Ingots to nuggets
         createInputOutputRecipeFromTypes(ResourceType.INGOT, ResourceType.NUGGET, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.MISC, outputItemLike, 9)
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
                     .requires(inputItemLike)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
+                    .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
         });
 
         // Nuggets to ingots
         createInputOutputRecipeFromTypes(ResourceType.NUGGET, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, outputItemLike)
                     .define('N', inputItemLike)
                     .pattern("NNN")
                     .pattern("NNN")
                     .pattern("NNN")
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
+                    .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
         });
 
         // Raw ore smelts to ingots
@@ -94,14 +94,14 @@ public class RecipesGenerator extends RecipeProvider {
             var inputName = inputReg.getId().getPath();
             var outputName = outputReg.getId().getPath();
 
-            SimpleCookingRecipeBuilder.blasting(Ingredient.of(inputItemLike), RecipeCategory.MISC, CookingBookCategory.MISC, outputItemLike, 0.7f, 100)
+            SimpleCookingRecipeBuilder.blasting(Ingredient.of(inputItemLike), RecipeCategory.MISC, outputItemLike, 0.7f, 100)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)),
+                    .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)),
                             FTBMaterials.id(outputName + "_from_blasting_" + inputName).toString());
 
-            SimpleCookingRecipeBuilder.smelting(Ingredient.of(inputItemLike), RecipeCategory.MISC, CookingBookCategory.MISC, outputItemLike, 0.7f, 200)
+            SimpleCookingRecipeBuilder.smelting(Ingredient.of(inputItemLike), RecipeCategory.MISC, outputItemLike, 0.7f, 200)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)),
+                    .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)),
                             FTBMaterials.id(outputName + "_from_smelting_" + inputName).toString());
         });
 
@@ -114,14 +114,14 @@ public class RecipesGenerator extends RecipeProvider {
                         var inputName = oreBlock.getId().getPath();
                         var outputName = resultItem.getId().getPath();
 
-                        SimpleCookingRecipeBuilder.blasting(Ingredient.of(oreBlock.get()), RecipeCategory.MISC, CookingBookCategory.MISC, resultItem.get(), 0.7f, 100)
+                        SimpleCookingRecipeBuilder.blasting(Ingredient.of(oreBlock.get()), RecipeCategory.MISC, resultItem.get(), 0.7f, 100)
                                 .unlockedBy("has_item", has(oreBlock.get()))
-                                .save(this.output.withConditions(ComponentsAvailableCondition.fromBlockToItem(oreBlock, resultItem)),
+                                .save(output.withConditions(ComponentsAvailableCondition.fromBlockToItem(oreBlock, resultItem)),
                                         FTBMaterials.id(outputName + "_from_blasting_" + inputName).toString());
 
-                        SimpleCookingRecipeBuilder.smelting(Ingredient.of(oreBlock.get()), RecipeCategory.MISC, CookingBookCategory.MISC, resultItem.get(), 0.7f, 200)
+                        SimpleCookingRecipeBuilder.smelting(Ingredient.of(oreBlock.get()), RecipeCategory.MISC, resultItem.get(), 0.7f, 200)
                                 .unlockedBy("has_item", has(oreBlock.get()))
-                                .save(this.output.withConditions(ComponentsAvailableCondition.fromBlockToItem(oreBlock, resultItem)),
+                                .save(output.withConditions(ComponentsAvailableCondition.fromBlockToItem(oreBlock, resultItem)),
                                         FTBMaterials.id(outputName + "_from_smelting_" + inputName).toString());
                     });
                 });
@@ -129,24 +129,24 @@ public class RecipesGenerator extends RecipeProvider {
         }
 
         // Dust smelts to vanilla ingots (for materials without an FTB Materials ingot registration)
-        addVanillaDustSmelting(Resource.COPPER, Items.COPPER_INGOT);
-        addVanillaDustSmelting(Resource.GOLD, Items.GOLD_INGOT);
-        addVanillaDustSmelting(Resource.IRON, Items.IRON_INGOT);
-        addVanillaDustSmelting(Resource.NETHERITE, Items.NETHERITE_INGOT);
+        addVanillaDustSmelting(Resource.COPPER, Items.COPPER_INGOT, output);
+        addVanillaDustSmelting(Resource.GOLD, Items.GOLD_INGOT, output);
+        addVanillaDustSmelting(Resource.IRON, Items.IRON_INGOT, output);
+        addVanillaDustSmelting(Resource.NETHERITE, Items.NETHERITE_INGOT, output);
 
         // Dust smelts to ingots
         createInputOutputRecipeFromTypes(ResourceType.DUST, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
             var inputName = inputReg.getId().getPath();
             var outputName = outputReg.getId().getPath();
 
-            SimpleCookingRecipeBuilder.blasting(Ingredient.of(inputItemLike), RecipeCategory.MISC, CookingBookCategory.MISC, outputItemLike, 0.7f, 100)
+            SimpleCookingRecipeBuilder.blasting(Ingredient.of(inputItemLike), RecipeCategory.MISC, outputItemLike, 0.7f, 100)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)),
+                    .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)),
                             FTBMaterials.id(outputName + "_from_blasting_" + inputName).toString());
 
-            SimpleCookingRecipeBuilder.smelting(Ingredient.of(inputItemLike), RecipeCategory.MISC, CookingBookCategory.MISC, outputItemLike, 0.7f, 200)
+            SimpleCookingRecipeBuilder.smelting(Ingredient.of(inputItemLike), RecipeCategory.MISC, outputItemLike, 0.7f, 200)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)),
+                    .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)),
                             FTBMaterials.id(outputName + "_from_smelting_" + inputName).toString());
         });
 
@@ -155,14 +155,14 @@ public class RecipesGenerator extends RecipeProvider {
             var inputName = inputReg.getId().getPath();
             var outputName = outputReg.getId().getPath();
 
-            SimpleCookingRecipeBuilder.blasting(Ingredient.of(inputItemLike), RecipeCategory.MISC, CookingBookCategory.MISC, outputItemLike, 0.7f, 100)
+            SimpleCookingRecipeBuilder.blasting(Ingredient.of(inputItemLike), RecipeCategory.MISC, outputItemLike, 0.7f, 100)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))
+                    .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))
                             , FTBMaterials.id(outputName + "_from_blasting_" + inputName).toString());
 
-            SimpleCookingRecipeBuilder.smelting(Ingredient.of(inputItemLike), RecipeCategory.MISC, CookingBookCategory.MISC, outputItemLike, 0.7f, 200)
+            SimpleCookingRecipeBuilder.smelting(Ingredient.of(inputItemLike), RecipeCategory.MISC, outputItemLike, 0.7f, 200)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))
+                    .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))
                             , FTBMaterials.id(outputName + "_from_smelting_" + inputName).toString());
         });
 
@@ -171,13 +171,13 @@ public class RecipesGenerator extends RecipeProvider {
             var inputName = inputReg.getId().getPath();
             var outputName = outputReg.getId().getPath();
 
-            ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, outputItemLike)
                     .define('N', inputItemLike)
                     .pattern("NNN")
                     .pattern("NNN")
                     .pattern("NNN")
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))
+                    .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))
                             , FTBMaterials.id(outputName + "_from_" + inputName).toString());
 
 
@@ -188,52 +188,52 @@ public class RecipesGenerator extends RecipeProvider {
             var inputName = inputReg.getId().getPath();
             var outputName = outputReg.getId().getPath();
 
-            ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.MISC, outputItemLike, 9)
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, outputItemLike, 9)
                     .requires(inputItemLike)
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))
+                    .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))
                             , FTBMaterials.id(outputName + "_from_" + inputName).toString());
         });
     }
 
-    private void addVanillaDustSmelting(Resource resource, Item vanillaIngot) {
+    private void addVanillaDustSmelting(Resource resource, Item vanillaIngot, RecipeOutput output) {
         ResourceRegistries.get(resource).getItemFromType(ResourceType.DUST).ifPresent(dustHolder -> {
             var inputName = dustHolder.getId().getPath();
             var outputName = BuiltInRegistries.ITEM.getKey(vanillaIngot).getPath();
 
-            SimpleCookingRecipeBuilder.blasting(Ingredient.of(dustHolder.get()), RecipeCategory.MISC, CookingBookCategory.MISC, vanillaIngot, 0.7f, 100)
+            SimpleCookingRecipeBuilder.blasting(Ingredient.of(dustHolder.get()), RecipeCategory.MISC, vanillaIngot, 0.7f, 100)
                     .unlockedBy("has_item", has(dustHolder.get()))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.of(inputName)),
+                    .save(output.withConditions(ComponentsAvailableCondition.of(inputName)),
                             FTBMaterials.id(outputName + "_from_blasting_" + inputName).toString());
 
-            SimpleCookingRecipeBuilder.smelting(Ingredient.of(dustHolder.get()), RecipeCategory.MISC, CookingBookCategory.MISC, vanillaIngot, 0.7f, 200)
+            SimpleCookingRecipeBuilder.smelting(Ingredient.of(dustHolder.get()), RecipeCategory.MISC, vanillaIngot, 0.7f, 200)
                     .unlockedBy("has_item", has(dustHolder.get()))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.of(inputName)),
+                    .save(output.withConditions(ComponentsAvailableCondition.of(inputName)),
                             FTBMaterials.id(outputName + "_from_smelting_" + inputName).toString());
         });
     }
 
-    private void createBlocksOfMaterial(ResourceType inputType, ResourceType outputType) {
+    private void createBlocksOfMaterial(ResourceType inputType, ResourceType outputType, RecipeOutput output) {
         createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getBlockFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, outputItemLike)
                     .define('I', inputItemLike)
                     .pattern("III")
                     .pattern("III")
                     .pattern("III")
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItemToBlock(inputReg, outputReg)));
+                    .save(output.withConditions(ComponentsAvailableCondition.fromItemToBlock(inputReg, outputReg)));
         });
     }
 
-    private void create4x4OfMaterial(ResourceType inputType, ResourceType outputType) {
+    private void create4x4OfMaterial(ResourceType inputType, ResourceType outputType, RecipeOutput output) {
         createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, outputItemLike)
                     .define('I', inputItemLike)
                     .pattern("II ")
                     .pattern("II ")
                     .pattern("   ")
                     .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
+                    .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
         });
     }
 
@@ -257,21 +257,5 @@ public class RecipesGenerator extends RecipeProvider {
     @FunctionalInterface
     private interface BuilderConsumer<I, I2 extends I, O, O2 extends O> {
         void accept(ItemLike input, ItemLike output, DeferredHolder<I, I2> inputResource, DeferredHolder<O, O2> outputResource);
-    }
-
-    public static class Runner extends RecipeProvider.Runner {
-        protected Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-            super(output, registries);
-        }
-
-        @Override
-        protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-            return new RecipesGenerator(registries, output);
-        }
-
-        @Override
-        public String getName() {
-            return "FTB Materials Recipes";
-        }
     }
 }
