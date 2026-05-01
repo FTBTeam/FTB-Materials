@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:nickel_end_ore",
+  "ingredient": {
+    "item": "ftbmaterials:nickel_end_ore"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:nickel_ingot"
   }
 }

@@ -11,8 +11,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:iron_dust",
+  "ingredient": {
+    "item": "ftbmaterials:iron_dust"
+  },
   "result": {
+    "count": 1,
     "id": "minecraft:iron_ingot"
   }
 }

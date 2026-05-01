@@ -11,8 +11,11 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:copper_dust",
+  "ingredient": {
+    "item": "ftbmaterials:copper_dust"
+  },
   "result": {
+    "count": 1,
     "id": "minecraft:copper_ingot"
   }
 }

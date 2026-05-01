@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:aluminum_cluster",
+  "ingredient": {
+    "item": "ftbmaterials:aluminum_cluster"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:aluminum_ingot"
   }
 }

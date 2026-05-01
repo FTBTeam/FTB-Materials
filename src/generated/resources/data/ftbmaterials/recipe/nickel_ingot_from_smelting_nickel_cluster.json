@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:nickel_cluster",
+  "ingredient": {
+    "item": "ftbmaterials:nickel_cluster"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:nickel_ingot"
   }
 }

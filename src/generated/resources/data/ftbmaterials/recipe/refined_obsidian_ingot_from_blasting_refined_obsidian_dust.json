@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:refined_obsidian_dust",
+  "ingredient": {
+    "item": "ftbmaterials:refined_obsidian_dust"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:refined_obsidian_ingot"
   }
 }

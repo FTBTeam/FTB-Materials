@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "N": "ftbmaterials:graphite_nugget"
+    "N": {
+      "item": "ftbmaterials:graphite_nugget"
+    }
   },
   "pattern": [
     "NNN",
@@ -19,6 +21,7 @@
     "NNN"
   ],
   "result": {
+    "count": 1,
     "id": "ftbmaterials:graphite_ingot"
   }
 }

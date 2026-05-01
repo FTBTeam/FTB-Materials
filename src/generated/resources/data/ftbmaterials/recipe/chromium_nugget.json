@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:chromium_ingot"
+    {
+      "item": "ftbmaterials:chromium_ingot"
+    }
   ],
   "result": {
     "count": 9,

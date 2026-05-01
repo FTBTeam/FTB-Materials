@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": "ftbmaterials:zinc_ingot"
+    "I": {
+      "item": "ftbmaterials:zinc_ingot"
+    }
   },
   "pattern": [
     "III",
@@ -19,6 +21,7 @@
     "III"
   ],
   "result": {
+    "count": 1,
     "id": "ftbmaterials:zinc_block"
   }
 }

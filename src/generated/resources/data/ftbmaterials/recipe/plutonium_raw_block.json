@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": "ftbmaterials:plutonium_raw_ore"
+    "I": {
+      "item": "ftbmaterials:plutonium_raw_ore"
+    }
   },
   "pattern": [
     "III",
@@ -19,6 +21,7 @@
     "III"
   ],
   "result": {
+    "count": 1,
     "id": "ftbmaterials:plutonium_raw_block"
   }
 }

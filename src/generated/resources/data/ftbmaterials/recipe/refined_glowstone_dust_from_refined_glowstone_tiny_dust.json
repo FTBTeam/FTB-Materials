@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "N": "ftbmaterials:refined_glowstone_tiny_dust"
+    "N": {
+      "item": "ftbmaterials:refined_glowstone_tiny_dust"
+    }
   },
   "pattern": [
     "NNN",
@@ -19,6 +21,7 @@
     "NNN"
   ],
   "result": {
+    "count": 1,
     "id": "ftbmaterials:refined_glowstone_dust"
   }
 }

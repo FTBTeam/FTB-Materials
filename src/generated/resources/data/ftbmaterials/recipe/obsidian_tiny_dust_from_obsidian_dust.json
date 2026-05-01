@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:obsidian_dust"
+    {
+      "item": "ftbmaterials:obsidian_dust"
+    }
   ],
   "result": {
     "count": 9,

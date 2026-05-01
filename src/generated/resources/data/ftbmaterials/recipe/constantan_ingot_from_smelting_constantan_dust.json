@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:constantan_dust",
+  "ingredient": {
+    "item": "ftbmaterials:constantan_dust"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:constantan_ingot"
   }
 }

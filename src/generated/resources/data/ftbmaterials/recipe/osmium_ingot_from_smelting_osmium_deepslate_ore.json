@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:osmium_deepslate_ore",
+  "ingredient": {
+    "item": "ftbmaterials:osmium_deepslate_ore"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:osmium_ingot"
   }
 }

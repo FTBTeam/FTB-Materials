@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:nickel_dust"
+    {
+      "item": "ftbmaterials:nickel_dust"
+    }
   ],
   "result": {
     "count": 9,

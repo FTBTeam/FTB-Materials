@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:fluorite_end_ore",
+  "ingredient": {
+    "item": "ftbmaterials:fluorite_end_ore"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:fluorite_gem"
   }
 }

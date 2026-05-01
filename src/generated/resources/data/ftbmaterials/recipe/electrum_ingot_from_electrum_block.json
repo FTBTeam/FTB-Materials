@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:electrum_block"
+    {
+      "item": "ftbmaterials:electrum_block"
+    }
   ],
   "result": {
     "count": 9,

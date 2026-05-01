@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:plutonium_block"
+    {
+      "item": "ftbmaterials:plutonium_block"
+    }
   ],
   "result": {
     "count": 9,

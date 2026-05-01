@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:iron_dust"
+    {
+      "item": "ftbmaterials:iron_dust"
+    }
   ],
   "result": {
     "count": 9,

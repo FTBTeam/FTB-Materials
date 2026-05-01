@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:lumium_ingot"
+    {
+      "item": "ftbmaterials:lumium_ingot"
+    }
   ],
   "result": {
     "count": 9,

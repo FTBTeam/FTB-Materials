@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:titanium_dust"
+    {
+      "item": "ftbmaterials:titanium_dust"
+    }
   ],
   "result": {
     "count": 9,

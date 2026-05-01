@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:steel_block"
+    {
+      "item": "ftbmaterials:steel_block"
+    }
   ],
   "result": {
     "count": 9,

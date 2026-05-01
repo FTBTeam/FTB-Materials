@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": "ftbmaterials:zinc_chunk"
+    "I": {
+      "item": "ftbmaterials:zinc_chunk"
+    }
   },
   "pattern": [
     "II ",
@@ -19,6 +21,7 @@
     "   "
   ],
   "result": {
+    "count": 1,
     "id": "ftbmaterials:zinc_cluster"
   }
 }

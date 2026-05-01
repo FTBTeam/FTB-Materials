@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:salt_dust"
+    {
+      "item": "ftbmaterials:salt_dust"
+    }
   ],
   "result": {
     "count": 9,

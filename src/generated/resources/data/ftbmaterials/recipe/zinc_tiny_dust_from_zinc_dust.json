@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:zinc_dust"
+    {
+      "item": "ftbmaterials:zinc_dust"
+    }
   ],
   "result": {
     "count": 9,

@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:silver_end_ore",
+  "ingredient": {
+    "item": "ftbmaterials:silver_end_ore"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:silver_ingot"
   }
 }

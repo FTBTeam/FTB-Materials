@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:chromium_block"
+    {
+      "item": "ftbmaterials:chromium_block"
+    }
   ],
   "result": {
     "count": 9,

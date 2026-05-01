@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": "ftbmaterials:iron_chunk"
+    "I": {
+      "item": "ftbmaterials:iron_chunk"
+    }
   },
   "pattern": [
     "II ",
@@ -19,6 +21,7 @@
     "   "
   ],
   "result": {
+    "count": 1,
     "id": "ftbmaterials:iron_cluster"
   }
 }

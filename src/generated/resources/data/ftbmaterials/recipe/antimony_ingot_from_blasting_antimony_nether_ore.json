@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:antimony_nether_ore",
+  "ingredient": {
+    "item": "ftbmaterials:antimony_nether_ore"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:antimony_ingot"
   }
 }

@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:plutonium_ingot"
+    {
+      "item": "ftbmaterials:plutonium_ingot"
+    }
   ],
   "result": {
     "count": 9,

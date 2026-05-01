@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:nickel_block"
+    {
+      "item": "ftbmaterials:nickel_block"
+    }
   ],
   "result": {
     "count": 9,

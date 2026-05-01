@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:osmium_dust"
+    {
+      "item": "ftbmaterials:osmium_dust"
+    }
   ],
   "result": {
     "count": 9,

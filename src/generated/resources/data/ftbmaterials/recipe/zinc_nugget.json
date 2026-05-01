@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:zinc_ingot"
+    {
+      "item": "ftbmaterials:zinc_ingot"
+    }
   ],
   "result": {
     "count": 9,

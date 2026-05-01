@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:ruby_nether_ore",
+  "ingredient": {
+    "item": "ftbmaterials:ruby_nether_ore"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:ruby_gem"
   }
 }

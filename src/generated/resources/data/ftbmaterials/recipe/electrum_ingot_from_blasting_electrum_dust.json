@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:electrum_dust",
+  "ingredient": {
+    "item": "ftbmaterials:electrum_dust"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:electrum_ingot"
   }
 }

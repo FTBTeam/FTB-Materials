@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:brass_dust"
+    {
+      "item": "ftbmaterials:brass_dust"
+    }
   ],
   "result": {
     "count": 9,

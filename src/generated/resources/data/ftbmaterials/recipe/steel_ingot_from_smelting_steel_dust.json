@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:steel_dust",
+  "ingredient": {
+    "item": "ftbmaterials:steel_dust"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:steel_ingot"
   }
 }

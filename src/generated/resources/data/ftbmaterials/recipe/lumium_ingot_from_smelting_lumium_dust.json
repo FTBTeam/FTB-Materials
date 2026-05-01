@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:lumium_dust",
+  "ingredient": {
+    "item": "ftbmaterials:lumium_dust"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:lumium_ingot"
   }
 }

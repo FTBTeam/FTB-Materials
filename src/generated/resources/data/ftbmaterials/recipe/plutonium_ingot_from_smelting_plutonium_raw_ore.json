@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:plutonium_raw_ore",
+  "ingredient": {
+    "item": "ftbmaterials:plutonium_raw_ore"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:plutonium_ingot"
   }
 }

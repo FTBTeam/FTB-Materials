@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:lead_ingot"
+    {
+      "item": "ftbmaterials:lead_ingot"
+    }
   ],
   "result": {
     "count": 9,

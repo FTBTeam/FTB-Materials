@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:tungsten_block"
+    {
+      "item": "ftbmaterials:tungsten_block"
+    }
   ],
   "result": {
     "count": 9,

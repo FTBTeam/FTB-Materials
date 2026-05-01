@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:tungsten_dust",
+  "ingredient": {
+    "item": "ftbmaterials:tungsten_dust"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:tungsten_ingot"
   }
 }

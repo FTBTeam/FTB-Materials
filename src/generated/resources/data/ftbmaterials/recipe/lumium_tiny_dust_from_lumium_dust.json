@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:lumium_dust"
+    {
+      "item": "ftbmaterials:lumium_dust"
+    }
   ],
   "result": {
     "count": 9,

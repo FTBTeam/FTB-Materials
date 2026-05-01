@@ -11,8 +11,11 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:gold_dust",
+  "ingredient": {
+    "item": "ftbmaterials:gold_dust"
+  },
   "result": {
+    "count": 1,
     "id": "minecraft:gold_ingot"
   }
 }

@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:aluminum_stone_ore",
+  "ingredient": {
+    "item": "ftbmaterials:aluminum_stone_ore"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:aluminum_ingot"
   }
 }

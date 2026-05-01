@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:antimony_dust"
+    {
+      "item": "ftbmaterials:antimony_dust"
+    }
   ],
   "result": {
     "count": 9,

@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:emerald_dust"
+    {
+      "item": "ftbmaterials:emerald_dust"
+    }
   ],
   "result": {
     "count": 9,

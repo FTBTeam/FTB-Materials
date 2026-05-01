@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:invar_block"
+    {
+      "item": "ftbmaterials:invar_block"
+    }
   ],
   "result": {
     "count": 9,

@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:silicon_raw_block"
+    {
+      "item": "ftbmaterials:silicon_raw_block"
+    }
   ],
   "result": {
     "count": 9,

@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:titanium_deepslate_ore",
+  "ingredient": {
+    "item": "ftbmaterials:titanium_deepslate_ore"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:titanium_ingot"
   }
 }

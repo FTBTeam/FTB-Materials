@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:constantan_block"
+    {
+      "item": "ftbmaterials:constantan_block"
+    }
   ],
   "result": {
     "count": 9,

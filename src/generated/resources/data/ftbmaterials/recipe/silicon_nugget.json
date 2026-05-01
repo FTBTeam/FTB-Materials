@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:silicon_ingot"
+    {
+      "item": "ftbmaterials:silicon_ingot"
+    }
   ],
   "result": {
     "count": 9,

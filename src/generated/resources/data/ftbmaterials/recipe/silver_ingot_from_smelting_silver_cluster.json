@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:silver_cluster",
+  "ingredient": {
+    "item": "ftbmaterials:silver_cluster"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:silver_ingot"
   }
 }

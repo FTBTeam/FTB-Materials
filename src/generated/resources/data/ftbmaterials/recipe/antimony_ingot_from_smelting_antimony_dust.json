@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:antimony_dust",
+  "ingredient": {
+    "item": "ftbmaterials:antimony_dust"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:antimony_ingot"
   }
 }

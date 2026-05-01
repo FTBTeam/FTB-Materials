@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:lead_cluster",
+  "ingredient": {
+    "item": "ftbmaterials:lead_cluster"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:lead_ingot"
   }
 }

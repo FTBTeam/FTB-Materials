@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:uranium_dust"
+    {
+      "item": "ftbmaterials:uranium_dust"
+    }
   ],
   "result": {
     "count": 9,

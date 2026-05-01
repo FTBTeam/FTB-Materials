@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:diamond_dust"
+    {
+      "item": "ftbmaterials:diamond_dust"
+    }
   ],
   "result": {
     "count": 9,

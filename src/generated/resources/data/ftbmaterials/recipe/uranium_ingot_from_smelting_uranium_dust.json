@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:uranium_dust",
+  "ingredient": {
+    "item": "ftbmaterials:uranium_dust"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:uranium_ingot"
   }
 }

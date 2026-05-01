@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:brass_dust",
+  "ingredient": {
+    "item": "ftbmaterials:brass_dust"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:brass_ingot"
   }
 }

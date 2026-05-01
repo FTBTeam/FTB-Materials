@@ -11,7 +11,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ftbmaterials:refined_obsidian_block"
+    {
+      "item": "ftbmaterials:refined_obsidian_block"
+    }
   ],
   "result": {
     "count": 9,

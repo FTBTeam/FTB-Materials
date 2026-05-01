@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:chromium_dust",
+  "ingredient": {
+    "item": "ftbmaterials:chromium_dust"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:chromium_ingot"
   }
 }

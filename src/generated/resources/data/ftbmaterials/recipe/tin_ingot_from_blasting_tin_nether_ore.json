@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:tin_nether_ore",
+  "ingredient": {
+    "item": "ftbmaterials:tin_nether_ore"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:tin_ingot"
   }
 }

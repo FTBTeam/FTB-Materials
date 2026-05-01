@@ -12,8 +12,11 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.7,
-  "ingredient": "ftbmaterials:sapphire_deepslate_ore",
+  "ingredient": {
+    "item": "ftbmaterials:sapphire_deepslate_ore"
+  },
   "result": {
+    "count": 1,
     "id": "ftbmaterials:sapphire_gem"
   }
 }
