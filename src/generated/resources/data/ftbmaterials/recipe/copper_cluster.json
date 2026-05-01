@@ -1,0 +1,24 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "copper_chunk",
+        "copper_cluster"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": "ftbmaterials:copper_chunk"
+  },
+  "pattern": [
+    "II ",
+    "II ",
+    "   "
+  ],
+  "result": {
+    "id": "ftbmaterials:copper_cluster"
+  }
+}

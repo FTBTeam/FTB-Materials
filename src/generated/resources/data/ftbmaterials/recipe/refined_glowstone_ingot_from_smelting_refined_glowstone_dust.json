@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "refined_glowstone_dust",
+        "refined_glowstone_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": "ftbmaterials:refined_glowstone_dust",
+  "result": {
+    "id": "ftbmaterials:refined_glowstone_ingot"
+  }
+}

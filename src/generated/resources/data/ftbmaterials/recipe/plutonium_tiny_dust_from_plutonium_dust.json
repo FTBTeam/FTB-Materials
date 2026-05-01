@@ -1,0 +1,20 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "plutonium_dust",
+        "plutonium_tiny_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ftbmaterials:plutonium_dust"
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:plutonium_tiny_dust"
+  }
+}

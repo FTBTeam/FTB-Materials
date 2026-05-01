@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "bronze_dust",
+        "bronze_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": "ftbmaterials:bronze_dust",
+  "result": {
+    "id": "ftbmaterials:bronze_ingot"
+  }
+}

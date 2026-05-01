@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "cinnabar_gem",
+        "cinnabar_nether_ore"
+      ]
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": "ftbmaterials:cinnabar_nether_ore",
+  "result": {
+    "id": "ftbmaterials:cinnabar_gem"
+  }
+}

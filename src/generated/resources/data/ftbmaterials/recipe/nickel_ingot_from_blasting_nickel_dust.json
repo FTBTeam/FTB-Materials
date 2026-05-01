@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "nickel_dust",
+        "nickel_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": "ftbmaterials:nickel_dust",
+  "result": {
+    "id": "ftbmaterials:nickel_ingot"
+  }
+}
