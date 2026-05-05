@@ -1,130 +1,184 @@
 plugins {
-    id 'dev.architectury.loom' version '1.7-SNAPSHOT' apply false
-    id 'architectury-plugin' version '3.4-SNAPSHOT'
-    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
-    id "me.modmuss50.mod-publish-plugin" version "0.7.4"
+    id 'java-library'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version '2.0.141'
+    id 'me.modmuss50.mod-publish-plugin' version '1.1.0'
 }
 
-apply from: 'https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/changelog.gradle'
-
-architectury {
-    minecraft = project.minecraft_version
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
 }
 
-allprojects {
-    group = rootProject.maven_group
-    version = mod_version
+apply from: 'https://raw.githubusercontent.com/FTBTeam/mods-meta/v1/gradle/maven.gradle'
+apply from: 'https://raw.githubusercontent.com/FTBTeam/mods-meta/v1/gradle/publishing-2.gradle'
+apply from: 'https://raw.githubusercontent.com/FTBTeam/mods-meta/v1/gradle/utils.gradle'
+apply from: 'https://raw.githubusercontent.com/FTBTeam/mods-meta/v1/gradle/changelog.gradle'
 
-    apply from: "https://raw.githubusercontent.com/FTBTeam/mods-meta/main/gradle/publishing.gradle"
+version = createModVersion(project)
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
 }
 
-subprojects {
-    apply plugin: 'dev.architectury.loom'
-    apply plugin: 'architectury-plugin'
-    apply plugin: 'maven-publish'
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
-    base {
-        archivesName = "$rootProject.archives_name-$project.name"
-    }
+neoForge {
+    version = project.neoforge_version
 
-    repositories {
-        maven {
-            url = "https://maven.ftb.dev/releases"
-        }
-        maven {
-            name = "Jared's maven"
-            url = "https://maven.blamejared.com/"
-        }
-    }
-
-    loom {
-        silentMojangMappingsLicense()
-    }
-
-    dependencies {
-        minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
-        mappings loom.officialMojangMappings()
-    }
-
-    java {
-        withSourcesJar()
-
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    tasks.withType(JavaCompile).configureEach {
-        it.options.release = 21
-    }
-
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                artifactId = base.archivesName.get()
-                from components.java
-            }
+    runs {
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
         }
 
-        repositories {
-            if (ftbPublishing.ftbToken) {
-                maven {
-                    url ftbPublishing.ftbURL
-                    credentials {
-                        username = ftbPublishing.ftbUser
-                        password = ftbPublishing.ftbToken
-                    }
-                }
-            }
+        client {
+            client()
+
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            data()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+    srcDir 'src/generated/resources-client'
+}
+
+// Sets up a dependency configuration called 'localRuntime'.
+// This configuration should be used instead of 'runtimeOnly' to declare
+// a dependency that will be present for runtime testing but that is
+// "optional", meaning it will not be pulled by dependents of this mod.
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
+repositories {
+    mavenLocal()
+    commonMavenRepos(repositories)
+
+    maven {
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+        content {
+            includeGroup "mezz.jei"
+        }
+    }
+
+    maven {
+        url = "https://maven.architectury.dev/"
+        content {
+            includeGroup "dev.architectury"
+        }
+    }
+}
+
+dependencies {
+    implementation "dev.ftb.mods:ftb-library-neoforge:${ftb_library_version}"
+
+    compileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    compileOnlyApi("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
+
+    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+}
+
+tasks.register("sourcesJar", Jar) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allJava
+}
+
+// Uncomment this if you want to create an API jar
+// tasks.register("apiJar", Jar) {
+// 	archiveClassifier.set("api")
+
+// 	from sourceSets.main.output
+
+// 	include 'dev/ftb/mods/{package_name}/api/**'
+// }
+
+tasks.named("jar") {
+    dependsOn("sourcesJar")
+    // Uncomment this if you want to create an API jar
+    // dependsOn("apiJar")
+}
+
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            version: version,
+            mod_id: mod_id,
+            mod_name: mod_name,
+            neoforge_version_range: neoforge_version_range,
+            neoforge_loader_version: neoforge_loader_version,
+            minecraft_version_range: minecraft_version_range,
+            ftb_library_version_range: ftb_library_version_range,
+    ]
+
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+
+    // Copy in the repos license file
+    from(project.rootDir) {
+        include 'LICENSE.md'
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
     }
 }
 
 publishMods {
-    dryRun = providers.environmentVariable("CURSEFORGE_KEY").getOrNull() == null
+    def CFToken = providers.environmentVariable("CURSEFORGE_KEY")
+
+    dryRun = !CFToken.isPresent()
+    displayName = "[NEOFORGE] ${mod_name} ${project.version}"
+    modLoaders.add("neoforge")
+
     changelog = createChangelog(project)
-    version = mod_version
+    file = jar.archiveFile
+    version = project.version // Pretty sure it defaults to this
 
-    // TODO: Migrate to something else
-    def tag = providers.environmentVariable("GITHUB_REF_NAME").getOrElse("release")
-    type = tag.contains("-beta") ? BETA : (tag.contains("-alpha") ? ALPHA : STABLE)
+    type = createReleaseType(project)
 
-    def createOptions = (String projectName) -> {
-        publishOptions {
-            file = project.provider { project(":$projectName").tasks.remapJar }.flatMap { it.archiveFile }
-            displayName = "[${projectName.toUpperCase()}] FTB Materials ${mod_version}"
-            modLoaders.add(projectName.toLowerCase())
-        }
-    }
-
-    def fabricOptions = createOptions("fabric")
-    def neoForgeOptions = createOptions("neoforge")
-
-    def curseForgeOptions = curseforgeOptions {
-        accessToken = providers.environmentVariable("CURSEFORGE_KEY")
-        minecraftVersions.add("${minecraft_version}")
-        javaVersions.add(JavaVersion.VERSION_21)
-    }
-
-    curseforge("curseforgeFabric") {
-        from(curseForgeOptions, fabricOptions)
-        projectId = curseforge_id
-        requires('architectury-api')
-        requires('fabric-api')
-    }
-
-    curseforge("curseforgeNeoForge") {
-        from(curseForgeOptions, neoForgeOptions)
-        projectId = curseforge_id
-        requires("architectury-api")
-    }
-
-    github {
-        displayName = project.version
-        file = project.provider { project(":neoforge").tasks.remapJar }.flatMap { it.archiveFile }
-        additionalFiles.from project.provider { project(":fabric").tasks.remapJar }.flatMap { it.archiveFile }
-        repository = "ftbteam/ftb-materials"
-        accessToken = providers.environmentVariable("GITHUB_TOKEN")
-        commitish = providers.environmentVariable("GITHUB_SHA").orElse("dryRun")
-        tagName = providers.environmentVariable("GITHUB_REF_NAME").orElse("dryRun")
+    curseforge {
+        accessToken = CFToken.orElse("missing")
+        projectId = project.curseforge_id
+        minecraftVersions.add(project.minecraft_version)
+        javaVersions.add(JavaVersion.VERSION_25)
     }
 }
+
+createMavenPublishingBlock(project)

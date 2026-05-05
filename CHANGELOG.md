@@ -1,3 +1,37 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [26.1.2.3]
+
+### Changed
+* Several improvements to recipe unification
+  * Better detection of modded items and tags in `/ftbmaterials dev build-unifier-db`
+  * Better handling of json arrays in recipes
+  * Raw storage blocks are now added to the Unifier DB
+* Changes to handling of custom rules file `config/ftbmaterials/custom-rules.json`
+  * The file is now located at `config/ftbmaterials/custom-rules-default.json` 
+  * Now scans `config/ftbmaterials/rules/` to load supplementary rules files (recommended to use these rather than edit the base `custom-rules-default.json` file)
+  * If updating on an existing world _and_ you have added rules, you will need to re-add those rules to a supplementary rules file (see above)
+  * The "sub" field in custom rules is now "output_value"
+  * Rules can take an optional "input_value" field which, if present, makes the rules run only on recipes with a matching input value
+  * If custom rules exist for a recipe type, but none match for a particular recipe of that type, the default recipe scanner (scanning for items and tags in the Unifier DB) is now run for that recipe
+* The `ftbmaterials dev build-unifier-db` now automatically marks the Unifier DB for reload
+  * No need to manually run `/ftbmaterials dev reload` anymore
+  * If you need the old functionality, use `/ftbmaterials dev build-unifier-db noreload`
+
+## [26.1.2.2]
+
+### Changed
+* Built for NeoForge 26.1.2.22+
+
+## [26.1.2.1]
+
+### Changed
+* Updated to Minecraft 26.1.2
+
 ## [21.1.3]
 
 ### Changed

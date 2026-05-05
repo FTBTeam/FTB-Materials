@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "lapis_lazuli_dust",
+        "lapis_lazuli_tiny_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:lapis_lazuli_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:lapis_lazuli_tiny_dust"
+  }
+}

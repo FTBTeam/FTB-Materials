@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "sulfur_gem",
+        "sulfur_stone_ore"
+      ]
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:sulfur_stone_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:sulfur_gem"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "electrum_ingot",
+        "electrum_nugget"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:electrum_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:electrum_nugget"
+  }
+}

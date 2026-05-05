@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "osmium_dust",
+        "osmium_tiny_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:osmium_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:osmium_tiny_dust"
+  }
+}

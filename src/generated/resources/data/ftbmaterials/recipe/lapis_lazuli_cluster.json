@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "lapis_lazuli_chunk",
+        "lapis_lazuli_cluster"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "ftbmaterials:lapis_lazuli_chunk"
+    }
+  },
+  "pattern": [
+    "II ",
+    "II ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:lapis_lazuli_cluster"
+  }
+}

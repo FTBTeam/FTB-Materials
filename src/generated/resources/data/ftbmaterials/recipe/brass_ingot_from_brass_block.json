@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "brass_block",
+        "brass_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:brass_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:brass_ingot"
+  }
+}

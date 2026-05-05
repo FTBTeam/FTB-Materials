@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "tin_chunk",
+        "tin_cluster"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "ftbmaterials:tin_chunk"
+    }
+  },
+  "pattern": [
+    "II ",
+    "II ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:tin_cluster"
+  }
+}
