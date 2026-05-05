@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "nickel_ingot",
+        "nickel_nugget"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:nickel_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:nickel_nugget"
+  }
+}

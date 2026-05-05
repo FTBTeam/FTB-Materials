@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "constantan_ingot",
+        "constantan_nugget"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:constantan_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:constantan_nugget"
+  }
+}

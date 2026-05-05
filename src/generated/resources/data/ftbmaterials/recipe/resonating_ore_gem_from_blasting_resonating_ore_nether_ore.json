@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "resonating_ore_gem",
+        "resonating_ore_nether_ore"
+      ]
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:resonating_ore_nether_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:resonating_ore_gem"
+  }
+}

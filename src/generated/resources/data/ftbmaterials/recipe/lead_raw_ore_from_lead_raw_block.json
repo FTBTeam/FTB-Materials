@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "lead_raw_ore",
+        "lead_raw_block"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:lead_raw_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:lead_raw_ore"
+  }
+}

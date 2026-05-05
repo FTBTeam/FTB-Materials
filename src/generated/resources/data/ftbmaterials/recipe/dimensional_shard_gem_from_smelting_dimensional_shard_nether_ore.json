@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "dimensional_shard_gem",
+        "dimensional_shard_nether_ore"
+      ]
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:dimensional_shard_nether_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:dimensional_shard_gem"
+  }
+}

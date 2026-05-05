@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "emerald_dust",
+        "emerald_tiny_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:emerald_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:emerald_tiny_dust"
+  }
+}

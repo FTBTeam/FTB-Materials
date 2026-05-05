@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "lead_dust",
+        "lead_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:lead_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:lead_ingot"
+  }
+}

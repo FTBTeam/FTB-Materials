@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "silver_chunk",
+        "silver_cluster"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "ftbmaterials:silver_chunk"
+    }
+  },
+  "pattern": [
+    "II ",
+    "II ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:silver_cluster"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "fluorite_gem",
+        "fluorite_stone_ore"
+      ]
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:fluorite_stone_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:fluorite_gem"
+  }
+}

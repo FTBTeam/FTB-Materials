@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "silver_dust",
+        "silver_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:silver_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:silver_ingot"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "brass_raw_ore",
+        "brass_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:brass_raw_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:brass_ingot"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "tungsten_raw_ore",
+        "tungsten_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:tungsten_raw_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:tungsten_ingot"
+  }
+}

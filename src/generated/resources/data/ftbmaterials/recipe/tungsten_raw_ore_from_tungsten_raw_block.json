@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "tungsten_raw_ore",
+        "tungsten_raw_block"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:tungsten_raw_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:tungsten_raw_ore"
+  }
+}

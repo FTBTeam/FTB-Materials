@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "titanium_block",
+        "titanium_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:titanium_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:titanium_ingot"
+  }
+}

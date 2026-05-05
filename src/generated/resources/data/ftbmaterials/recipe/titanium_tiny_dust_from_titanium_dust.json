@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "titanium_dust",
+        "titanium_tiny_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:titanium_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:titanium_tiny_dust"
+  }
+}

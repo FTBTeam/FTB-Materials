@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "silver_ingot",
+        "silver_nugget"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:silver_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:silver_nugget"
+  }
+}

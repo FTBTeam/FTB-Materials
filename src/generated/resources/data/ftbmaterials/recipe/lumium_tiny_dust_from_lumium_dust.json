@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "lumium_dust",
+        "lumium_tiny_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:lumium_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:lumium_tiny_dust"
+  }
+}

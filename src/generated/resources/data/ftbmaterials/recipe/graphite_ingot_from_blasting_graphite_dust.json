@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "graphite_dust",
+        "graphite_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:graphite_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:graphite_ingot"
+  }
+}

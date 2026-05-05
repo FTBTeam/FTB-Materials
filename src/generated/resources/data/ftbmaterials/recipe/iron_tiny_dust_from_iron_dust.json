@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "iron_dust",
+        "iron_tiny_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:iron_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:iron_tiny_dust"
+  }
+}

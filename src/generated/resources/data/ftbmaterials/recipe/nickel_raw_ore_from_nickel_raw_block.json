@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "nickel_raw_ore",
+        "nickel_raw_block"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:nickel_raw_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:nickel_raw_ore"
+  }
+}

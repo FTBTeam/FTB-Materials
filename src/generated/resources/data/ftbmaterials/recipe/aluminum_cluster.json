@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "aluminum_chunk",
+        "aluminum_cluster"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "ftbmaterials:aluminum_chunk"
+    }
+  },
+  "pattern": [
+    "II ",
+    "II ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:aluminum_cluster"
+  }
+}

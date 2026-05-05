@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "lead_raw_ore",
+        "lead_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:lead_raw_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:lead_ingot"
+  }
+}

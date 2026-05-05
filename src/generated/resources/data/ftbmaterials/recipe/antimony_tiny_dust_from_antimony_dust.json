@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "antimony_dust",
+        "antimony_tiny_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:antimony_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:antimony_tiny_dust"
+  }
+}

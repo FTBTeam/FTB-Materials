@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "iridium_ingot",
+        "iridium_nugget"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:iridium_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:iridium_nugget"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "aluminum_dust",
+        "aluminum_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:aluminum_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:aluminum_ingot"
+  }
+}
