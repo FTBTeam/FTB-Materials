@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.EnumMap;
-import java.util.Optional;
 
 public class ResourceRegistries {
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourceRegistries.class);

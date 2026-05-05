@@ -9,9 +9,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mojang.serialization.codecs.UnboundedMapCodec;
-import net.minecraft.resources.ResourceLocation;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
+import net.minecraft.resources.ResourceLocation;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -67,7 +67,7 @@ public class RecipeTweaker {
 
     private void addExtraRules(Map<String, List<Rule>> ruleMap) {
         ruleMap.forEach((type, rules) ->
-                ruleDB.computeIfAbsent(type, _ -> new ArrayList<>()).addAll(rules)
+                ruleDB.computeIfAbsent(type, ignored -> new ArrayList<>()).addAll(rules)
         );
     }
 
@@ -151,7 +151,7 @@ public class RecipeTweaker {
     }
 
     public void addRule(ResourceLocation recipeType, Rule... rules) {
-        ruleDB.computeIfAbsent(recipeType.toString(), _ -> new ArrayList<>()).addAll(List.of(rules));
+        ruleDB.computeIfAbsent(recipeType.toString(), ignored -> new ArrayList<>()).addAll(List.of(rules));
     }
 
     public record Rule(String path, RewriteAction action) {

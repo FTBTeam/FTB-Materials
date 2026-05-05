@@ -1,29 +1,22 @@
 package dev.ftb.mods.ftbmaterials.data;
 
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
-import dev.ftb.mods.ftbmaterials.config.DisabledMaterialList;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 

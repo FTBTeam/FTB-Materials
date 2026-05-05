@@ -1,12 +1,12 @@
 package dev.ftb.mods.ftbmaterials.commands;
 
-import dev.ftb.mods.ftbmaterials.FTBMaterials;
-import dev.ftb.mods.ftbmaterials.config.DisabledMaterialList;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import dev.ftb.mods.ftbmaterials.config.DisabledMaterialList;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;

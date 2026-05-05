@@ -1,9 +1,9 @@
 package dev.ftb.mods.ftbmaterials.data;
 
-import dev.ftb.mods.ftbmaterials.config.DisabledMaterialList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.ftb.mods.ftbmaterials.config.DisabledMaterialList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.conditions.ICondition;
