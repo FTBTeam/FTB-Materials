@@ -4,8 +4,6 @@ import com.google.common.collect.ImmutableList;
 import dev.ftb.mods.ftbmaterials.registry.ModBlocks;
 import dev.ftb.mods.ftbmaterials.registry.ModItems;
 import it.unimi.dsi.fastutil.Pair;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

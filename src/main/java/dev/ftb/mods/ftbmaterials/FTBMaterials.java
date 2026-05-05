@@ -1,5 +1,6 @@
 package dev.ftb.mods.ftbmaterials;
 
+import com.mojang.serialization.MapCodec;
 import dev.ftb.mods.ftblibrary.config.manager.ConfigManager;
 import dev.ftb.mods.ftbmaterials.commands.BuildUnifierDB;
 import dev.ftb.mods.ftbmaterials.commands.ConstructAllResources;
@@ -14,8 +15,6 @@ import dev.ftb.mods.ftbmaterials.registry.ModGlobalLootModifiers;
 import dev.ftb.mods.ftbmaterials.registry.ModItems;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.unification.UnifierManager;
-import com.google.gson.JsonElement;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.commands.Commands;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
@@ -23,7 +22,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
@@ -32,8 +30,6 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Supplier;
 
 @Mod(FTBMaterials.MOD_ID)

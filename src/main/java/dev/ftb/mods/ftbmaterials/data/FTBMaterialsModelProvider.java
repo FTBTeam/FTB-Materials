@@ -30,7 +30,7 @@ public class FTBMaterialsModelProvider {
         @Override
         protected void registerStatesAndModels() {
             for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
-                holder.getBlocks().forEach(block -> simpleBlock(block.get()));
+                holder.getBlocks().forEach(block -> simpleBlockWithItem(block.get(), cubeAll(block.get())));
             }
         }
     }
