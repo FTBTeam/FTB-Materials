@@ -22,7 +22,7 @@ public enum Resource {
     CONSTANTAN(emptyBuilder().allCraftedProducts().allDusts()
             .build()),
     COPPER(emptyBuilder().netherOre(true).endOre(true)
-            .allCraftedProducts().ingot(false).block(false).nugget(false)
+            .allCraftedProducts().ingot(false).block(false).nugget(true)
             .allProcessingProducts().chunkAndCluster().allDusts()
             .blade(true)
             .build()),
