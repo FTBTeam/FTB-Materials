@@ -51,14 +51,9 @@ neoForge {
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
-        clientData {
+        data {
             clientData()
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources-client/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing', file('src/generated/resources/').getAbsolutePath()
-        }
-
-        serverData {
-            serverData()
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing', file('src/generated/resources/').getAbsolutePath()
         }
     }
 
@@ -71,7 +66,6 @@ neoForge {
 
 sourceSets.main.resources {
     srcDir 'src/generated/resources'
-    srcDir 'src/generated/resources-client'
 }
 
 // Sets up a dependency configuration called 'localRuntime'.

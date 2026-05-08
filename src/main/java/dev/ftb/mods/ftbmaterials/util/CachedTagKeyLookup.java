@@ -26,10 +26,7 @@ public class CachedTagKeyLookup<T> {
 
         var outputName = prefix;
         if (!name.isEmpty()) {
-            if (name.equals("lapis_lazuli")) {
-                name = "lapis";
-            }
-
+            name = VanillaResourceUtils.getVanillaResourceName(name);
             outputName += "/" + name;
         }
 
@@ -38,11 +35,12 @@ public class CachedTagKeyLookup<T> {
 
         return tagCache.computeIfAbsent(
                 this.cacheKey(namespace, prefix, name),
-                t -> TagKey.create(registry, Identifier.fromNamespaceAndPath(finalNamespace, finalOutputName))
+                _ -> TagKey.create(registry, Identifier.fromNamespaceAndPath(finalNamespace, finalOutputName))
         );
     }
 
     private String cacheKey(String namespace, String prefix, String name) {
         return namespace + ":" + prefix + ":" + name;
     }
+
 }

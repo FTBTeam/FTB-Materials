@@ -6,7 +6,6 @@ import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
 import dev.ftb.mods.ftbmaterials.util.CachedTagKeyLookup;
-import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -14,16 +13,14 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.data.ItemTagsProvider;
-import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class ItemTagsGenerator extends ItemTagsProvider {
-    public static final TagKey<Item> SILICON = TagKey.create(Registries.ITEM, conventional("silicon"));
-    public static final TagKey<Item> DUST_WOODS = TagKey.create(Registries.ITEM, conventional("dusts/wood"));
+    public static final TagKey<Item> C_SILICON = TagKey.create(Registries.ITEM, conventional("silicon"));
+    public static final TagKey<Item> C_DUSTS_WOOD = TagKey.create(Registries.ITEM, conventional("dusts/wood"));
 
     public ItemTagsGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider, FTBMaterials.MOD_ID);
@@ -36,31 +33,37 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
             Resource resource = holder.getResource();
 
-            for (ResourceType resourceType : resource.getResourceTypes()) {
-                holder.getItemFromType(resourceType).ifPresent(target -> {
-                    Item item = target.get();
-                    Set<TagKey<Item>> tags = collectTagsForElement(resource, resourceType, cacheTagKeyLookup);
-                    for (var tag : tags) {
-                        tag(tag).add(item);
-                    }
-                });
+            for (ResourceType resourceType : ResourceType.values()) {
+                holder.getItemFromType(resourceType).ifPresentOrElse(
+                        itemHolder -> {
+                            for (var tag : collectTagsForElement(resource, resourceType, cacheTagKeyLookup)) {
+                                tag(tag).add(itemHolder.get());
+                            }
+                        },
+                        () -> resource.getVanillaEquivalentItem(resourceType).ifPresent(itemHolder -> {
+                            // there isn't a FTB Materials item for this resource & type, but there is a vanilla equivalent
+                            // - add that to any ftbmaterials: tags we know about
+                            for (var tag : collectTagsForElement(resource, resourceType, cacheTagKeyLookup)) {
+                                if (tag.location().getNamespace().equals(FTBMaterials.MOD_ID)) {
+                                    tag(tag).add(itemHolder.value());
+                                }
+                            }
+                        })
+                );
             }
         }
 
         for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
-            Map<DeferredItem<Item>, Pair<Resource, ResourceType>> reverseItemLookup = holder.getReverseItemLookup();
-            for (Map.Entry<DeferredItem<Item>, Pair<Resource, ResourceType>> deferredItemPairEntry : reverseItemLookup.entrySet()) {
-                var resource = deferredItemPairEntry.getValue().left();
-                var resourceType = deferredItemPairEntry.getValue().right();
-
+            holder.getReverseItemLookup().forEach((item, resourceAndType) -> {
+                var resource = resourceAndType.left();
+                var resourceType = resourceAndType.right();
                 if (resource.equals(Resource.SILICON) && resourceType.equals(ResourceType.GEM)) {
-                    tag(SILICON).add(deferredItemPairEntry.getKey().get());
+                    tag(C_SILICON).add(item.get());
                 }
-
                 if (resource.equals(Resource.SAW) && resourceType.equals(ResourceType.DUST)) {
-                    tag(DUST_WOODS).add(deferredItemPairEntry.getKey().get());
+                    tag(C_DUSTS_WOOD).add(item.get());
                 }
-            }
+            });
         }
     }
 
