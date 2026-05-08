@@ -26,10 +26,7 @@ public class CachedTagKeyLookup<T> {
 
         var outputName = prefix;
         if (!name.isEmpty()) {
-            if (name.equals("lapis_lazuli")) {
-                name = "lapis";
-            }
-
+            name = VanillaResourceUtils.getVanillaResourceName(name);
             outputName += "/" + name;
         }
 

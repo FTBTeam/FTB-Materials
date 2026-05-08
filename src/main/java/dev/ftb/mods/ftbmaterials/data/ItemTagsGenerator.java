@@ -25,8 +25,8 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class ItemTagsGenerator extends ItemTagsProvider {
-    public static final TagKey<Item> SILICON = TagKey.create(Registries.ITEM, conventional("silicon"));
-    public static final TagKey<Item> DUST_WOODS = TagKey.create(Registries.ITEM, conventional("dusts/wood"));
+    public static final TagKey<Item> C_SILICON = TagKey.create(Registries.ITEM, conventional("silicon"));
+    public static final TagKey<Item> C_DUSTS_WOOD = TagKey.create(Registries.ITEM, conventional("dusts/wood"));
 
     public ItemTagsGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, provider, blockTags, FTBMaterials.MOD_ID, existingFileHelper);
@@ -39,14 +39,23 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         for (ResourceRegistryHolder holder : ResourceRegistries.allHolders()) {
             Resource resource = holder.getResource();
 
-            for (ResourceType resourceType : resource.getResourceTypes()) {
-                holder.getItemFromType(resourceType).ifPresent(target -> {
-                    Item item = target.get();
-                    Set<TagKey<Item>> tags = collectTagsForElement(resource, resourceType, cacheTagKeyLookup);
-                    for (var tag : tags) {
-                        tag(tag).add(item);
-                    }
-                });
+            for (ResourceType resourceType : ResourceType.values()) {
+                holder.getItemFromType(resourceType).ifPresentOrElse(
+                        itemHolder -> {
+                            for (var tag : collectTagsForElement(resource, resourceType, cacheTagKeyLookup)) {
+                                tag(tag).add(itemHolder.get());
+                            }
+                        },
+                        () -> resource.getVanillaEquivalentItem(resourceType).ifPresent(itemHolder -> {
+                            // there isn't a FTB Materials item for this resource & type, but there is a vanilla equivalent
+                            // - add that to any ftbmaterials: tags we know about
+                            for (var tag : collectTagsForElement(resource, resourceType, cacheTagKeyLookup)) {
+                                if (tag.location().getNamespace().equals(FTBMaterials.MOD_ID)) {
+                                    tag(tag).add(itemHolder.value());
+                                }
+                            }
+                        })
+                );
             }
         }
 
@@ -57,11 +66,11 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                 var resourceType = deferredItemPairEntry.getValue().right();
 
                 if (resource.equals(Resource.SILICON) && resourceType.equals(ResourceType.GEM)) {
-                    tag(SILICON).add(deferredItemPairEntry.getKey().get());
+                    tag(C_SILICON).add(deferredItemPairEntry.getKey().get());
                 }
 
                 if (resource.equals(Resource.SAW) && resourceType.equals(ResourceType.DUST)) {
-                    tag(DUST_WOODS).add(deferredItemPairEntry.getKey().get());
+                    tag(C_DUSTS_WOOD).add(deferredItemPairEntry.getKey().get());
                 }
             }
         }

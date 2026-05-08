@@ -128,8 +128,8 @@ public class UnifierDB {
             }
         }
         // special cases for silicon & sawdust
-        specialCase(Resource.SILICON, ResourceType.GEM, ItemTagsGenerator.SILICON);
-        specialCase(Resource.SAW, ResourceType.DUST, ItemTagsGenerator.DUST_WOODS);
+        specialCase(Resource.SILICON, ResourceType.GEM, ItemTagsGenerator.C_SILICON);
+        specialCase(Resource.SAW, ResourceType.DUST, ItemTagsGenerator.C_DUSTS_WOOD);
     }
 
     private void specialCase(Resource resource, ResourceType resourceType, TagKey<Item> tag) {
