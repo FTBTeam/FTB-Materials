@@ -124,19 +124,26 @@ public class RecipeTweaker {
                 if (val.isJsonPrimitive()) {
                     String strVal = val.getAsString();
                     if (strVal.startsWith("c:ores/") && strVal.length() > 7) {
-                        // Ore tags need a little special handling: map c:ores/<X> to ftbmaterials:ores/<X>,
-                        //  assuming of course that <X> is a material that we handle. This is because there
-                        //  are four different subtypes of ore (stone, deepslate, nether & end).
-                        String resourceName = strVal.substring(strVal.indexOf('/') + 1);
-                        if (Resource.isFTBResource(resourceName)) {
-                            alterations.put("tag", "ftbmaterials:ores/" + resourceName);
-                        }
+                        handleOreTagTweaking(strVal, alterations);
                     } else {
                         unifierDB.lookupItemTag(strVal).ifPresent(r -> {
                             alterations.put("item", r);
                             toRemove.add("tag");
                         });
                     }
+                }
+            } else if (key.length() == 1 && val.isJsonPrimitive()) {
+                // could be a simple item or item tag in a recipe pattern, 26.1-style
+                String strVal = val.getAsString();
+                if (strVal.startsWith("#")) {
+                    String tagVal = strVal.substring(1);
+                    if (tagVal.startsWith("c:ores/") && tagVal.length() > 7) {
+                        handleOreTagTweaking(tagVal, alterations);
+                    } else {
+                        unifierDB.lookupItemTag(tagVal).ifPresent(r -> alterations.put(key, r));
+                    }
+                } else {
+                    unifierDB.lookupItem(strVal).ifPresent(r -> alterations.put(key, r));
                 }
             } else if (!val.isJsonPrimitive() && !key.startsWith("neoforge:")) {
                 scanAndMutateJsonElement(val, unifierDB);
@@ -148,6 +155,16 @@ public class RecipeTweaker {
             }
         });
         toRemove.forEach(o::remove);
+    }
+
+    private static void handleOreTagTweaking(String strVal, Map<String, String> alterations) {
+        // Ore tags need a little special handling: map c:ores/<X> to ftbmaterials:ores/<X>,
+        //  assuming of course that <X> is a material that we handle. This is because there
+        //  are four different subtypes of ore (stone, deepslate, nether & end).
+        String resourceName = strVal.substring(strVal.indexOf('/') + 1);
+        if (Resource.isFTBResource(resourceName)) {
+            alterations.put("tag", "ftbmaterials:ores/" + resourceName);
+        }
     }
 
     public void addRule(Identifier recipeType, Rule... rules) {
