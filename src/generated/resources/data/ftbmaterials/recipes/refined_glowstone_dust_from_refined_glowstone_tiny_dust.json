@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "refined_glowstone_tiny_dust",
+        "refined_glowstone_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "ftbmaterials:refined_glowstone_tiny_dust"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "result": {
+    "item": "ftbmaterials:refined_glowstone_dust"
+  }
+}
