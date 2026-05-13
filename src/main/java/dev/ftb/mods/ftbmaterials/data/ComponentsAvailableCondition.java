@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 public record ComponentsAvailableCondition(
         List<String> usedMaterials
 ) implements ICondition {
-    public static final MapCodec<ComponentsAvailableCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+    public static final Codec<ComponentsAvailableCondition> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     Codec.STRING.listOf().fieldOf("used_materials")
                             .forGetter(condition -> condition.usedMaterials)
             ).apply(instance, ComponentsAvailableCondition::new)
@@ -56,7 +56,7 @@ public record ComponentsAvailableCondition(
     }
 
     @Override
-    public MapCodec<? extends ICondition> codec() {
+    public Codec<? extends ICondition> codec() {
         return CODEC;
     }
 }

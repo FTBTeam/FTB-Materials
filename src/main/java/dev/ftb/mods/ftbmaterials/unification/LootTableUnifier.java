@@ -1,6 +1,7 @@
 package dev.ftb.mods.ftbmaterials.unification;
 
 import com.google.common.base.Suppliers;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.ftb.mods.ftbmaterials.config.StartupConfig;
@@ -14,12 +15,12 @@ import net.neoforged.neoforge.common.loot.LootModifier;
 import java.util.function.Supplier;
 
 public class LootTableUnifier extends LootModifier {
-    public static final Supplier<MapCodec<LootTableUnifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(
+    public static final Supplier<Codec<LootTableUnifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(
             builder -> codecStart(builder).apply(builder, LootTableUnifier::new))
     );
 
-    public LootTableUnifier(LootItemCondition[] lootItemConditions, int priority) {
-        super(lootItemConditions, priority);
+    public LootTableUnifier(LootItemCondition[] lootItemConditions) {
+        super(lootItemConditions);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class LootTableUnifier extends LootModifier {
     }
 
     @Override
-    public MapCodec<? extends IGlobalLootModifier> codec() {
+    public Codec<? extends IGlobalLootModifier> codec() {
         return CODEC.get();
     }
 }

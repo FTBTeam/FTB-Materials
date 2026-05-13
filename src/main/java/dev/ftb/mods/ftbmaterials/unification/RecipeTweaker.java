@@ -9,9 +9,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mojang.serialization.codecs.UnboundedMapCodec;
+import net.minecraft.resources.ResourceLocation;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
-import net.minecraft.resources.Identifier;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,7 +42,7 @@ public class RecipeTweaker {
     public static RecipeTweaker load(Path path) throws IOException {
         if (Files.exists(path)) {
             JsonElement json = JsonParser.parseString(Files.readString(path));
-            RecipeTweaker res = CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+            RecipeTweaker res = CODEC.parse(JsonOps.INSTANCE, json).result().orElseThrow();
             scanExtraRulesDir(res);
             return res;
         } else {
@@ -55,7 +55,7 @@ public class RecipeTweaker {
             s.filter(p -> p.toString().endsWith(".json")).forEach(rulesFile -> {
                 try {
                     JsonElement rulesJson = JsonParser.parseString(Files.readString(rulesFile));
-                    res.addExtraRules(RULES_CODEC.parse(JsonOps.INSTANCE, rulesJson).getOrThrow());
+                    res.addExtraRules(RULES_CODEC.parse(JsonOps.INSTANCE, rulesJson).result().orElseThrow());
                 } catch (Exception ex) {
                     FTBMaterials.LOGGER.error("can't read rules file {}: {}", rulesFile, ex.getMessage());
                 }
@@ -67,15 +67,15 @@ public class RecipeTweaker {
 
     private void addExtraRules(Map<String, List<Rule>> ruleMap) {
         ruleMap.forEach((type, rules) ->
-                ruleDB.computeIfAbsent(type, _ -> new ArrayList<>()).addAll(rules)
+                ruleDB.computeIfAbsent(type, (ignored) -> new ArrayList<>()).addAll(rules)
         );
     }
 
     public void save(Path path) throws IOException {
         var res = CODEC.encodeStart(JsonOps.INSTANCE, this);
-        if (res.isSuccess()) {
+        if (res.result().isPresent()) {
             var gson = new Gson().newBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-            Files.writeString(path, gson.toJson(res.getOrThrow()));
+            Files.writeString(path, gson.toJson(res.result().get()));
         }
     }
 
@@ -167,8 +167,8 @@ public class RecipeTweaker {
         }
     }
 
-    public void addRule(Identifier recipeType, Rule... rules) {
-        ruleDB.computeIfAbsent(recipeType.toString(), _ -> new ArrayList<>()).addAll(List.of(rules));
+    public void addRule(ResourceLocation recipeType, Rule... rules) {
+        ruleDB.computeIfAbsent(recipeType.toString(), (ignored) -> new ArrayList<>()).addAll(List.of(rules));
     }
 
     public record Rule(String path, RewriteAction action) {

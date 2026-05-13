@@ -18,7 +18,7 @@ import java.util.List;
 public class GenerateHiddenMaterialsTag {
     public static LiteralArgumentBuilder<CommandSourceStack> register() {
         return Commands.literal("generate-hidden-materials-tag")
-                .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
+                .requires(e -> e.hasPermission(Commands.LEVEL_OWNERS))
                 .executes(GenerateHiddenMaterialsTag::generate);
     }
 

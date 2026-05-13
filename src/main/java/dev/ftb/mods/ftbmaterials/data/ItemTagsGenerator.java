@@ -9,10 +9,13 @@ import dev.ftb.mods.ftbmaterials.util.CachedTagKeyLookup;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.Identifier;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.common.data.ItemTagsProvider;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,8 +25,8 @@ public class ItemTagsGenerator extends ItemTagsProvider {
     public static final TagKey<Item> C_SILICON = TagKey.create(Registries.ITEM, conventional("silicon"));
     public static final TagKey<Item> C_DUSTS_WOOD = TagKey.create(Registries.ITEM, conventional("dusts/wood"));
 
-    public ItemTagsGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, lookupProvider, FTBMaterials.MOD_ID);
+    public ItemTagsGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
+        super(output, provider, blockTags, FTBMaterials.MOD_ID, existingFileHelper);
     }
 
     @Override
@@ -40,12 +43,12 @@ public class ItemTagsGenerator extends ItemTagsProvider {
                                 tag(tag).add(itemHolder.get());
                             }
                         },
-                        () -> resource.getVanillaEquivalentItem(resourceType).ifPresent(itemHolder -> {
+                        () -> resource.getVanillaEquivalentItem(resourceType).ifPresent(item -> {
                             // there isn't a FTB Materials item for this resource & type, but there is a vanilla equivalent
                             // - add that to any ftbmaterials: tags we know about
                             for (var tag : collectTagsForElement(resource, resourceType, cacheTagKeyLookup)) {
                                 if (tag.location().getNamespace().equals(FTBMaterials.MOD_ID)) {
-                                    tag(tag).add(itemHolder.value());
+                                    tag(tag).add(item);
                                 }
                             }
                         })
@@ -93,7 +96,7 @@ public class ItemTagsGenerator extends ItemTagsProvider {
         return tags;
     }
 
-    private static Identifier conventional(String name) {
-        return Identifier.fromNamespaceAndPath("c", name);
+    private static ResourceLocation conventional(String name) {
+        return new ResourceLocation("c", name);
     }
 }

@@ -40,9 +40,9 @@ public class ResourceRegistryHolder {
 
             if (resourceType.isBlock()) {
                 DeferredBlock<Block> regBlock = ModBlocks.REGISTRY.register(niceName,
-                        id -> new Block(ModBlocks.propsFor(resourceType).setId(ResourceKey.create(Registries.BLOCK, id))));
+                        id -> new Block(ModBlocks.propsFor(resourceType)));
                 DeferredItem<Item> regBlockItem = ModItems.REGISTRY.register(niceName,
-                        id -> new BlockItem(regBlock.get(), ModItems.defaultProps().setId(ResourceKey.create(Registries.ITEM, id))));
+                        id -> new BlockItem(regBlock.get(), ModItems.defaultProps()));
 
                 blocks.add(regBlock);
                 blockItems.add(regBlockItem);
@@ -53,7 +53,7 @@ public class ResourceRegistryHolder {
                 reverseItemLookup.put(regBlockItem, Pair.of(resource, resourceType));
             } else {
                 DeferredItem<Item> regItem = ModItems.REGISTRY.register(niceName,
-                        id -> new Item(ModItems.defaultProps().setId(ResourceKey.create(Registries.ITEM, id))));
+                        id -> new Item(ModItems.defaultProps()));
 
                 items.add(regItem);
                 componentToItemRegister.put(resourceType, regItem);

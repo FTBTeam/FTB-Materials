@@ -1,7 +1,7 @@
 package dev.ftb.mods.ftbmaterials.config;
 
-import dev.ftb.mods.ftblibrary.config.value.Config;
-import dev.ftb.mods.ftblibrary.config.value.StringListValue;
+import dev.ftb.mods.ftblibrary.snbt.config.SNBTConfig;
+import dev.ftb.mods.ftblibrary.snbt.config.StringListValue;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface DisabledMaterialList {
     String KEY = FTBMaterials.MOD_ID + "-disabled-materials";
 
-    Config CONFIG = Config.create(KEY);
+    SNBTConfig CONFIG = SNBTConfig.create(KEY);
 
     StringListValue DISABLED_MATERIALS = CONFIG.addStringList("disabled_materials", List.of())
             .comment(

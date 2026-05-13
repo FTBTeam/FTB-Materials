@@ -13,7 +13,7 @@ import java.io.IOException;
 public class BuildUnifierDB {
     public static LiteralArgumentBuilder<CommandSourceStack> register() {
         return Commands.literal("build-unifier-db")
-                .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
+                .requires(e -> e.hasPermission(Commands.LEVEL_OWNERS))
                 .executes(ctx -> BuildUnifierDB.buildDB(ctx, true))
                 .then(Commands.literal("noreload")
                         .executes(ctx -> BuildUnifierDB.buildDB(ctx, false))

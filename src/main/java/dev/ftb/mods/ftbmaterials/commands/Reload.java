@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component;
 public class Reload {
     public static LiteralArgumentBuilder<CommandSourceStack> register() {
         return Commands.literal("reload")
-                .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
+                .requires(e -> e.hasPermission(Commands.LEVEL_OWNERS))
                 .executes(Reload::buildDB);
     }
 

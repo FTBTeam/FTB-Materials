@@ -1,10 +1,9 @@
 package dev.ftb.mods.ftbmaterials.resources;
 
 import dev.ftb.mods.ftbmaterials.util.VanillaResourceUtils;
-import net.minecraft.core.Holder;
+import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.util.Util;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -182,7 +181,7 @@ public enum Resource {
     });
 
     private final EnumSet<ResourceType> resourceTypes;
-    private final Identifier breakableWith;
+    private final ResourceLocation breakableWith;
 
     Resource(EnumSet<ResourceType> resourceTypes) {
         this("stone", resourceTypes);
@@ -190,7 +189,7 @@ public enum Resource {
 
     Resource(String breakableWith, EnumSet<ResourceType> resourceTypes) {
         this.resourceTypes = resourceTypes;
-        this.breakableWith = Identifier.withDefaultNamespace("needs_" + breakableWith + "_tool");
+        this.breakableWith = new ResourceLocation("needs_" + breakableWith + "_tool");
     }
 
     public static boolean isFTBResource(String resourceName) {
@@ -201,7 +200,7 @@ public enum Resource {
         return resourceTypes;
     }
 
-    public Identifier getBreakableWith() {
+    public ResourceLocation getBreakableWith() {
         return breakableWith;
     }
 
@@ -213,12 +212,13 @@ public enum Resource {
         return new ResourceBuilder(EnumSet.noneOf(ResourceType.class));
     }
 
-    public Optional<? extends Holder<Block>> getVanillaEquivalentBlock(ResourceType type) {
-        return BuiltInRegistries.BLOCK.get(Identifier.withDefaultNamespace(VanillaResourceUtils.vanillaPath(this, type)));
+    public Optional<Block> getVanillaEquivalentBlock(ResourceType type) {
+        return BuiltInRegistries.BLOCK.getOptional(new ResourceLocation(VanillaResourceUtils.vanillaPath(this, type)));
     }
 
-    public Optional<? extends Holder<Item>> getVanillaEquivalentItem(ResourceType type) {
-        return BuiltInRegistries.ITEM.get(Identifier.withDefaultNamespace(VanillaResourceUtils.vanillaPath(this, type)));
+
+    public Optional<Item> getVanillaEquivalentItem(ResourceType type) {
+        return BuiltInRegistries.ITEM.getOptional(new ResourceLocation(VanillaResourceUtils.vanillaPath(this, type)));
     }
 
     private record ResourceBuilder(EnumSet<ResourceType> resourceComponents) {

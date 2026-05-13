@@ -6,13 +6,10 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
-import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.decoration.ItemFrame;
@@ -36,7 +33,7 @@ public class ConstructAllResources {
 
     public static LiteralArgumentBuilder<CommandSourceStack> register() {
         return Commands.literal("construct-all-resources")
-                .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
+                .requires(e -> e.hasPermission(Commands.LEVEL_OWNERS))
                 .executes(ConstructAllResources::construct);
     }
 
@@ -46,7 +43,7 @@ public class ConstructAllResources {
 
         Vec3 horizView = player.getViewVector(1f);
         horizView.subtract(0, horizView.y, 0);
-        BlockPos pos = player.blockPosition().relative(Direction.getNearest(new Vec3i((int) horizView.x, (int) horizView.y, (int) horizView.z), Direction.NORTH), 2);
+        BlockPos pos = player.blockPosition().relative(Direction.getNearest((int) horizView.x, (int) horizView.y, (int) horizView.z), 2);
 
         int xOffset = 0;
         int yOffset = 0;
@@ -69,7 +66,7 @@ public class ConstructAllResources {
 
                 ItemFrame itemFrame = new ItemFrame(level, relativeLocation.relative(Direction.EAST), Direction.EAST);
                 ItemStack itemStack = new ItemStack(item.get());
-                itemStack.set(DataComponents.CUSTOM_NAME, item.get().getName(itemStack));
+                itemFrame.setCustomName(item.get().getName(itemStack));
                 itemFrame.setItem(itemStack);
                 itemFrame.setCustomNameVisible(true);
 

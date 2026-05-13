@@ -2,8 +2,8 @@ plugins {
     id 'java-library'
     id 'idea'
     id 'maven-publish'
-    alias(libs.plugins.moddev)
-    alias(libs.plugins.modpublish)
+    id 'net.neoforged.moddev' version '2.0.141'
+    id 'me.modmuss50.mod-publish-plugin' version '1.1.0'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -22,7 +22,7 @@ base {
     archivesName = project.archives_base_name
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 neoForge {
     version = project.neoforge_version
@@ -52,7 +52,7 @@ neoForge {
         }
 
         data {
-            clientData()
+            data()
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing', file('src/generated/resources/').getAbsolutePath()
         }
     }
@@ -87,15 +87,22 @@ repositories {
             includeGroup "mezz.jei"
         }
     }
+
+    maven {
+        url = "https://maven.architectury.dev/"
+        content {
+            includeGroup "dev.architectury"
+        }
+    }
 }
 
 dependencies {
-    implementation "dev.ftb.mods:ftb-library-neoforge:${libs.versions.ftblibrary.get()}"
+    implementation "dev.ftb.mods:ftb-library-neoforge:${ftb_library_version}"
 
-    compileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${libs.versions.jei.get()}")
-    compileOnlyApi("mezz.jei:jei-${minecraft_version}-neoforge-api:${libs.versions.jei.get()}")
+    compileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    compileOnlyApi("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
 
-    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${libs.versions.jei.get()}")
+    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
 }
 
 tasks.register("sourcesJar", Jar) {
@@ -131,7 +138,7 @@ tasks.withType(ProcessResources).configureEach {
 
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/neoforge.mods.toml']) {
+    filesMatching(['META-INF/mods.toml']) {
         expand replaceProperties
     }
 
@@ -169,7 +176,7 @@ publishMods {
         accessToken = CFToken.orElse("missing")
         projectId = project.curseforge_id
         minecraftVersions.add(project.minecraft_version)
-        javaVersions.add(JavaVersion.VERSION_25)
+        javaVersions.add(JavaVersion.VERSION_17)
     }
 }
 
