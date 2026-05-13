@@ -6,7 +6,8 @@
   "client": [
   ],
   "mixins": [
-    "BulkSectionAccessMixin"
+    "BulkSectionAccessMixin",
+    "RecipeManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
