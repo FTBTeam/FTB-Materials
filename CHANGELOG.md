@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Vanilla ores which don't have an FTB Materials equivalent (e.g. Iron Ore) are now added to the corresponding `ftbmaterials:` tags
 
+### Fixed
+* Fixed some recipe tweaking for vanilla shaped crafting recipes
+
 ## [26.1.2.3]
 
 ### Changed
