@@ -1,5 +1,7 @@
 {
   "values": [
+    "minecraft:copper_ore",
+    "minecraft:deepslate_copper_ore",
     "ftbmaterials:copper_end_ore",
     "ftbmaterials:copper_nether_ore"
   ]

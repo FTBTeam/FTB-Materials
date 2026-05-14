@@ -8,7 +8,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 @EventBusSubscriber(modid = FTBMaterials.MOD_ID)
 public class DataGenerator {
     @SubscribeEvent
-    public static void gatherServerData(GatherDataEvent.Server event) {
+    public static void gatherClientData(GatherDataEvent.Client event) {
         var packOutput = event.getGenerator().getPackOutput();
         var lookupProvider = event.getLookupProvider();
 
@@ -18,10 +18,7 @@ public class DataGenerator {
         event.addProvider(new LootTableGenerator(packOutput, lookupProvider));
         event.addProvider(new RecipesGenerator.Runner(packOutput, lookupProvider));
         event.addProvider(new LootModifiersGenerator(packOutput, lookupProvider));
-    }
 
-    @SubscribeEvent
-    public static void gatherClientData(GatherDataEvent.Client event) {
         event.addProvider(new FTBMaterialsModelProvider(event.getGenerator().getPackOutput()));
     }
 }

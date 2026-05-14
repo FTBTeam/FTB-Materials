@@ -1,12 +1,14 @@
 package dev.ftb.mods.ftbmaterials.resources;
 
+import dev.ftb.mods.ftbmaterials.util.VanillaResourceUtils;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Util;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public enum Resource {
     ALUMINUM(builder().gem(false).tiny(false)
@@ -211,149 +213,151 @@ public enum Resource {
         return new ResourceBuilder(EnumSet.noneOf(ResourceType.class));
     }
 
-    private static class ResourceBuilder {
-        private final EnumSet<ResourceType> resourceComponents;
-
-        private ResourceBuilder(EnumSet<ResourceType> types) {
-            resourceComponents = types;
-        }
-
-        public ResourceBuilder withType(ResourceType type, boolean add) {
-            if (add) {
-                resourceComponents.add(type);
-            } else {
-                resourceComponents.remove(type);
-            }
-            return this;
-        }
-
-        public ResourceBuilder oresAndRaw() {
-            return ores(true).rawOre(true).rawBlock(true);
-        }
-
-        public ResourceBuilder allDusts() {
-            return tinyDust(true).smallDust(true).dust(true);
-        }
-
-        public ResourceBuilder allProcessingProducts() {
-            return crystal(true).shard(true).clump(true).dirtyDust(true);
-        }
-
-        public ResourceBuilder chunkAndCluster() {
-            return chunk(true).cluster(true);
-        }
-
-        public ResourceBuilder allCraftedProducts() {
-            return ingot(true).block(true).nugget(true)
-                    .wire(true).plate(true).rod(true).gear(true);
-        }
-
-        public ResourceBuilder ores(boolean add) {
-            return stoneOre(add).deepslateOre(add).endOre(add).netherOre(add);
-        }
-
-        public ResourceBuilder stoneOre(boolean add) {
-            return withType(ResourceType.STONE_ORE, add);
-        }
-
-        public ResourceBuilder deepslateOre(boolean add) {
-            return withType(ResourceType.DEEPSLATE_ORE, add);
-        }
-
-        public ResourceBuilder endOre(boolean add) {
-            return withType(ResourceType.END_ORE, add);
-        }
-
-        public ResourceBuilder netherOre(boolean add) {
-            return withType(ResourceType.NETHER_ORE, add);
-        }
-
-        public ResourceBuilder block(boolean add) {
-            return withType(ResourceType.BLOCK, add);
-        }
-
-        public ResourceBuilder ingot(boolean add) {
-            return withType(ResourceType.INGOT, add);
-        }
-
-        public ResourceBuilder rawOre(boolean add) {
-            return withType(ResourceType.RAW_ORE, add);
-        }
-
-        public ResourceBuilder rawBlock(boolean add) {
-            return withType(ResourceType.RAW_BLOCK, add);
-        }
-
-        public ResourceBuilder nugget(boolean add) {
-            return withType(ResourceType.NUGGET, add);
-        }
-
-        public ResourceBuilder dust(boolean add) {
-            return withType(ResourceType.DUST, add);
-        }
-
-        public ResourceBuilder plate(boolean add) {
-            return withType(ResourceType.PLATE, add);
-        }
-
-        public ResourceBuilder gear(boolean add) {
-            return withType(ResourceType.GEAR, add);
-        }
-
-        public ResourceBuilder rod(boolean add) {
-            return withType(ResourceType.ROD, add);
-        }
-
-        public ResourceBuilder gem(boolean add) {
-            return withType(ResourceType.GEM, add);
-        }
-
-        public ResourceBuilder crystal(boolean add) {
-            return withType(ResourceType.CRYSTAL, add);
-        }
-
-        public ResourceBuilder wire(boolean add) {
-            return withType(ResourceType.WIRE, add);
-        }
-
-        public ResourceBuilder shard(boolean add) {
-            return withType(ResourceType.SHARD, add);
-        }
-
-        public ResourceBuilder clump(boolean add) {
-            return withType(ResourceType.CLUMP, add);
-        }
-
-        public ResourceBuilder dirtyDust(boolean add) {
-            return withType(ResourceType.DIRTY_DUST, add);
-        }
-
-        public ResourceBuilder blade(boolean add) {
-            return withType(ResourceType.BLADE, add);
-        }
-
-        public ResourceBuilder chunk(boolean add) {
-            return withType(ResourceType.CHUNK, add);
-        }
-
-        public ResourceBuilder cluster(boolean add) {
-            return withType(ResourceType.CLUSTER, add);
-        }
-
-        public ResourceBuilder smallDust(boolean add) {
-            return withType(ResourceType.SMALL_DUST, add);
-        }
-
-        public ResourceBuilder tinyDust(boolean add) {
-            return withType(ResourceType.TINY_DUST, add);
-        }
-
-        public ResourceBuilder tiny(boolean add) {
-            return withType(ResourceType.TINY, add);
-        }
-
-        public EnumSet<ResourceType> build() {
-            return resourceComponents;
-        }
+    public Optional<? extends Holder<Block>> getVanillaEquivalentBlock(ResourceType type) {
+        return BuiltInRegistries.BLOCK.get(Identifier.withDefaultNamespace(VanillaResourceUtils.vanillaPath(this, type)));
     }
+
+    public Optional<? extends Holder<Item>> getVanillaEquivalentItem(ResourceType type) {
+        return BuiltInRegistries.ITEM.get(Identifier.withDefaultNamespace(VanillaResourceUtils.vanillaPath(this, type)));
+    }
+
+    private record ResourceBuilder(EnumSet<ResourceType> resourceComponents) {
+        public ResourceBuilder withType(ResourceType type, boolean add) {
+                if (add) {
+                    resourceComponents.add(type);
+                } else {
+                    resourceComponents.remove(type);
+                }
+                return this;
+            }
+
+            public ResourceBuilder oresAndRaw() {
+                return ores(true).rawOre(true).rawBlock(true);
+            }
+
+            public ResourceBuilder allDusts() {
+                return tinyDust(true).smallDust(true).dust(true);
+            }
+
+            public ResourceBuilder allProcessingProducts() {
+                return crystal(true).shard(true).clump(true).dirtyDust(true);
+            }
+
+            public ResourceBuilder chunkAndCluster() {
+                return chunk(true).cluster(true);
+            }
+
+            public ResourceBuilder allCraftedProducts() {
+                return ingot(true).block(true).nugget(true)
+                        .wire(true).plate(true).rod(true).gear(true);
+            }
+
+            public ResourceBuilder ores(boolean add) {
+                return stoneOre(add).deepslateOre(add).endOre(add).netherOre(add);
+            }
+
+            public ResourceBuilder stoneOre(boolean add) {
+                return withType(ResourceType.STONE_ORE, add);
+            }
+
+            public ResourceBuilder deepslateOre(boolean add) {
+                return withType(ResourceType.DEEPSLATE_ORE, add);
+            }
+
+            public ResourceBuilder endOre(boolean add) {
+                return withType(ResourceType.END_ORE, add);
+            }
+
+            public ResourceBuilder netherOre(boolean add) {
+                return withType(ResourceType.NETHER_ORE, add);
+            }
+
+            public ResourceBuilder block(boolean add) {
+                return withType(ResourceType.BLOCK, add);
+            }
+
+            public ResourceBuilder ingot(boolean add) {
+                return withType(ResourceType.INGOT, add);
+            }
+
+            public ResourceBuilder rawOre(boolean add) {
+                return withType(ResourceType.RAW_ORE, add);
+            }
+
+            public ResourceBuilder rawBlock(boolean add) {
+                return withType(ResourceType.RAW_BLOCK, add);
+            }
+
+            public ResourceBuilder nugget(boolean add) {
+                return withType(ResourceType.NUGGET, add);
+            }
+
+            public ResourceBuilder dust(boolean add) {
+                return withType(ResourceType.DUST, add);
+            }
+
+            public ResourceBuilder plate(boolean add) {
+                return withType(ResourceType.PLATE, add);
+            }
+
+            public ResourceBuilder gear(boolean add) {
+                return withType(ResourceType.GEAR, add);
+            }
+
+            public ResourceBuilder rod(boolean add) {
+                return withType(ResourceType.ROD, add);
+            }
+
+            public ResourceBuilder gem(boolean add) {
+                return withType(ResourceType.GEM, add);
+            }
+
+            public ResourceBuilder crystal(boolean add) {
+                return withType(ResourceType.CRYSTAL, add);
+            }
+
+            public ResourceBuilder wire(boolean add) {
+                return withType(ResourceType.WIRE, add);
+            }
+
+            public ResourceBuilder shard(boolean add) {
+                return withType(ResourceType.SHARD, add);
+            }
+
+            public ResourceBuilder clump(boolean add) {
+                return withType(ResourceType.CLUMP, add);
+            }
+
+            public ResourceBuilder dirtyDust(boolean add) {
+                return withType(ResourceType.DIRTY_DUST, add);
+            }
+
+            public ResourceBuilder blade(boolean add) {
+                return withType(ResourceType.BLADE, add);
+            }
+
+            public ResourceBuilder chunk(boolean add) {
+                return withType(ResourceType.CHUNK, add);
+            }
+
+            public ResourceBuilder cluster(boolean add) {
+                return withType(ResourceType.CLUSTER, add);
+            }
+
+            public ResourceBuilder smallDust(boolean add) {
+                return withType(ResourceType.SMALL_DUST, add);
+            }
+
+            public ResourceBuilder tinyDust(boolean add) {
+                return withType(ResourceType.TINY_DUST, add);
+            }
+
+            public ResourceBuilder tiny(boolean add) {
+                return withType(ResourceType.TINY, add);
+            }
+
+            public EnumSet<ResourceType> build() {
+                return resourceComponents;
+            }
+        }
 }
