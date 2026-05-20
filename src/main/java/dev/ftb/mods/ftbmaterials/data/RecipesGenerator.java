@@ -1,14 +1,10 @@
 package dev.ftb.mods.ftbmaterials.data;
 
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
-import dev.ftb.mods.ftbmaterials.config.DisabledMaterialList;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -18,12 +14,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 
@@ -194,6 +188,24 @@ public class RecipesGenerator extends RecipeProvider {
                     .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))
                             , FTBMaterials.id(outputName + "_from_" + inputName).toString());
         });
+
+        createTinyFuelRecipes(output, Items.COAL, ResourceRegistries.getItemOrThrow(Resource.COAL, ResourceType.TINY));
+        createTinyFuelRecipes(output, Items.CHARCOAL, ResourceRegistries.getItemOrThrow(Resource.CHARCOAL, ResourceType.TINY));
+    }
+
+    private void createTinyFuelRecipes(RecipeOutput output, Item fuel, DeferredHolder<Item,Item> tinyFuel) {
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, tinyFuel.get(), 8)
+                .requires(fuel)
+                .unlockedBy("has_item", has(fuel))
+                .save(output.withConditions(ComponentsAvailableCondition.fromItems(tinyFuel)));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, fuel)
+                .define('N', tinyFuel.get())
+                .pattern("NNN")
+                .pattern("N N")
+                .pattern("NNN")
+                .unlockedBy("has_item", has(tinyFuel.get()))
+                .save(output.withConditions(ComponentsAvailableCondition.fromItems(tinyFuel)),
+                        FTBMaterials.id(BuiltInRegistries.ITEM.getKey(fuel).getPath() + "_from_tiny").toString());
     }
 
     private void addVanillaDustSmelting(Resource resource, Item vanillaIngot) {

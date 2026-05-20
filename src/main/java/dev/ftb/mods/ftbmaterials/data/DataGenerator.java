@@ -18,7 +18,7 @@ public class DataGenerator {
         event.addProvider(new LootTableGenerator(packOutput, lookupProvider));
         event.addProvider(new RecipesGenerator.Runner(packOutput, lookupProvider));
         event.addProvider(new LootModifiersGenerator(packOutput, lookupProvider));
-
         event.addProvider(new FTBMaterialsModelProvider(event.getGenerator().getPackOutput()));
+        event.addProvider(new DataMapGenerator(packOutput, lookupProvider));
     }
 }
