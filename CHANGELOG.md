@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * The `ftbmaterials dev build-unifier-db` now automatically marks the Unifier DB for reload
   * No need to manually run `/ftbmaterials dev reload` anymore
   * If you need the old functionality, use `/ftbmaterials dev build-unifier-db noreload`
+* Added crafting recipes for the copper nugget ↔ copper ingot
 
 ## [21.1.3]
 
