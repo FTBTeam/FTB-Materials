@@ -1,5 +1,7 @@
 package dev.ftb.mods.ftbmaterials.resources;
 
+import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,8 +25,12 @@ public class ResourceRegistries {
         return RESOURCE_REGISTRY_HOLDERS.values();
     }
 
-    public static ResourceRegistryHolder get(Resource type) {
-        return RESOURCE_REGISTRY_HOLDERS.get(type);
+    public static ResourceRegistryHolder get(Resource resource) {
+        return RESOURCE_REGISTRY_HOLDERS.get(resource);
+    }
+
+    public static DeferredHolder<Item, Item> getItemOrThrow(Resource resource, ResourceType resourceType) {
+        return get(resource).getItemFromType(resourceType).orElseThrow();
     }
 
     public static void clearReverseLookups() {
