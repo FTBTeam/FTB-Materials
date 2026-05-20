@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * No need to manually run `/ftbmaterials dev reload` anymore
   * If you need the old functionality, use `/ftbmaterials dev build-unifier-db noreload`
 * Added crafting recipes for the copper nugget ↔ copper ingot
+* Added NeoForge datamap entries and recipes for tiny coal & charcoal (smelt 1 item in a furnace, 8:1 ratio with standard item)
 
 ## [21.1.3]
 
