@@ -22,5 +22,6 @@ public class DataGenerator {
         event.addProvider(new LootModifiersGenerator(packOutput, lookupProvider));
         event.addProvider(new FTBMaterialsModelProvider.BlockState(event.getGenerator().getPackOutput(), existingFileHelper));
         event.addProvider(new FTBMaterialsModelProvider.ItemModel(event.getGenerator().getPackOutput(), existingFileHelper));
+        event.addProvider(new DataMapGenerator(packOutput, lookupProvider));
     }
 }

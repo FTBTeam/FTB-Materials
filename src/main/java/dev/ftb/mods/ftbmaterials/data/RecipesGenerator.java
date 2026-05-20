@@ -190,6 +190,24 @@ public class RecipesGenerator extends RecipeProvider {
                     .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))
                             , FTBMaterials.id(outputName + "_from_" + inputName).toString());
         });
+
+        createTinyFuelRecipes(output, Items.COAL, ResourceRegistries.getItemOrThrow(Resource.COAL, ResourceType.TINY));
+        createTinyFuelRecipes(output, Items.CHARCOAL, ResourceRegistries.getItemOrThrow(Resource.CHARCOAL, ResourceType.TINY));
+    }
+
+    private static void createTinyFuelRecipes(RecipeOutput output, Item fuel, DeferredHolder<Item,Item> tinyFuel) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, tinyFuel.get(), 8)
+                .requires(fuel)
+                .unlockedBy("has_item", has(fuel))
+                .save(output.withConditions(ComponentsAvailableCondition.fromItems(tinyFuel)), tinyFuel.getId());
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, fuel)
+                .define('N', tinyFuel.get())
+                .pattern("NNN")
+                .pattern("N N")
+                .pattern("NNN")
+                .unlockedBy("has_item", has(tinyFuel.get()))
+                .save(output.withConditions(ComponentsAvailableCondition.fromItems(tinyFuel)),
+                        FTBMaterials.id(BuiltInRegistries.ITEM.getKey(fuel).getPath() + "_from_tiny"));
     }
 
     private static void createVanillaCopperNuggetRecipes(RecipeOutput output) {
