@@ -17,11 +17,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class RecipeTweaker {
-    public static final UnboundedMapCodec<String, List<Rule>> RULES_CODEC
+    private static final UnboundedMapCodec<String, List<Rule>> RULES_CODEC_RAW
             = Codec.unboundedMap(Codec.STRING, Rule.CODEC.listOf());
+    public static final Codec<Map<String, List<Rule>>> RULES_CODEC
+            = RULES_CODEC_RAW.xmap(HashMap::new, Function.identity());
 
     public static final Codec<RecipeTweaker> CODEC = RecordCodecBuilder.create(builder -> builder.group(
             RULES_CODEC.fieldOf("rules").forGetter(r -> r.ruleDB)
@@ -43,19 +46,19 @@ public class RecipeTweaker {
         if (Files.exists(path)) {
             JsonElement json = JsonParser.parseString(Files.readString(path));
             RecipeTweaker res = CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
-            scanExtraRulesDir(res);
+            res.scanExtraRulesDir();
             return res;
         } else {
             return EMPTY;
         }
     }
 
-    private static void scanExtraRulesDir(RecipeTweaker res) {
+    private void scanExtraRulesDir() {
         try (Stream<Path> s = Files.list(UnifierManager.RULES_DIR)) {
             s.filter(p -> p.toString().endsWith(".json")).forEach(rulesFile -> {
                 try {
                     JsonElement rulesJson = JsonParser.parseString(Files.readString(rulesFile));
-                    res.addExtraRules(RULES_CODEC.parse(JsonOps.INSTANCE, rulesJson).getOrThrow());
+                    addExtraRules(RULES_CODEC.parse(JsonOps.INSTANCE, rulesJson).getOrThrow());
                 } catch (Exception ex) {
                     FTBMaterials.LOGGER.error("can't read rules file {}: {}", rulesFile, ex.getMessage());
                 }
