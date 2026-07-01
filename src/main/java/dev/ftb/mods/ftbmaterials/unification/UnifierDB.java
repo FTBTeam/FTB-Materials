@@ -2,6 +2,7 @@ package dev.ftb.mods.ftbmaterials.unification;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
@@ -194,10 +195,26 @@ public class UnifierDB {
 
     public void save(Path path) throws IOException {
         var res = CODEC.encodeStart(JsonOps.INSTANCE, this);
-        if (res.isSuccess()) {
+        if (res.isSuccess() && res.getOrThrow() instanceof JsonObject json) {
             var gson = new Gson().newBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-            Files.writeString(path, gson.toJson(res.getOrThrow()));
+            Files.writeString(path, gson.toJson(sortJsonObject(json)));
         }
+    }
+
+    private static JsonObject sortJsonObject(JsonObject jsonObject) {
+        List<String> keySet = jsonObject.keySet().stream().sorted().toList();
+        JsonObject res = new JsonObject();
+        for (String key : keySet) {
+            JsonElement ele = jsonObject.get(key);
+            if (ele.isJsonObject()) {
+                ele = sortJsonObject(ele.getAsJsonObject());
+                res.add(key, ele);
+            } else if (ele.isJsonArray()) {
+                res.add(key, ele.getAsJsonArray());
+            } else
+                res.add(key, ele.getAsJsonPrimitive());
+        }
+        return res;
     }
 
     private static <T> Set<TagKey<T>> collectTags(Resource type, ResourceType resourceType, CachedTagKeyLookup<T> cacheTagKeyLookup) {
