@@ -14,14 +14,14 @@ public class DefaultCustomRules {
         RecipeTweaker tweaker = RecipeTweaker.createNew();
 
         tweaker.addRule(ResourceLocation.fromNamespaceAndPath("immersiveengineering", "arcfurnace"),
-                new Rule("input/tag", RewriteAction.create("item", "<tag_map>")),
-                new Rule("additives/tag", RewriteAction.create("item", "<tag_map>")),
+                new Rule("input/tag", RewriteAction.create("item", "<item_tag_map>")),
+                new Rule("additives/tag", RewriteAction.create("item", "<item_tag_map>")),
                 new Rule("input/item", RewriteAction.create("item", "<item_map>")),
                 new Rule("additives/item", RewriteAction.create("item", "<item_map>"))
         );
         tweaker.addRule(ResourceLocation.fromNamespaceAndPath("immersiveengineering", "alloy"),
-                new Rule("input0/tag", RewriteAction.create("item", "<tag_map>")),
-                new Rule("input0/tag", RewriteAction.create("item", "<tag_map>")),
+                new Rule("input0/tag", RewriteAction.create("item", "<item_tag_map>")),
+                new Rule("input0/tag", RewriteAction.create("item", "<item_tag_map>")),
                 new Rule("input1/item", RewriteAction.create("item", "<item_map>")),
                 new Rule("input1/item", RewriteAction.create("item", "<item_map>"))
         );
@@ -43,7 +43,7 @@ public class DefaultCustomRules {
     private static void standardIERule(RecipeTweaker tweaker, String type) {
         // for machines with just a single input
         tweaker.addRule(ResourceLocation.fromNamespaceAndPath("immersiveengineering", type),
-                new Rule("input/tag", RewriteAction.create("item", "<tag_map>")),
+                new Rule("input/tag", RewriteAction.create("item", "<item_tag_map>")),
                 new Rule("input/item", RewriteAction.create("item", "<item_map>"))
         );
     }

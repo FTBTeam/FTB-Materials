@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -46,31 +47,17 @@ public class RecipeTweaker {
         if (Files.exists(path)) {
             JsonElement json = JsonParser.parseString(Files.readString(path));
             RecipeTweaker res = CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
-            res.scanExtraRulesDir();
+            UnifierManager.loadExtraJsonFiles(UnifierManager.RULES_DIR, el ->
+                    res.addExtraRules(RULES_CODEC.parse(JsonOps.INSTANCE, el).getOrThrow()));
             return res;
         } else {
             return EMPTY;
         }
     }
 
-    private void scanExtraRulesDir() {
-        try (Stream<Path> s = Files.list(UnifierManager.RULES_DIR)) {
-            s.filter(p -> p.toString().endsWith(".json")).forEach(rulesFile -> {
-                try {
-                    JsonElement rulesJson = JsonParser.parseString(Files.readString(rulesFile));
-                    addExtraRules(RULES_CODEC.parse(JsonOps.INSTANCE, rulesJson).getOrThrow());
-                } catch (Exception ex) {
-                    FTBMaterials.LOGGER.error("can't read rules file {}: {}", rulesFile, ex.getMessage());
-                }
-            });
-        } catch (Exception ex) {
-            FTBMaterials.LOGGER.error("can't read directory {}: {}", UnifierManager.RULES_DIR, ex.getMessage());
-        }
-    }
-
     private void addExtraRules(Map<String, List<Rule>> ruleMap) {
         ruleMap.forEach((type, rules) ->
-                ruleDB.computeIfAbsent(type, ignored -> new ArrayList<>()).addAll(rules)
+                ruleDB.merge(type, rules, (r1, r2) -> Stream.concat(r1.stream(), r2.stream()).toList())
         );
     }
 
@@ -157,6 +144,53 @@ public class RecipeTweaker {
         ruleDB.computeIfAbsent(recipeType.toString(), ignored -> new ArrayList<>()).addAll(List.of(rules));
     }
 
+    private enum MappingType {
+        NONE(
+                (db, in) -> new Mappings(in, in),
+                (in, mapping) -> in
+        ),
+        ITEM(
+                (db, in) -> new Mappings(db.lookupItem(in).orElse(in), db.lookupItemTag(in).orElse(in)),
+                (in, mappings) -> in.replace("<item_map>", mappings.objMapping).replace("<item_tag_map>", mappings.tagMapping)
+        ),
+        FLUID(
+                (db, in) -> new Mappings(db.lookupFluid(in).orElse(in), db.lookupFluidTag(in).orElse(in)),
+                (in, mappings) -> in.replace("<fluid_map>", mappings.objMapping).replace("<fluid_tag_map>", mappings.tagMapping)
+        );
+
+        private final BiFunction<UnifierDB, String, Mappings> mappingFactory;
+        private final BiFunction<String, Mappings, String> replacer;
+
+        MappingType(BiFunction<UnifierDB, String, Mappings> mappingFactory, BiFunction<String, Mappings, String> replacer) {
+            this.mappingFactory = mappingFactory;
+            this.replacer = replacer;
+        }
+
+        public static MappingType fromReplacementString(String str) {
+            if (str.contains("<item_")) {
+                return ITEM;
+            } else if (str.contains("<fluid_")) {
+                return FLUID;
+            } else {
+                return NONE;
+            }
+        }
+
+        public Mappings createMappings(UnifierDB db, String input) {
+            return mappingFactory.apply(db, input);
+        }
+
+        String doReplacement(String input, Mappings mappings) {
+            return replacer.apply(input, mappings);
+        }
+    }
+
+    private record Mappings(String objMapping, String tagMapping) {
+        boolean differsFromInput(String input) {
+            return !objMapping.equals(input) || !tagMapping.equals(input);
+        }
+    }
+
     public record Rule(String path, RewriteAction action) {
         public static final Codec<Rule> CODEC = RecordCodecBuilder.create(builder -> builder.group(
                 Codec.STRING.fieldOf("path").forGetter(Rule::path),
@@ -173,14 +207,12 @@ public class RecipeTweaker {
                     String fieldName = pair.getSecond();
 
                     String curVal = json.get(fieldName).getAsString();
-                    String tagMapped = unifierDB.lookupItemTag(curVal).orElse(curVal);
-                    String itemMapped = unifierDB.lookupItem(curVal).orElse(curVal);
+                    var mappingType = MappingType.fromReplacementString(action.outputValue);
+                    var mappings = mappingType.createMappings(unifierDB, curVal);
 
-                    if (!action.inputValue.isEmpty() && action.inputValue.equals(curVal)
-                            || action.inputValue.isEmpty() && (!tagMapped.equals(curVal) || !itemMapped.equals(curVal))) {
-                        String newVal = action.outputValue
-                                .replace("<tag_map>", tagMapped)
-                                .replace("<item_map>", itemMapped);
+                    if (!action.inputFilter.isEmpty() && action.inputFilter.equals(curVal)
+                            || action.inputFilter.isEmpty() && mappings.differsFromInput(curVal)) {
+                        String newVal = mappingType.doReplacement(action.outputValue, mappings);
                         json.addProperty(action.fieldName, newVal);
                         if (!fieldName.equals(action.fieldName)) {
                             json.remove(fieldName);
@@ -242,12 +274,18 @@ public class RecipeTweaker {
             }
         }
 
-        public record RewriteAction(String fieldName, String outputValue, String inputValue) {
+        public record RewriteAction(String fieldName, String outputValue, String inputFilter) {
             public static final Codec<RewriteAction> CODEC = RecordCodecBuilder.create(builder -> builder.group(
                     Codec.STRING.fieldOf("field").forGetter(RewriteAction::fieldName),
                     Codec.STRING.fieldOf("output_value").forGetter(RewriteAction::outputValue),
-                    Codec.STRING.optionalFieldOf("input_value","").forGetter(RewriteAction::inputValue)
+                    Codec.STRING.optionalFieldOf("input_value","").forGetter(RewriteAction::inputFilter)
             ).apply(builder, RewriteAction::new));
+
+            public RewriteAction(String fieldName, String outputValue, String inputFilter) {
+                this.fieldName = fieldName;
+                this.outputValue = outputValue.replace("<tag_map>", "<item_tag_map>");  // legacy
+                this.inputFilter = inputFilter;
+            }
 
             public static RewriteAction create(String fieldName, String outputValue) {
                 return new RewriteAction(fieldName, outputValue, "");
