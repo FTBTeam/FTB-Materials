@@ -2,7 +2,10 @@ package dev.ftb.mods.ftbmaterials.config;
 
 import dev.ftb.mods.ftblibrary.config.value.BooleanValue;
 import dev.ftb.mods.ftblibrary.config.value.Config;
+import dev.ftb.mods.ftblibrary.config.value.StringListValue;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
+
+import java.util.ArrayList;
 
 public interface StartupConfig {
     String KEY = FTBMaterials.MOD_ID + "-startup";
@@ -16,4 +19,15 @@ public interface StartupConfig {
             .comment("If true, tweaks loot tables so that loot generated in chests as well as modded materials dropped from broken blocks are replaced by their FTB Materials counterparts. Vanilla loot is not affected.");
     BooleanValue TWEAK_WORLDGEN = TWEAKS.addBoolean("tweak_worldgen", true)
             .comment("If true, tweaks worldgen so that any modded generated ores are replaced by their FTB Materials counterparts. Vanilla ores are not affected.");
+
+    Config BLACKLISTS = CONFIG.addGroup("blacklists");
+    StringListValue UNIFICATION_BLACKLIST_ITEMS = BLACKLISTS.addStringList("unification_blacklist_items", new ArrayList<>())
+            .comment("List of item IDs which should never be automatically added to the unification DB",
+                    "These can be wildcarded, e.g. 'somemod:*' blacklists all id's in the 'somemod' namespace");
+    StringListValue UNIFICATION_BLACKLIST_TAGS = BLACKLISTS.addStringList("unification_blacklist_item_tags", new ArrayList<>())
+            .comment("List of item tag IDs which should never be automatically added to the unification DB",
+                    "These can be wildcarded, e.g. 'somemod:*' blacklists all id's in the 'somemod' namespace");
+    StringListValue UNIFICATION_BLACKLIST_BLOCKS = BLACKLISTS.addStringList("unification_blacklist_blocks", new ArrayList<>())
+            .comment("List of block IDs which should never be automatically added to the unification DB",
+                    "These can be wildcarded, e.g. 'somemod:*' blacklists all id's in the 'somemod' namespace");
 }
