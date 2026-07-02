@@ -8,6 +8,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import dev.ftb.mods.ftbmaterials.config.Blacklists;
 import dev.ftb.mods.ftbmaterials.data.ItemTagsGenerator;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
@@ -197,7 +198,7 @@ public class UnifierDB {
                         ResourceLocation blockId = resKey.location();
                         if (blockId.getNamespace().equals(FTBMaterials.MOD_ID)) {
                             ftbOreMap.put(type, blockId.toString());
-                        } else {
+                        } else if (Blacklists.isBlockUnificationAllowed(blockId)) {
                             otherOreMap.computeIfAbsent(type, k -> new HashSet<>()).add(blockId.toString());
                         }
                     });
@@ -217,11 +218,15 @@ public class UnifierDB {
     }
 
     public void addItemMapping(Item from, Item to) {
-        itemMap.put(BuiltInRegistries.ITEM.getKey(from).toString(), BuiltInRegistries.ITEM.getKey(to).toString());
+        if (Blacklists.isItemUnificationAllowed(from)) {
+            itemMap.put(BuiltInRegistries.ITEM.getKey(from).toString(), BuiltInRegistries.ITEM.getKey(to).toString());
+        }
     }
 
     public void addItemTagMapping(TagKey<Item> from, Item to) {
-        itemTagMap.put(from.location().toString(), BuiltInRegistries.ITEM.getKey(to).toString());
+        if (Blacklists.isItemUnificationAllowed(from)) {
+            itemTagMap.put(from.location().toString(), BuiltInRegistries.ITEM.getKey(to).toString());
+        }
     }
 
     public void save(Path path) throws IOException {
