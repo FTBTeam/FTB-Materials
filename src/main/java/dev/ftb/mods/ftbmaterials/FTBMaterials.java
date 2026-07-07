@@ -14,7 +14,7 @@ import dev.ftb.mods.ftbmaterials.registry.ModCreativeTab;
 import dev.ftb.mods.ftbmaterials.registry.ModGlobalLootModifiers;
 import dev.ftb.mods.ftbmaterials.registry.ModItems;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
-import dev.ftb.mods.ftbmaterials.unification.UnifierManager;
+import dev.ftb.mods.ftbmaterials.unification.recipe.UnifierManager;
 import net.minecraft.commands.Commands;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;

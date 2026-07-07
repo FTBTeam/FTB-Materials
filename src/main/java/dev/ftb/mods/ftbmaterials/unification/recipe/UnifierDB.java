@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbmaterials.unification;
+package dev.ftb.mods.ftbmaterials.unification.recipe;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -70,7 +70,7 @@ public class UnifierDB {
         this.blockMap = blockMap;
     }
 
-    public static UnifierDB load(Path path) throws IOException {
+    static UnifierDB load(Path path) throws IOException {
         JsonElement json = JsonParser.parseString(Files.readString(path));
         UnifierDB unifierDB = CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
         UnifierManager.loadExtraJsonFiles(UnifierManager.UNIFIER_DIR, el ->
@@ -86,7 +86,7 @@ public class UnifierDB {
         blockMap.putAll(extra.blockMap);
     }
 
-    public static UnifierDB build() {
+    static UnifierDB build() {
         CachedTagKeyLookup<Item> itemCache = new CachedTagKeyLookup<>(Registries.ITEM);
         CachedTagKeyLookup<Block> blockCache = new CachedTagKeyLookup<>(Registries.BLOCK);
         UnifierDB db = new UnifierDB();

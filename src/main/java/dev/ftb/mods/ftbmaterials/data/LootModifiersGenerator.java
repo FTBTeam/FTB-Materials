@@ -1,7 +1,7 @@
 package dev.ftb.mods.ftbmaterials.data;
 
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
-import dev.ftb.mods.ftbmaterials.unification.LootTableUnifier;
+import dev.ftb.mods.ftbmaterials.unification.loot.LootTableUnifier;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;

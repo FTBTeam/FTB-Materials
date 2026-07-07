@@ -1,9 +1,10 @@
-package dev.ftb.mods.ftbmaterials.unification;
+package dev.ftb.mods.ftbmaterials.unification.loot;
 
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.ftb.mods.ftbmaterials.config.StartupConfig;
+import dev.ftb.mods.ftbmaterials.unification.recipe.UnifierManager;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;

@@ -1,7 +1,7 @@
 package dev.ftb.mods.ftbmaterials.mixin;
 
 import dev.ftb.mods.ftbmaterials.config.StartupConfig;
-import dev.ftb.mods.ftbmaterials.unification.UnifyingLevelChunkSection;
+import dev.ftb.mods.ftbmaterials.unification.worldgen.UnifyingLevelChunkSection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.chunk.BulkSectionAccess;
 import net.minecraft.world.level.chunk.LevelChunkSection;

@@ -2,7 +2,7 @@ package dev.ftb.mods.ftbmaterials.mixin;
 
 import com.google.gson.JsonElement;
 import dev.ftb.mods.ftbmaterials.config.StartupConfig;
-import dev.ftb.mods.ftbmaterials.unification.UnifierManager;
+import dev.ftb.mods.ftbmaterials.unification.recipe.UnifierManager;
 import net.minecraft.world.item.crafting.RecipeManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

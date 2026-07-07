@@ -1,4 +1,4 @@
-package dev.ftb.mods.ftbmaterials.unification;
+package dev.ftb.mods.ftbmaterials.unification.recipe;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
