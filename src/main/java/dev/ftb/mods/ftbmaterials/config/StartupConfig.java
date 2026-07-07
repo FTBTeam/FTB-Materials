@@ -6,6 +6,7 @@ import dev.ftb.mods.ftblibrary.config.value.StringListValue;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface StartupConfig {
     String KEY = FTBMaterials.MOD_ID + "-startup";
@@ -30,4 +31,22 @@ public interface StartupConfig {
     StringListValue UNIFICATION_BLACKLIST_BLOCKS = BLACKLISTS.addStringList("unification_blacklist_blocks", new ArrayList<>())
             .comment("List of block IDs which should never be automatically added to the unification DB",
                     "These can be wildcarded, e.g. 'somemod:*' blacklists all id's in the 'somemod' namespace");
+
+    Config OVERRIDES = CONFIG.addGroup("overrides");
+    StringStringMapValue ITEM_OVERRIDES = OVERRIDES.add(new StringStringMapValue(OVERRIDES, "item_overrides", new HashMap<>()))
+            .comment("Map of <mod-id> -> map of <tag> -> <replacement_tag>",
+                    "Overrides applied to recipe types of the given mod when doing item lookup in the unification DB");
+    StringStringMapValue TAG_OVERRIDES = OVERRIDES.add(new StringStringMapValue(OVERRIDES, "tag_overrides", new HashMap<>()))
+            .comment("Map of <mod-id> -> map of <item> -> <replacement_item>",
+                    "Overrides applied to recipe types of the given mod when doing item tag lookup in the unification DB");
+
+    static String itemOverride(String in, String modId) {
+        var map = ITEM_OVERRIDES.get().get(modId);
+        return map != null ? map.getOrDefault(in, in) : in;
+    }
+
+    static String itemTagOverride(String in, String modId) {
+        var map = TAG_OVERRIDES.get().get(modId);
+        return map != null ? map.getOrDefault(in, in) : in;
+    }
 }

@@ -1,8 +1,7 @@
-package dev.ftb.mods.ftbmaterials.unification;
+package dev.ftb.mods.ftbmaterials.unification.recipe;
 
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
-import dev.ftb.mods.ftbmaterials.unification.RecipeTweaker.Rule;
-import dev.ftb.mods.ftbmaterials.unification.RecipeTweaker.Rule.RewriteAction;
+import dev.ftb.mods.ftbmaterials.unification.recipe.Rule.RewriteAction;
 import net.minecraft.resources.Identifier;
 
 import java.io.IOException;

@@ -2,7 +2,7 @@ package dev.ftb.mods.ftbmaterials.registry;
 
 import com.mojang.serialization.MapCodec;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
-import dev.ftb.mods.ftbmaterials.unification.LootTableUnifier;
+import dev.ftb.mods.ftbmaterials.unification.loot.LootTableUnifier;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
