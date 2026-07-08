@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Better detection of modded items and tags in `/ftbmaterials dev build-unifier-db`
   * Better handling of json arrays in recipes
   * Raw storage blocks are now added to the Unifier DB
+  * Added blacklisting to `ftbmaterials-startup.snbt` to exclude specific items/item tags/blocks entirely from the unification DB
+  * Added overrides to `ftbmaterials-startup.snbt` to perform per-recipe-namespace replacements on specific strings in recipes
 * Changes to handling of custom rules file `config/ftbmaterials/custom-rules.json`
   * The file is now located at `config/ftbmaterials/custom-rules-default.json` 
   * Now scans `config/ftbmaterials/rules/` to load supplementary rules files (recommended to use these rather than edit the base `custom-rules-default.json` file)
