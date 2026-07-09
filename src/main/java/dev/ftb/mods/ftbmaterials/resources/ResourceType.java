@@ -7,8 +7,8 @@ import java.util.function.Function;
 public enum ResourceType {
     STONE_ORE(true, "{material} Ore", "c:ores", "c:ores_in_ground/stone"),
     DEEPSLATE_ORE(true, "Deepslate {material} Ore", "c:ores", "c:ores_in_ground/deepslate"),
-    END_ORE(true,"Endstone {material} Ore", "c:ores", "c:ores_in_ground/end"),
-    NETHER_ORE(true, "Nether {material} Ore", "c:ores", "c:ores_in_ground/nether"),
+    END_ORE(true,"Endstone {material} Ore", "c:ores", "c:ores_in_ground/endstone"),
+    NETHER_ORE(true, "Nether {material} Ore", "c:ores", "c:ores_in_ground/netherrack"),
     BLOCK(true, "Block of {material}", "c:storage_blocks"),
     INGOT(false,"{material} Ingot", "c:ingots"),
     RAW_ORE(false,"Raw {material}", "c:raw_materials"),
