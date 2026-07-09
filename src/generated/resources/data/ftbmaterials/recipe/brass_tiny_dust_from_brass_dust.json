@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "brass_dust",
+        "brass_tiny_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:brass_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:brass_tiny_dust"
+  }
+}

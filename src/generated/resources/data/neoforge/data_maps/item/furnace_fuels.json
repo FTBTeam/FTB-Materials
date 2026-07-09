@@ -1,0 +1,10 @@
+{
+  "values": {
+    "#c:tiny/charcoal": {
+      "burn_time": 200
+    },
+    "#c:tiny/coal": {
+      "burn_time": 200
+    }
+  }
+}

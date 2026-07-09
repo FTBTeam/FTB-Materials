@@ -1,9 +1,31 @@
-build
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
 .idea
-.DS_Store
+
+# gradle
+build
 .gradle
+
+# other
+eclipse
 run
 runs
-.kotlin
+run-data
+src/generated/resources/.cache
 
-fabric/src/main/generated/.cache/
+# Mac
+repo
+.DS_Store
+
+src/generated/resources-client/.cache/

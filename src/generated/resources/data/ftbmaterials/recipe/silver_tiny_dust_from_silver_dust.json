@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "silver_dust",
+        "silver_tiny_dust"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:silver_dust"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:silver_tiny_dust"
+  }
+}

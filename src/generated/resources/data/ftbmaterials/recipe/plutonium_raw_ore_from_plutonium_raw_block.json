@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "plutonium_raw_ore",
+        "plutonium_raw_block"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ftbmaterials:plutonium_raw_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "ftbmaterials:plutonium_raw_ore"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "osmium_ingot",
+        "osmium_deepslate_ore"
+      ]
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:osmium_deepslate_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:osmium_ingot"
+  }
+}

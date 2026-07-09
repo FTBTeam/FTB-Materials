@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "ftbmaterials:components_available",
+      "used_materials": [
+        "titanium_raw_ore",
+        "titanium_ingot"
+      ]
+    }
+  ],
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "ftbmaterials:titanium_raw_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "ftbmaterials:titanium_ingot"
+  }
+}
