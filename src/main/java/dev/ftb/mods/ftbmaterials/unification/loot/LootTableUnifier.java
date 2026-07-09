@@ -25,7 +25,7 @@ public class LootTableUnifier extends LootModifier {
 
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> itemsIn, LootContext lootContext) {
-        if (!StartupConfig.TWEAK_LOOT_TABLES.get()) {
+        if (!StartupConfig.TWEAK_LOOT_TABLES.get() || UnifierManager.INSTANCE.unifierDB().isEmpty()) {
             return itemsIn;
         }
 

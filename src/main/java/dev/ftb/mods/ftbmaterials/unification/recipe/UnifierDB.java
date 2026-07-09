@@ -283,4 +283,8 @@ public class UnifierDB {
                 ));
         return res;
     }
+
+    public boolean isEmpty() {
+        return this == EMPTY;
+    }
 }

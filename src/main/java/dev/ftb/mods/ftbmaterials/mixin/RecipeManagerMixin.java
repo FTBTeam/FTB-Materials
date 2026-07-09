@@ -21,7 +21,7 @@ public class RecipeManagerMixin {
             index = 1
     )
     private Object ftbmaterials$modifyRecipeDecodeArg(Object input, @Local ResourceLocation resourceLocation) {
-        if (!StartupConfig.TWEAK_RECIPES.get() || !(input instanceof JsonElement jsonElement)) {
+        if (!StartupConfig.TWEAK_RECIPES.get() || UnifierManager.INSTANCE.unifierDB().isEmpty() || !(input instanceof JsonElement jsonElement)) {
             // input should always be a JSON element but let's be safe...
             return input;
         }
