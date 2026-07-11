@@ -82,8 +82,10 @@ public class RecipesGenerator extends RecipeProvider {
                     .save(output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
         });
 
-        // Copper is special case (vanilla copper ingot but FTB Materials copper nugget)
-        createVanillaCopperNuggetRecipes(output);
+        // Special cases where vanilla doesn't have a nugget but FTB Materials does
+        createVanillaIngotNuggetRecipes(output, Resource.COPPER, Items.COPPER_INGOT);
+        createVanillaIngotNuggetRecipes(output, Resource.DIAMOND, Items.DIAMOND);
+        createVanillaIngotNuggetRecipes(output, Resource.NETHERITE, Items.NETHERITE_INGOT);
 
         // Raw ore smelts to ingots
         createInputOutputRecipeFromTypes(ResourceType.RAW_ORE, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
@@ -210,19 +212,19 @@ public class RecipesGenerator extends RecipeProvider {
                         FTBMaterials.id(BuiltInRegistries.ITEM.getKey(fuel).getPath() + "_from_tiny"));
     }
 
-    private static void createVanillaCopperNuggetRecipes(RecipeOutput output) {
-        var copperNugget = ResourceRegistries.getItemOrThrow(Resource.COPPER, ResourceType.NUGGET);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, copperNugget.get(), 9)
-                .requires(Items.COPPER_INGOT)
-                .unlockedBy("has_item", has(Items.COPPER_INGOT))
-                .save(output.withConditions(ComponentsAvailableCondition.fromItems(copperNugget)));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.COPPER_INGOT)
-                .define('N', copperNugget.get())
+    private static void createVanillaIngotNuggetRecipes(RecipeOutput output, Resource resource, Item vanillaIngot) {
+        var nugget = ResourceRegistries.getItemOrThrow(resource, ResourceType.NUGGET);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, nugget.get(), 9)
+                .requires(vanillaIngot)
+                .unlockedBy("has_item", has(vanillaIngot))
+                .save(output.withConditions(ComponentsAvailableCondition.fromItems(nugget)));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, vanillaIngot)
+                .define('N', nugget.get())
                 .pattern("NNN")
                 .pattern("NNN")
                 .pattern("NNN")
-                .unlockedBy("has_item", has(copperNugget.get()))
-                .save(output.withConditions(ComponentsAvailableCondition.fromItems(copperNugget)));
+                .unlockedBy("has_item", has(nugget.get()))
+                .save(output.withConditions(ComponentsAvailableCondition.fromItems(nugget)));
     }
 
     private void addVanillaDustSmelting(Resource resource, Item vanillaIngot, RecipeOutput output) {
