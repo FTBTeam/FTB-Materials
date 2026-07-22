@@ -199,7 +199,7 @@ public class UnifierDB {
                         if (blockId.getNamespace().equals(FTBMaterials.MOD_ID)) {
                             ftbOreMap.put(type, blockId.toString());
                         } else if (Blacklists.isBlockUnificationAllowed(blockId)) {
-                            otherOreMap.computeIfAbsent(type, k -> new HashSet<>()).add(blockId.toString());
+                            otherOreMap.computeIfAbsent(type, _ -> new HashSet<>()).add(blockId.toString());
                         }
                     });
                 }

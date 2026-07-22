@@ -12,10 +12,6 @@ public class ModBlocks {
 
     // see ResourceRegistryHolder for actual block registration
 
-    public static Block.Properties defaultProps() {
-        return propsFor(null);
-    }
-
     public static Block.Properties propsFor(ResourceType type) {
         Block.Properties props = Block.Properties.of().requiresCorrectToolForDrops();
         if (type == null) {

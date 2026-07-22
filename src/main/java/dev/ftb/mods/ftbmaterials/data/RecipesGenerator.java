@@ -65,23 +65,21 @@ public class RecipesGenerator extends RecipeProvider {
         });
 
         // Ingots to nuggets
-        createInputOutputRecipeFromTypes(ResourceType.INGOT, ResourceType.NUGGET, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.MISC, outputItemLike, 9)
-                    .requires(inputItemLike)
-                    .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
-        });
+        createInputOutputRecipeFromTypes(ResourceType.INGOT, ResourceType.NUGGET, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) ->
+                ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.MISC, outputItemLike, 9)
+                        .requires(inputItemLike)
+                        .unlockedBy("has_item", has(inputItemLike))
+                        .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))));
 
         // Nuggets to ingots
-        createInputOutputRecipeFromTypes(ResourceType.NUGGET, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
-                    .define('N', inputItemLike)
-                    .pattern("NNN")
-                    .pattern("NNN")
-                    .pattern("NNN")
-                    .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
-        });
+        createInputOutputRecipeFromTypes(ResourceType.NUGGET, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) ->
+                ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
+                        .define('N', inputItemLike)
+                        .pattern("NNN")
+                        .pattern("NNN")
+                        .pattern("NNN")
+                        .unlockedBy("has_item", has(inputItemLike))
+                        .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))));
 
         // Raw ore smelts to ingots
         createInputOutputRecipeFromTypes(ResourceType.RAW_ORE, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
@@ -226,27 +224,25 @@ public class RecipesGenerator extends RecipeProvider {
     }
 
     private void createBlocksOfMaterial(ResourceType inputType, ResourceType outputType) {
-        createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getBlockFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
-                    .define('I', inputItemLike)
-                    .pattern("III")
-                    .pattern("III")
-                    .pattern("III")
-                    .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItemToBlock(inputReg, outputReg)));
-        });
+        createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getBlockFromType, (inputItemLike, outputItemLike, inputReg, outputReg) ->
+                ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
+                        .define('I', inputItemLike)
+                        .pattern("III")
+                        .pattern("III")
+                        .pattern("III")
+                        .unlockedBy("has_item", has(inputItemLike))
+                        .save(this.output.withConditions(ComponentsAvailableCondition.fromItemToBlock(inputReg, outputReg))));
     }
 
     private void create4x4OfMaterial(ResourceType inputType, ResourceType outputType) {
-        createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
-                    .define('I', inputItemLike)
-                    .pattern("II ")
-                    .pattern("II ")
-                    .pattern("   ")
-                    .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
-        });
+        createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) ->
+                ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
+                        .define('I', inputItemLike)
+                        .pattern("II ")
+                        .pattern("II ")
+                        .pattern("   ")
+                        .unlockedBy("has_item", has(inputItemLike))
+                        .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))));
     }
 
     private <I, I2 extends I, O, O2 extends O> void createInputOutputRecipeFromTypes(

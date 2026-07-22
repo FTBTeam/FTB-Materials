@@ -6,8 +6,8 @@ import java.util.function.BiFunction;
 
 enum MappingType {
     NONE(
-            (db, in) -> new Mappings(in, in),
-            (in, mappings, modId) -> in
+            (_, in) -> new Mappings(in, in),
+            (in, _, _) -> in
     ),
     ITEM(
             (db, in) -> new Mappings(db.lookupItem(in).orElse(in), db.lookupItemTag(in).orElse(in)),
@@ -17,7 +17,7 @@ enum MappingType {
     ),
     FLUID(
             (db, in) -> new Mappings(db.lookupFluid(in).orElse(in), db.lookupFluidTag(in).orElse(in)),
-            (in, mappings, modId) -> in
+            (in, mappings, _) -> in
                     .replace("<fluid_map>", mappings.objMapping)
                     .replace("<fluid_tag_map>", mappings.tagMapping)
     );
