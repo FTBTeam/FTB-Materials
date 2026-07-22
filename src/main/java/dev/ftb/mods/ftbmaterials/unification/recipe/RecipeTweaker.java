@@ -67,10 +67,10 @@ class RecipeTweaker {
         }
     }
 
-    JsonElement mutateRecipe(JsonElement element, UnifierDB unifierDB) {
+    JsonElement mutateRecipe(Identifier recipeId, JsonElement element, UnifierDB unifierDB) {
         if (element.isJsonObject() && element.getAsJsonObject().has("type")) {
             String recipeType = element.getAsJsonObject().get("type").getAsString();
-            String modId = recipeType.split(":")[0];
+            String modId = recipeId.getNamespace();
             List<Rule> customRules = ruleDB.get(recipeType);
             boolean madeChange = false;
             if (customRules != null) {

@@ -3,6 +3,7 @@ package dev.ftb.mods.ftbmaterials.unification.recipe;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import net.minecraft.resources.Identifier;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.IOException;
@@ -39,8 +40,8 @@ public enum UnifierManager {
         unifierDB.save(CONFIG_DIR.resolve(UNIFIER_DB_NAME));
     }
 
-    public JsonElement mutateRecipeJson(JsonElement jsonElement) {
-        return recipeTweaker().mutateRecipe(jsonElement, unifierDB());
+    public JsonElement mutateRecipeJson(Identifier recipeId, JsonElement jsonElement) {
+        return recipeTweaker().mutateRecipe(recipeId, jsonElement, unifierDB());
     }
 
     public void reload() {

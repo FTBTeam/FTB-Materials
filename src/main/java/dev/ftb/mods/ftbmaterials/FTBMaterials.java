@@ -71,9 +71,8 @@ public class FTBMaterials {
 
     private void modifyRecipeJsonResults(ModifyRecipeJsonsEvent event) {
         Map<Identifier, JsonElement> recipeJsons = new HashMap<>(event.getRecipeJsons());
-        for (Map.Entry<Identifier, JsonElement> entry : recipeJsons.entrySet()) {
-            event.getRecipeJsons().put(entry.getKey(), UnifierManager.INSTANCE.mutateRecipeJson(entry.getValue()));
-        }
+        recipeJsons.forEach((recipeId, recipe)
+                -> event.getRecipeJsons().put(recipeId, UnifierManager.INSTANCE.mutateRecipeJson(recipeId, recipe)));
     }
 
     public void onSetup(FMLCommonSetupEvent event) {
