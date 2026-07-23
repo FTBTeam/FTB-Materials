@@ -8,6 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * Added NeoForge datamap entries and recipes for tiny coal & charcoal (smelt 1 item in a furnace, 8:1 ratio with standard item)
+* Several improvements to recipe unification
+  * Better detection of modded items and tags in `/ftbmaterials dev build-unifier-db`
+  * Better handling of json arrays in recipes
+  * Raw storage blocks are now added to the Unifier DB
+  * Added blacklisting to `ftbmaterials-startup.snbt` to exclude specific items/item tags/blocks entirely from the unification DB
+  * Added overrides to `ftbmaterials-startup.snbt` to perform per-recipe-namespace replacements on specific strings in recipes
+* Changes to handling of custom rules file `config/ftbmaterials/custom-rules.json`
+  * The file is now located at `config/ftbmaterials/custom-rules-default.json`
+  * Now scans `config/ftbmaterials/rules/` to load supplementary rules files (recommended to use these rather than edit the base `custom-rules-default.json` file)
+  * If updating on an existing world _and_ you have added rules, you will need to re-add those rules to a supplementary rules file (see above)
+  * The "sub" field in custom rules is now "output_value"
+  * Rules can take an optional "input_value" field which, if present, makes the rules run only on recipes with a matching input value
+  * If custom rules exist for a recipe type, but none match for a particular recipe of that type, the default recipe scanner (scanning for items and tags in the Unifier DB) is now run for that recipe
+* Added NeoForge datamap entries and recipes for tiny coal & charcoal (smelt 1 item in a furnace, 8:1 ratio with standard item)
+
+### Fixed
+* Fixed a couple of item & block tag names
+  * `c:ores_in_ground/nether` -> `c:ores_in_ground/netherrack`
+  * `c:ores_in_ground/end` -> `c:ores_in_ground/endstone`
 
 ## [26.1.2.4]
 
