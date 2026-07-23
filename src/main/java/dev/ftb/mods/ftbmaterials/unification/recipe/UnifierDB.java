@@ -1,18 +1,21 @@
-package dev.ftb.mods.ftbmaterials.unification;
+package dev.ftb.mods.ftbmaterials.unification.recipe;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import dev.ftb.mods.ftbmaterials.config.Blacklists;
 import dev.ftb.mods.ftbmaterials.data.ItemTagsGenerator;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
 import dev.ftb.mods.ftbmaterials.util.CachedTagKeyLookup;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -20,6 +23,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.util.Lazy;
 
 import java.io.IOException;
@@ -31,41 +35,58 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UnifierDB {
+    private static final Codec<Map<String, String>> MUTABLE_STRING_MAP = Codec.unboundedMap(Codec.STRING, Codec.STRING)
+            .xmap((Function<Map<String, String>, Map<String, String>>) ConcurrentHashMap::new, Function.identity());
+
     public static final Codec<UnifierDB> CODEC = RecordCodecBuilder.create(builder -> builder.group(
-            Codec.unboundedMap(Codec.STRING, Codec.STRING)
-                    .fieldOf("items").forGetter(db -> db.itemMap),
-            Codec.unboundedMap(Codec.STRING, Codec.STRING)
-                    .fieldOf("item_tags").forGetter(db -> db.itemTagMap),
-            Codec.unboundedMap(Codec.STRING, Codec.STRING)
-                    .xmap((Function<Map<String, String>, Map<String, String>>) ConcurrentHashMap::new, Map::copyOf)
-                    .fieldOf("ore_blocks").forGetter(db -> db.blockMap)
+            MUTABLE_STRING_MAP.optionalFieldOf("items", new ConcurrentHashMap<>()).forGetter(db -> db.itemMap),
+            MUTABLE_STRING_MAP.optionalFieldOf("item_tags", new ConcurrentHashMap<>()).forGetter(db -> db.itemTagMap),
+            MUTABLE_STRING_MAP.optionalFieldOf("fluids", new ConcurrentHashMap<>()).forGetter(db -> db.fluidMap),
+            MUTABLE_STRING_MAP.optionalFieldOf("fluid_tags", new ConcurrentHashMap<>()).forGetter(db -> db.fluidTagMap),
+            MUTABLE_STRING_MAP.optionalFieldOf("ore_blocks", new ConcurrentHashMap<>()).forGetter(db -> db.blockMap)
     ).apply(builder, UnifierDB::new));
 
-    public static final UnifierDB EMPTY = new UnifierDB(Map.of(), Map.of(), Map.of());
+    public static final UnifierDB EMPTY = new UnifierDB(Map.of(), Map.of(), Map.of(), Map.of(), Map.of());
 
     private final Map<String,String> itemMap;
     private final Map<String,String> itemTagMap;
-    private final Lazy<Map<Item,Item>> itemByItemMap = Lazy.of(this::buildItemByItemMap);
-
+    private final Map<String,String> fluidMap;
+    private final Map<String,String> fluidTagMap;
     private final Map<String,String> blockMap;
+
+    private final Lazy<Map<Item,Item>> itemByItemMap = Lazy.of(this::buildItemByItemMap);
+    private final Lazy<Map<Fluid,Fluid>> fluidByFluidMap = Lazy.of(this::buildFluidByFluidMap);
     private final Lazy<Map<Block,Block>> blockByBlockMap = Lazy.of(this::buildBlockByBlockMap);
 
     private UnifierDB() {
-        this(new HashMap<>(), new HashMap<>(), new HashMap<>());
+        this(new HashMap<>(), new HashMap<>(), new HashMap<>(), new HashMap<>(), new HashMap<>());
     }
 
-    private UnifierDB(Map<String, String> itemMap, Map<String, String> itemTagMap, Map<String, String> blockMap) {
+    private UnifierDB(Map<String, String> itemMap, Map<String, String> itemTagMap, Map<String, String> fluidMap, Map<String, String> fluidTagMap, Map<String, String> blockMap) {
         this.itemMap = itemMap;
         this.itemTagMap = itemTagMap;
+        this.fluidMap = fluidMap;
+        this.fluidTagMap = fluidTagMap;
         this.blockMap = blockMap;
     }
 
-    public static UnifierDB load(Path path) throws IOException {
+    static UnifierDB load(Path path) throws IOException {
         JsonElement json = JsonParser.parseString(Files.readString(path));
-        return CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+        UnifierDB unifierDB = CODEC.parse(JsonOps.INSTANCE, json).getOrThrow();
+        UnifierManager.loadExtraJsonFiles(UnifierManager.UNIFIER_DIR, el ->
+                unifierDB.addExtraUnifierEntries(CODEC.parse(JsonOps.INSTANCE, el).getOrThrow()));
+        return unifierDB;
     }
 
-    public static UnifierDB build() {
+    private void addExtraUnifierEntries(UnifierDB extra) {
+        itemMap.putAll(extra.itemMap);
+        itemTagMap.putAll(extra.itemTagMap);
+        fluidMap.putAll(extra.fluidMap);
+        fluidTagMap.putAll(extra.fluidTagMap);
+        blockMap.putAll(extra.blockMap);
+    }
+
+    static UnifierDB build() {
         CachedTagKeyLookup<Item> itemCache = new CachedTagKeyLookup<>(Registries.ITEM);
         CachedTagKeyLookup<Block> blockCache = new CachedTagKeyLookup<>(Registries.BLOCK);
         UnifierDB db = new UnifierDB();
@@ -91,6 +112,18 @@ public class UnifierDB {
 
     public Optional<String> lookupItemTag(String key) {
         return Optional.ofNullable(itemTagMap.get(key));
+    }
+
+    public Optional<String> lookupFluid(String key) {
+        return Optional.ofNullable(fluidMap.get(key));
+    }
+
+    public Optional<Fluid> lookupFluid(Fluid fluid) {
+        return Optional.ofNullable(fluidByFluidMap.get().get(fluid));
+    }
+
+    public Optional<String> lookupFluidTag(String key) {
+        return Optional.ofNullable(fluidTagMap.get(key));
     }
 
     public Optional<Block> lookupBlock(Block block) {
@@ -124,7 +157,7 @@ public class UnifierDB {
             Item item = ftbMaterialsItem == null ? vanillaFallbackItem : ftbMaterialsItem;
             if (item != null) {
                 otherItems.forEach(other -> addItemMapping(other, item));
-                addTagMapping(tag, item);
+                addItemTagMapping(tag, item);
             }
         }
         // special cases for silicon & sawdust
@@ -134,7 +167,7 @@ public class UnifierDB {
 
     private void specialCase(Resource resource, ResourceType resourceType, TagKey<Item> tag) {
         ResourceRegistries.get(resource).getItemFromType(resourceType).ifPresent(itemHolder ->
-                addTagMapping(tag, itemHolder.get()));
+                addItemTagMapping(tag, itemHolder.get()));
 
         BuiltInRegistries.ITEM.get(tag).ifPresent(items -> {
             Item[] ftbItem = new Item[] { null };
@@ -165,8 +198,8 @@ public class UnifierDB {
                         Identifier blockId = resKey.identifier();
                         if (blockId.getNamespace().equals(FTBMaterials.MOD_ID)) {
                             ftbOreMap.put(type, blockId.toString());
-                        } else {
-                            otherOreMap.computeIfAbsent(type, k -> new HashSet<>()).add(blockId.toString());
+                        } else if (Blacklists.isBlockUnificationAllowed(blockId)) {
+                            otherOreMap.computeIfAbsent(type, _ -> new HashSet<>()).add(blockId.toString());
                         }
                     });
                 }
@@ -185,19 +218,39 @@ public class UnifierDB {
     }
 
     public void addItemMapping(Item from, Item to) {
-        itemMap.put(BuiltInRegistries.ITEM.getKey(from).toString(), BuiltInRegistries.ITEM.getKey(to).toString());
+        if (Blacklists.isItemUnificationAllowed(from)) {
+            itemMap.put(BuiltInRegistries.ITEM.getKey(from).toString(), BuiltInRegistries.ITEM.getKey(to).toString());
+        }
     }
 
-    public void addTagMapping(TagKey<Item> from, Item to) {
-        itemTagMap.put(from.location().toString(), BuiltInRegistries.ITEM.getKey(to).toString());
+    public void addItemTagMapping(TagKey<Item> from, Item to) {
+        if (Blacklists.isItemUnificationAllowed(from)) {
+            itemTagMap.put(from.location().toString(), BuiltInRegistries.ITEM.getKey(to).toString());
+        }
     }
 
     public void save(Path path) throws IOException {
         var res = CODEC.encodeStart(JsonOps.INSTANCE, this);
-        if (res.isSuccess()) {
+        if (res.isSuccess() && res.getOrThrow() instanceof JsonObject json) {
             var gson = new Gson().newBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-            Files.writeString(path, gson.toJson(res.getOrThrow()));
+            Files.writeString(path, gson.toJson(sortJsonObject(json)));
         }
+    }
+
+    private static JsonObject sortJsonObject(JsonObject jsonObject) {
+        List<String> keySet = jsonObject.keySet().stream().sorted().toList();
+        JsonObject res = new JsonObject();
+        for (String key : keySet) {
+            JsonElement ele = jsonObject.get(key);
+            if (ele.isJsonObject()) {
+                ele = sortJsonObject(ele.getAsJsonObject());
+                res.add(key, ele);
+            } else if (ele.isJsonArray()) {
+                res.add(key, ele.getAsJsonArray());
+            } else
+                res.add(key, ele.getAsJsonPrimitive());
+        }
+        return res;
     }
 
     private static <T> Set<TagKey<T>> collectTags(Resource type, ResourceType resourceType, CachedTagKeyLookup<T> cacheTagKeyLookup) {
@@ -209,24 +262,29 @@ public class UnifierDB {
     }
 
     private Map<Item, Item> buildItemByItemMap() {
-        Map<Item, Item> res = new HashMap<>();
-        itemMap.forEach((in, out) ->
-                BuiltInRegistries.ITEM.getOptional(Identifier.parse(in)).ifPresent(itemIn ->
-                        BuiltInRegistries.ITEM.getOptional(Identifier.parse(out)).ifPresent(itemOut ->
-                                res.put(itemIn, itemOut)
+        return buildXbyXMap(itemMap, BuiltInRegistries.ITEM);
+    }
+
+    private Map<Fluid, Fluid> buildFluidByFluidMap() {
+        return buildXbyXMap(fluidMap, BuiltInRegistries.FLUID);
+    }
+
+    private Map<Block, Block> buildBlockByBlockMap() {
+        return buildXbyXMap(blockMap, BuiltInRegistries.BLOCK);
+    }
+
+    private static <T> Map<T, T> buildXbyXMap(Map<String,String> unifierMap, Registry<T> registry) {
+        Map<T, T> res = new HashMap<>();
+        unifierMap.forEach((in, out) ->
+                registry.getOptional(Identifier.parse(in)).ifPresent(objIn ->
+                        registry.getOptional(Identifier.parse(out)).ifPresent(objOut ->
+                                res.put(objIn, objOut)
                         )
                 ));
         return res;
     }
 
-    private Map<Block, Block> buildBlockByBlockMap() {
-        Map<Block, Block> res = new ConcurrentHashMap<>();
-        blockMap.forEach((in, out) ->
-                BuiltInRegistries.BLOCK.getOptional(Identifier.parse(in)).ifPresent(blockIn ->
-                        BuiltInRegistries.BLOCK.getOptional(Identifier.parse(out)).ifPresent(blockOut ->
-                                res.put(blockIn, blockOut)
-                        )
-                ));
-        return res;
+    public boolean isEmpty() {
+        return this == EMPTY;
     }
 }

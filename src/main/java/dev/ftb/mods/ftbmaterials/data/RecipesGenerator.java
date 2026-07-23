@@ -1,14 +1,10 @@
 package dev.ftb.mods.ftbmaterials.data;
 
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
-import dev.ftb.mods.ftbmaterials.config.DisabledMaterialList;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistries;
 import dev.ftb.mods.ftbmaterials.resources.ResourceRegistryHolder;
 import dev.ftb.mods.ftbmaterials.resources.ResourceType;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -18,12 +14,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 
@@ -71,23 +65,21 @@ public class RecipesGenerator extends RecipeProvider {
         });
 
         // Ingots to nuggets
-        createInputOutputRecipeFromTypes(ResourceType.INGOT, ResourceType.NUGGET, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.MISC, outputItemLike, 9)
-                    .requires(inputItemLike)
-                    .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
-        });
+        createInputOutputRecipeFromTypes(ResourceType.INGOT, ResourceType.NUGGET, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) ->
+                ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.MISC, outputItemLike, 9)
+                        .requires(inputItemLike)
+                        .unlockedBy("has_item", has(inputItemLike))
+                        .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))));
 
         // Nuggets to ingots
-        createInputOutputRecipeFromTypes(ResourceType.NUGGET, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
-                    .define('N', inputItemLike)
-                    .pattern("NNN")
-                    .pattern("NNN")
-                    .pattern("NNN")
-                    .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
-        });
+        createInputOutputRecipeFromTypes(ResourceType.NUGGET, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) ->
+                ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
+                        .define('N', inputItemLike)
+                        .pattern("NNN")
+                        .pattern("NNN")
+                        .pattern("NNN")
+                        .unlockedBy("has_item", has(inputItemLike))
+                        .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))));
 
         // Raw ore smelts to ingots
         createInputOutputRecipeFromTypes(ResourceType.RAW_ORE, ResourceType.INGOT, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
@@ -194,6 +186,24 @@ public class RecipesGenerator extends RecipeProvider {
                     .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))
                             , FTBMaterials.id(outputName + "_from_" + inputName).toString());
         });
+
+        createTinyFuelRecipes(output, Items.COAL, ResourceRegistries.getItemOrThrow(Resource.COAL, ResourceType.TINY));
+        createTinyFuelRecipes(output, Items.CHARCOAL, ResourceRegistries.getItemOrThrow(Resource.CHARCOAL, ResourceType.TINY));
+    }
+
+    private void createTinyFuelRecipes(RecipeOutput output, Item fuel, DeferredHolder<Item,Item> tinyFuel) {
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, tinyFuel.get(), 8)
+                .requires(fuel)
+                .unlockedBy("has_item", has(fuel))
+                .save(output.withConditions(ComponentsAvailableCondition.fromItems(tinyFuel)));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, fuel)
+                .define('N', tinyFuel.get())
+                .pattern("NNN")
+                .pattern("N N")
+                .pattern("NNN")
+                .unlockedBy("has_item", has(tinyFuel.get()))
+                .save(output.withConditions(ComponentsAvailableCondition.fromItems(tinyFuel)),
+                        FTBMaterials.id(BuiltInRegistries.ITEM.getKey(fuel).getPath() + "_from_tiny").toString());
     }
 
     private void addVanillaDustSmelting(Resource resource, Item vanillaIngot) {
@@ -214,27 +224,25 @@ public class RecipesGenerator extends RecipeProvider {
     }
 
     private void createBlocksOfMaterial(ResourceType inputType, ResourceType outputType) {
-        createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getBlockFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
-                    .define('I', inputItemLike)
-                    .pattern("III")
-                    .pattern("III")
-                    .pattern("III")
-                    .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItemToBlock(inputReg, outputReg)));
-        });
+        createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getBlockFromType, (inputItemLike, outputItemLike, inputReg, outputReg) ->
+                ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
+                        .define('I', inputItemLike)
+                        .pattern("III")
+                        .pattern("III")
+                        .pattern("III")
+                        .unlockedBy("has_item", has(inputItemLike))
+                        .save(this.output.withConditions(ComponentsAvailableCondition.fromItemToBlock(inputReg, outputReg))));
     }
 
     private void create4x4OfMaterial(ResourceType inputType, ResourceType outputType) {
-        createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) -> {
-            ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
-                    .define('I', inputItemLike)
-                    .pattern("II ")
-                    .pattern("II ")
-                    .pattern("   ")
-                    .unlockedBy("has_item", has(inputItemLike))
-                    .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg)));
-        });
+        createInputOutputRecipeFromTypes(inputType, outputType, ResourceRegistryHolder::getItemFromType, ResourceRegistryHolder::getItemFromType, (inputItemLike, outputItemLike, inputReg, outputReg) ->
+                ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, outputItemLike)
+                        .define('I', inputItemLike)
+                        .pattern("II ")
+                        .pattern("II ")
+                        .pattern("   ")
+                        .unlockedBy("has_item", has(inputItemLike))
+                        .save(this.output.withConditions(ComponentsAvailableCondition.fromItems(inputReg, outputReg))));
     }
 
     private <I, I2 extends I, O, O2 extends O> void createInputOutputRecipeFromTypes(

@@ -2,7 +2,7 @@
 moddev = "2.0.140"
 modpublish = "1.1.0"
 
-ftblibrary = "26.1.1.1-SNAPSHOT"
+ftblibrary = "26.1.2.6"
 jei = "29.5.0.26"
 
 [plugins]

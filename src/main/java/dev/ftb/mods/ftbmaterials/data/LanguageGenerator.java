@@ -34,15 +34,13 @@ public class LanguageGenerator extends LanguageProvider {
     private <R,T extends R> void createTranslations(Map<? extends DeferredHolder<R,T>, Pair<Resource, ResourceType>> reverseBlockLookup) {
         reverseBlockLookup.forEach((holder, resourceAndType) -> {
             ResourceKey<R> resourceKey = holder.getKey();
-            if (resourceKey != null) {
-                var resource = resourceAndType.key();
-                var resourceType = resourceAndType.value();
-                var translationText = resourceType.getTranslationText()
-                        .replace("{material}", toTitleCase(resource.name().replace("_", " ")));
-                var translationKey = resourceKey.identifier().getNamespace() + "." + resourceKey.identifier().getPath();
-                var keyPrefix = holder.get() instanceof Item ? "item" : "block";
-                add(keyPrefix + "." + translationKey, translationText);
-            }
+            var resource = resourceAndType.key();
+            var resourceType = resourceAndType.value();
+            var translationText = resourceType.getTranslationText()
+                    .replace("{material}", toTitleCase(resource.name().replace("_", " ")));
+            var translationKey = resourceKey.identifier().getNamespace() + "." + resourceKey.identifier().getPath();
+            var keyPrefix = holder.get() instanceof Item ? "item" : "block";
+            add(keyPrefix + "." + translationKey, translationText);
         });
     }
 

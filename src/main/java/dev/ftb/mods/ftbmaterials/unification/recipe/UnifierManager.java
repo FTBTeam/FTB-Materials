@@ -1,12 +1,16 @@
-package dev.ftb.mods.ftbmaterials.unification;
+package dev.ftb.mods.ftbmaterials.unification.recipe;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import net.minecraft.resources.Identifier;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public enum UnifierManager {
     INSTANCE;
@@ -14,6 +18,7 @@ public enum UnifierManager {
     private static final Path CONFIG_DIR = FMLPaths.GAMEDIR.get().resolve("config").resolve(FTBMaterials.MOD_ID);
 
     public static final Path RULES_DIR = CONFIG_DIR.resolve("rules");
+    public static final Path UNIFIER_DIR = CONFIG_DIR.resolve("unifier");
     public static final Path UNIFIER_DB_NAME = CONFIG_DIR.resolve("unifier-db.json");
     private static final Path CUSTOM_RULES_NAME = CONFIG_DIR.resolve("custom-rules-default.json");
 
@@ -24,6 +29,7 @@ public enum UnifierManager {
         try {
             Files.createDirectories(CONFIG_DIR);
             Files.createDirectories(RULES_DIR);
+            Files.createDirectories(UNIFIER_DIR);
         } catch (IOException e) {
             FTBMaterials.LOGGER.error("can't create dir {} ! {}", CONFIG_DIR, e.getMessage());
         }
@@ -34,8 +40,8 @@ public enum UnifierManager {
         unifierDB.save(CONFIG_DIR.resolve(UNIFIER_DB_NAME));
     }
 
-    public JsonElement mutateRecipeJson(JsonElement jsonElement) {
-        return recipeTweaker().mutateRecipe(jsonElement, unifierDB());
+    public JsonElement mutateRecipeJson(Identifier recipeId, JsonElement jsonElement) {
+        return recipeTweaker().mutateRecipe(recipeId, jsonElement, unifierDB());
     }
 
     public void reload() {
@@ -70,5 +76,20 @@ public enum UnifierManager {
             }
         }
         return unifierDB;
+    }
+
+    static void loadExtraJsonFiles(Path dir, Consumer<JsonElement> consumer) {
+        try (Stream<Path> s = Files.list(dir)) {
+            s.filter(p -> p.toString().endsWith(".json")).forEach(jsonFile -> {
+                try {
+                    JsonElement json = JsonParser.parseString(Files.readString(jsonFile));
+                    consumer.accept(json);
+                } catch (Exception ex) {
+                    FTBMaterials.LOGGER.error("can't read json file {}: {}", dir.resolve(jsonFile), ex.getMessage());
+                }
+            });
+        } catch (IOException ex) {
+            FTBMaterials.LOGGER.error("can't read directory {}: {}", dir, ex.getMessage());
+        }
     }
 }

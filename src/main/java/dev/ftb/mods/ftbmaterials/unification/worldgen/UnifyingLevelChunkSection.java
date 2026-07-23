@@ -1,5 +1,6 @@
-package dev.ftb.mods.ftbmaterials.unification;
+package dev.ftb.mods.ftbmaterials.unification.worldgen;
 
+import dev.ftb.mods.ftbmaterials.unification.recipe.UnifierManager;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 
