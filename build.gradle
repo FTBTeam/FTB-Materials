@@ -170,6 +170,8 @@ publishMods {
         projectId = project.curseforge_id
         minecraftVersions.add(project.minecraft_version)
         javaVersions.add(JavaVersion.VERSION_25)
+        client = true
+        server = true
     }
 }
 
