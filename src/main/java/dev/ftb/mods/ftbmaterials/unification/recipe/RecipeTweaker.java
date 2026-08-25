@@ -8,6 +8,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mojang.serialization.codecs.UnboundedMapCodec;
+import dev.ftb.mods.ftbmaterials.config.Blacklists;
 import dev.ftb.mods.ftbmaterials.config.StartupConfig;
 import dev.ftb.mods.ftbmaterials.resources.Resource;
 import net.minecraft.resources.Identifier;
@@ -83,7 +84,10 @@ class RecipeTweaker {
             }
             if (!madeChange) {
                 // just autoscan
-                return scanAndMutateJsonElement(element, unifierDB, modId);
+                Identifier recipeTypeId = Identifier.tryParse(recipeType);
+                return recipeTypeId != null && Blacklists.isRecipeTweakingAllowed(recipeTypeId) ?
+                        scanAndMutateJsonElement(element, unifierDB, modId) :
+                        element ;
             }
         }
         return element;

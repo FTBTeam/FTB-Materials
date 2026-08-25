@@ -18,6 +18,8 @@ public class Blacklists {
             = Lazy.of(() -> new WildcardedRLMatcher(StartupConfig.UNIFICATION_BLACKLIST_TAGS.get()));
     private static final Lazy<WildcardedRLMatcher> M_UNIFICATION_BLACKLIST_BLOCKS
             = Lazy.of(() -> new WildcardedRLMatcher(StartupConfig.UNIFICATION_BLACKLIST_BLOCKS.get()));
+    private static final Lazy<WildcardedRLMatcher> M_RECIPE_TWEAKER_BLACKLIST
+            = Lazy.of(() -> new WildcardedRLMatcher(StartupConfig.RECIPE_TWEAKER_BLACKLIST.get()));
 
     public static boolean isItemUnificationAllowed(Item item) {
         return !M_UNIFICATION_BLACKLIST_ITEMS.get().test(BuiltInRegistries.ITEM.getKey(item));
@@ -29,6 +31,10 @@ public class Blacklists {
 
     public static boolean isBlockUnificationAllowed(Identifier blockId) {
         return !M_UNIFICATION_BLACKLIST_BLOCKS.get().test(blockId);
+    }
+
+    public static boolean isRecipeTweakingAllowed(Identifier recipeTypeId) {
+        return !M_RECIPE_TWEAKER_BLACKLIST.get().test(recipeTypeId);
     }
 
     private static class WildcardedRLMatcher implements Predicate<Identifier> {
