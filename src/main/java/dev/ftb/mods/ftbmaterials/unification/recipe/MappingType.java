@@ -2,7 +2,6 @@ package dev.ftb.mods.ftbmaterials.unification.recipe;
 
 import dev.ftb.mods.ftbmaterials.config.StartupConfig;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -64,9 +63,15 @@ enum MappingType {
         }
 
         public static Mappings create(String original, Function<String, Optional<String>> objMapper, Function<String, Optional<String>> tagMapper) {
-            return original.startsWith("#") ?
-                    new Mappings(true, original, tagMapper.apply(original.substring(1)).orElse(original)) :
-                    new Mappings(false, objMapper.apply(original).orElse(original), original);
+            if (original.startsWith("#")) {
+                return new Mappings(true, original, tagMapper.apply(original.substring(1)).orElse(original));
+            }
+            return tagMapper.apply(original)
+                    .map(tagMapped -> new Mappings(true, original, tagMapped))
+                    .orElseGet(() -> objMapper.apply(original)
+                            .map(objMapped -> new Mappings(false, objMapped, original))
+                            .orElseGet(() -> Mappings.none(original))
+                    );
         }
 
         String objOrTagMapping() {
