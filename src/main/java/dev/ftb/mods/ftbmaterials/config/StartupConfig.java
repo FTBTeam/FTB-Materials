@@ -31,10 +31,14 @@ public interface StartupConfig {
     StringListValue UNIFICATION_BLACKLIST_BLOCKS = BLACKLISTS.addStringList("unification_blacklist_blocks", new ArrayList<>())
             .comment("List of block IDs which should never be automatically added to the unification DB",
                     "These can be wildcarded, e.g. 'somemod:*' blacklists all id's in the 'somemod' namespace");
-    StringListValue RECIPE_TWEAKER_BLACKLIST = BLACKLISTS.addStringList("recipe_tweaker_blacklist", new ArrayList<>())
+    StringListValue RECIPE_TYPE_BLACKLIST = BLACKLISTS.addStringList("recipe_type_blacklist", new ArrayList<>())
             .comment("List of recipe type ID's which will never be automatically tweaked by fallback rules",
                     "Recipe types for which explicit rules exist will not be excluded by this blacklist",
-                    "These can be wildcarded, e.g. 'somemod:*' blacklists all id's in the 'somemod' namespace");
+                    "These can be wildcarded, e.g. 'somemod:*' blacklists all recipe types in the 'somemod' namespace");
+    StringListValue RECIPE_ID_BLACKLIST = BLACKLISTS.addStringList("recipe_id_blacklist", new ArrayList<>())
+            .comment("List of recipe ID's which will never be automatically tweaked by fallback rules",
+                    "Recipes for which explicit rules exist will not be excluded by this blacklist",
+                    "These can be wildcarded, e.g. 'somemod:*' blacklists all recipes in the 'somemod' namespace");
 
     Config OVERRIDES = CONFIG.addGroup("overrides");
     StringStringMapValue ITEM_OVERRIDES = OVERRIDES.add(new StringStringMapValue(OVERRIDES, "item_overrides", new HashMap<>()))

@@ -85,7 +85,7 @@ class RecipeTweaker {
             if (!madeChange) {
                 // just autoscan
                 Identifier recipeTypeId = Identifier.tryParse(recipeType);
-                return recipeTypeId != null && Blacklists.isRecipeTweakingAllowed(recipeTypeId) ?
+                return recipeTypeId != null && Blacklists.canTweakRecipeType(recipeTypeId) && Blacklists.canTweakRecipeId(recipeId) ?
                         scanAndMutateJsonElement(element, unifierDB, modId) :
                         element ;
             }

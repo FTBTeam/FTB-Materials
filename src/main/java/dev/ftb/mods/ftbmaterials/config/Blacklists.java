@@ -18,8 +18,10 @@ public class Blacklists {
             = Lazy.of(() -> new WildcardedRLMatcher(StartupConfig.UNIFICATION_BLACKLIST_TAGS.get()));
     private static final Lazy<WildcardedRLMatcher> M_UNIFICATION_BLACKLIST_BLOCKS
             = Lazy.of(() -> new WildcardedRLMatcher(StartupConfig.UNIFICATION_BLACKLIST_BLOCKS.get()));
-    private static final Lazy<WildcardedRLMatcher> M_RECIPE_TWEAKER_BLACKLIST
-            = Lazy.of(() -> new WildcardedRLMatcher(StartupConfig.RECIPE_TWEAKER_BLACKLIST.get()));
+    private static final Lazy<WildcardedRLMatcher> M_RECIPE_TYPE_BLACKLIST
+            = Lazy.of(() -> new WildcardedRLMatcher(StartupConfig.RECIPE_TYPE_BLACKLIST.get()));
+    private static final Lazy<WildcardedRLMatcher> M_RECIPE_ID_BLACKLIST
+            = Lazy.of(() -> new WildcardedRLMatcher(StartupConfig.RECIPE_ID_BLACKLIST.get()));
 
     public static boolean isItemUnificationAllowed(Item item) {
         return !M_UNIFICATION_BLACKLIST_ITEMS.get().test(BuiltInRegistries.ITEM.getKey(item));
@@ -33,8 +35,12 @@ public class Blacklists {
         return !M_UNIFICATION_BLACKLIST_BLOCKS.get().test(blockId);
     }
 
-    public static boolean isRecipeTweakingAllowed(Identifier recipeTypeId) {
-        return !M_RECIPE_TWEAKER_BLACKLIST.get().test(recipeTypeId);
+    public static boolean canTweakRecipeType(Identifier recipeTypeId) {
+        return !M_RECIPE_TYPE_BLACKLIST.get().test(recipeTypeId);
+    }
+
+    public static boolean canTweakRecipeId(Identifier recipeId) {
+        return !M_RECIPE_ID_BLACKLIST.get().test(recipeId);
     }
 
     private static class WildcardedRLMatcher implements Predicate<Identifier> {
