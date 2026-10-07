@@ -17,6 +17,10 @@
     "ftbmaterials:fluorite_chunk",
     "ftbmaterials:emerald_chunk",
     "ftbmaterials:lapis_lazuli_chunk",
-    "ftbmaterials:platinum_chunk"
+    "ftbmaterials:iridium_chunk",
+    "ftbmaterials:titanium_chunk",
+    "ftbmaterials:platinum_chunk",
+    "ftbmaterials:plutonium_chunk",
+    "ftbmaterials:chromium_chunk"
   ]
 }

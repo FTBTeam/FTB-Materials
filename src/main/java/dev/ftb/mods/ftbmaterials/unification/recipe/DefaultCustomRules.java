@@ -14,14 +14,14 @@ public class DefaultCustomRules {
         tweaker.addRule(Identifier.fromNamespaceAndPath("immersiveengineering", "arcfurnace"),
                 new Rule("input/tag", RewriteAction.create("item", "<item_tag_map>")),
                 new Rule("additives/tag", RewriteAction.create("item", "<item_tag_map>")),
-                new Rule("input/item", RewriteAction.create("item", "<item_map>")),
-                new Rule("additives/item", RewriteAction.create("item", "<item_map>"))
+                new Rule("input/item", RewriteAction.create("", "<item_map>")),
+                new Rule("additives/item", RewriteAction.create("", "<item_map>"))
         );
         tweaker.addRule(Identifier.fromNamespaceAndPath("immersiveengineering", "alloy"),
                 new Rule("input0/tag", RewriteAction.create("item", "<item_tag_map>")),
                 new Rule("input0/tag", RewriteAction.create("item", "<item_tag_map>")),
-                new Rule("input1/item", RewriteAction.create("item", "<item_map>")),
-                new Rule("input1/item", RewriteAction.create("item", "<item_map>"))
+                new Rule("input1/item", RewriteAction.create("", "<item_map>")),
+                new Rule("input1/item", RewriteAction.create("", "<item_map>"))
         );
         standardIERule(tweaker, "blast_furnace");
         standardIERule(tweaker, "bottling_machine");
@@ -42,7 +42,7 @@ public class DefaultCustomRules {
         // for machines with just a single input
         tweaker.addRule(Identifier.fromNamespaceAndPath("immersiveengineering", type),
                 new Rule("input/tag", RewriteAction.create("item", "<item_tag_map>")),
-                new Rule("input/item", RewriteAction.create("item", "<item_map>"))
+                new Rule("input/item", RewriteAction.create("", "<item_map>"))
         );
     }
 }

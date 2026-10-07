@@ -1,15 +1,19 @@
 package dev.ftb.mods.ftbmaterials.unification.recipe;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.ftb.mods.ftbmaterials.FTBMaterials;
+import org.apache.commons.lang3.mutable.MutableBoolean;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 record Rule(String path, RewriteAction action) {
     static final Codec<Rule> CODEC = RecordCodecBuilder.create(builder -> builder.group(
@@ -18,7 +22,7 @@ record Rule(String path, RewriteAction action) {
     ).apply(builder, Rule::new));
 
     boolean apply(JsonObject recipeJson, UnifierDB unifierDB, String modId) {
-        boolean madeChange = false;
+        MutableBoolean madeChange = new MutableBoolean(false);
 
         try {
             var matchedNodes = getMatchedNodes(recipeJson);
@@ -26,25 +30,49 @@ record Rule(String path, RewriteAction action) {
                 JsonObject json = pair.getFirst();
                 String fieldName = pair.getSecond();
 
-                String curVal = json.get(fieldName).getAsString();
+                JsonElement field = json.get(fieldName);
                 var mappingType = MappingType.fromReplacementString(action.outputValue);
-                var mappings = mappingType.createMappings(unifierDB, curVal);
+                String actionField = action.fieldName.isEmpty() ? fieldName : action.fieldName;
 
-                if (!action.inputFilter.isEmpty() && action.inputFilter.equals(curVal)
-                        || action.inputFilter.isEmpty() && mappings.differsFromInput(curVal)) {
-                    String newVal = mappingType.doReplacement(action.outputValue, mappings, modId);
-                    json.addProperty(action.fieldName, newVal);
-                    if (!fieldName.equals(action.fieldName)) {
-                        json.remove(fieldName);
+                if (field instanceof JsonPrimitive primitive) {
+                    // simple case; element is a primitive
+                    mapOneValue(unifierDB, mappingType, primitive.getAsString(), modId).ifPresent(newVal -> {
+                        json.addProperty(actionField, newVal);
+                        if (!fieldName.equals(actionField)) {
+                            json.remove(fieldName);
+                        }
+                        madeChange.setTrue();
+                    });
+                } else if (field instanceof JsonArray array) {
+                    // element is an array; need to carry out mapping for each array element and build a new array
+                    JsonArray outputArray = new JsonArray();
+                    for (JsonElement el : array) {
+                        if (el instanceof JsonPrimitive primitive) {
+                            String curVal = primitive.getAsString();
+                            mapOneValue(unifierDB, mappingType, curVal, modId).ifPresentOrElse(
+                                    newVal -> {
+                                        outputArray.add(newVal);
+                                        madeChange.setTrue();
+                                    },
+                                    () -> outputArray.add(curVal)
+                            );
+                        } else {
+                            outputArray.add(el);
+                        }
                     }
-                    madeChange = true;
+                    if (madeChange.booleanValue()) {
+                        json.add(actionField, outputArray);
+                        if (!fieldName.equals(actionField)) {
+                            json.remove(fieldName);
+                        }
+                    }
                 }
             }
         } catch (IllegalArgumentException e) {
             FTBMaterials.LOGGER.error("invalid rule {} for recipe {}: {}", path, recipeJson.toString(), e.getMessage());
         }
 
-        return madeChange;
+        return madeChange.booleanValue();
     }
 
     private List<Pair<JsonObject, String>> getMatchedNodes(JsonObject object) {
@@ -61,12 +89,23 @@ record Rule(String path, RewriteAction action) {
         return res;
     }
 
+    private Optional<String> mapOneValue(UnifierDB unifierDB, MappingType mappingType, String currentValue, String modId) {
+        var mappings = mappingType.createMappings(unifierDB, currentValue);
+        if (!action.inputFilter.isEmpty() && action.inputFilter.equals(currentValue)
+                || action.inputFilter.isEmpty() && mappings.differsFromInput(currentValue)) {
+            String res = mappingType.doReplacement(action.outputValue, mappings, modId);
+            return res.equals(currentValue) ? Optional.empty() : Optional.of(res);
+        } else {
+            return Optional.empty();
+        }
+    }
+
     private void collectNodes(JsonElement el, String part0, String[] otherParts, List<Pair<JsonObject, String>> res) {
         if (otherParts.length == 0) {
-            // leaf node; element should be an object & field should be a primitive member
+            // leaf node; element should be an object & field should be a primitive member or array
             if (el.isJsonObject()) {
                 JsonObject o = el.getAsJsonObject();
-                if (o.has(part0) && o.get(part0).isJsonPrimitive()) {
+                if (o.has(part0) && (o.get(part0).isJsonPrimitive() || o.get(part0).isJsonArray())) {
                     res.add(Pair.of(o, part0));
                 }
             } else if (el.isJsonArray()) {
@@ -96,7 +135,7 @@ record Rule(String path, RewriteAction action) {
 
     record RewriteAction(String fieldName, String outputValue, String inputFilter) {
         public static final Codec<RewriteAction> CODEC = RecordCodecBuilder.create(builder -> builder.group(
-                Codec.STRING.fieldOf("field").forGetter(RewriteAction::fieldName),
+                Codec.STRING.optionalFieldOf("field", "").forGetter(RewriteAction::fieldName),
                 Codec.STRING.fieldOf("output_value").forGetter(RewriteAction::outputValue),
                 Codec.STRING.optionalFieldOf("input_value", "").forGetter(RewriteAction::inputFilter)
         ).apply(builder, RewriteAction::new));

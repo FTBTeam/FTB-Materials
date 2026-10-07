@@ -116,7 +116,7 @@ public enum Resource {
             .build()),
     BAUXITE(emptyBuilder().ores(true).block(true).wire(true).allDusts()
             .build()),
-    IRIDIUM(emptyBuilder().oresAndRaw()
+    IRIDIUM(emptyBuilder().oresAndRaw().chunk(true)
             .allCraftedProducts()
             .allDusts().allProcessingProducts()
             .build()),
@@ -124,18 +124,18 @@ public enum Resource {
             .build()),
     TUNGSTEN(builder().gem(false).blade(false).chunk(false).cluster(false).tiny(false)
             .build()),
-    TITANIUM(builder().gem(false).chunk(false).cluster(false).tiny(false)
+    TITANIUM(builder().gem(false).chunk(true).cluster(false).tiny(false)
             .build()),
     PLATINUM(builder().gem(false).blade(false).tiny(false)
             .build()),
     STAINLESS_STEEL(emptyBuilder().allCraftedProducts().allDusts().blade(true)
             .build()),
-    PLUTONIUM(emptyBuilder().rawBlock(true).rawOre(true)
+    PLUTONIUM(emptyBuilder().rawBlock(true).rawOre(true).chunk(true)
             .allCraftedProducts()
             .allProcessingProducts().allDusts()
             .gem(true).blade(true)
             .build()),
-    CHROMIUM(emptyBuilder().rawBlock(true).rawOre(true)
+    CHROMIUM(emptyBuilder().rawBlock(true).rawOre(true).chunk(true)
             .allCraftedProducts()
             .allProcessingProducts().allDusts()
             .gem(true).blade(true)
